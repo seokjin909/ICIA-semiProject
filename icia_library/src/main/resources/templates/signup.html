@@ -2,9 +2,38 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JOIN</title>
 </head>
 <body>
-  <h2>이 곳은 회원가입 페이지입니다 -지은- </h2>
+<form>
+    <h1>JOIN</h1>
+
+    <div>
+        <label>ID</label>
+        <input type="text" placeholder="ID를 입력해주세요." name="m_id">
+    </div>
+    <div>
+        <label>PASSWORD</label>
+        <input type="password" placeholder="비밀번호를 입력해주세요." name="m_pwd">
+    </div>
+    <div>
+        <label>NAME</label>
+        <input type="text" placeholder="이름을 입력해주세요." name="m_name">
+    </div>
+    <div>
+        <label>PHONE</label>
+        <input type="text" placeholder="휴대번호를 입력해주세요." name="m_phone">
+    </div>
+    <div>
+        <label>BIRTH</label>
+        <input type="text" placeholder="생년월일을 입력해주세요." name="m_birth">
+    </div>
+    <button type="submit">회원가입</button>
+    <button type="button">취소</button>
+
+</form>
+<th:block th:include="footer.html"></th:block>
+
 </body>
 </html>
