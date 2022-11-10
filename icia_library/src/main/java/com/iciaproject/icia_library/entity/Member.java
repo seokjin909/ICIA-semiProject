@@ -27,6 +27,5 @@ public class Member {
     private String m_phone;
 
     @Column(nullable = false, length = 20)
-    //@CreationTimestamp
     private String m_birth;
 }

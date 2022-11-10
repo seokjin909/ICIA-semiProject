@@ -1,5 +1,6 @@
 package com.iciaproject.icia_library.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,10 +24,10 @@ public class Book {
 
     @Column
     @CreationTimestamp
+    @JsonFormat(pattern = "YY-MM-dd")
     private Timestamp b_sdate;
 
     @Column
-    @CreationTimestamp
     private Timestamp b_edate;
 
     @ColumnDefault("0")
