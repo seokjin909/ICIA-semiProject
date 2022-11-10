@@ -39,7 +39,7 @@
         <div class="form-floating">
             <input type="text" placeholder="ID"
                    class="form-control" id="joinId" name="m_id" required>
-            <input type="button" class="w-50 btn btn-lg btn-primary" value="중복체크">
+            <input type="button" class="w-50 btn btn-lg btn-primary" value="중복체크" id="check">
             <label for="joinId">ID</label>
         </div>
         <div>
@@ -75,6 +75,9 @@
 <script>
  $("#btn").click(function (){
      alert("회원가입");
+ })
+ $("#check").click(function (){
+     alert("중복확인");
  })
 </script>
 
