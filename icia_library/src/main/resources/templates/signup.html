@@ -1,39 +1,80 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>JOIN</title>
+    <link href="css/signin.css" rel="stylesheet">
+
+    <style>
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        div {
+            padding-bottom: 20px;
+        }
+
+    </style>
+
 </head>
-<body>
-<form>
-    <h1>JOIN</h1>
+<body class="text-center">
+<main class="form-signin w-100 m-auto">
+    <form th:action="@{joinProc}" method="post">
+        <img class="mb-4" src="images/bootstrap-logo.svg" alt="" width="72" height="57">
+        <h1 class="h3 mb-3 fw-normal">JOIN</h1>
 
-    <div>
-        <label>ID</label>
-        <input type="text" placeholder="ID를 입력해주세요." name="m_id">
-    </div>
-    <div>
-        <label>PASSWORD</label>
-        <input type="password" placeholder="비밀번호를 입력해주세요." name="m_pwd">
-    </div>
-    <div>
-        <label>NAME</label>
-        <input type="text" placeholder="이름을 입력해주세요." name="m_name">
-    </div>
-    <div>
-        <label>PHONE</label>
-        <input type="text" placeholder="휴대번호를 입력해주세요." name="m_phone">
-    </div>
-    <div>
-        <label>BIRTH</label>
-        <input type="text" placeholder="생년월일을 입력해주세요." name="m_birth">
-    </div>
-    <button type="submit">회원가입</button>
-    <button type="button">취소</button>
-
-</form>
-<th:block th:include="footer.html"></th:block>
-
+        <div class="form-floating">
+            <input type="text" placeholder="ID"
+                   class="form-control" id="joinId" name="m_id">
+            <label for="joinId">ID</label>
+        </div>
+        <div class="form-floating" style="margin-bottom: -10px">
+            <input type="password" placeholder="PASSWORD"
+                   class="form-control" id="joinPwd" name="m_pwd">
+            <label for="joinPwd">PASSWORD</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" placeholder="NAME"
+                   class="form-control" id="joinName" name="m_name">
+            <label for="joinName">NAME</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" placeholder="PHONE"
+                   class="form-control" id="joinPhone" name="m_phone">
+            <label for="joinPhone">PHONE</label>
+        </div>
+        <div class="form-floating">
+            <input type="date" placeholder="BIRTH"
+                   class="form-control" id="joinBirth" name="m_birth">
+            <label for="joinBirth">BIRTH</label>
+        </div>
+        <input type="submit" class="w-50 btn btn-lg btn-primary" value="회원가입">
+        <input type="reset" class="w-50 btn btn-lg btn-primary" style="float: right" value="취소" onclick="location.href='/'">
+    </form>
+    <th:block th:include="footer.html"></th:block>
+</main>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+ $("#btn").click(function (){
+     alert("회원가입");
+ })
+
+ $
+</script>
+
 </html>
