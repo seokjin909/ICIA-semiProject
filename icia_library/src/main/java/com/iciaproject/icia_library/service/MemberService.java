@@ -1,12 +1,6 @@
 package com.iciaproject.icia_library.service;
 
-<<<<<<< HEAD
-import org.springframework.stereotype.Service;
 
-@Service
-public class MemberService {
-
-=======
 import com.iciaproject.icia_library.entity.Member;
 import com.iciaproject.icia_library.repository.MemberRepository;
 import lombok.extern.java.Log;
@@ -47,5 +41,4 @@ public class MemberService {
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
->>>>>>> origin/main
 }
