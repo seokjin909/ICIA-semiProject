@@ -38,28 +38,28 @@
 
         <div class="form-floating">
             <input type="text" placeholder="ID"
-                   class="form-control" id="joinId" name="m_id" required>
-            <input type="button" class="w-50 btn btn-lg btn-primary" value="중복체크" >
+                   class="form-control" id="joinId" name="mid" required>
+<!--            <input type="button" class="w-50 btn btn-lg btn-primary" value="중복체크" id="check">-->
             <label for="joinId">ID</label>
         </div>
         <div class="form-floating" style="margin-bottom: -10px">
             <input type="password" placeholder="PASSWORD"
-                   class="form-control" id="joinPwd" name="m_pwd">
+                   class="form-control" id="joinPwd" name="mpwd">
             <label for="joinPwd">PASSWORD</label>
         </div>
         <div class="form-floating">
             <input type="text" placeholder="NAME"
-                   class="form-control" id="joinName" name="m_name">
+                   class="form-control" id="joinName" name="mname">
             <label for="joinName">NAME</label>
         </div>
         <div class="form-floating">
             <input type="text" placeholder="PHONE"
-                   class="form-control" id="joinPhone" name="m_phone">
+                   class="form-control" id="joinPhone" name="mphone">
             <label for="joinPhone">PHONE</label>
         </div>
         <div class="form-floating">
             <input type="date" placeholder="BIRTH"
-                   class="form-control" id="joinBirth" name="m_birth">
+                   class="form-control" id="joinBirth" name="mbirth">
             <label for="joinBirth">BIRTH</label>
         </div>
         <input type="submit" class="w-50 btn btn-lg btn-primary" value="회원가입">
@@ -74,8 +74,7 @@
  $("#btn").click(function (){
      alert("회원가입");
  })
-
- $("#check").click(function (){
+ $("#check").click(function () {
      alert("중복확인");
  })
 </script>
