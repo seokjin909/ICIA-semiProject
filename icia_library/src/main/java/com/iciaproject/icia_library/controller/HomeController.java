@@ -56,8 +56,8 @@ public class HomeController {
 
     @PostMapping("logProc")
     public String logProc(Member member, HttpSession session, RedirectAttributes rttr) {
-        log.info("logProcI()");
-        String view=mSev.memberLogin(member, session, rttr);
+        log.info("logProc()");
+        String view= mSev.memberLogin(member, session, rttr);
         return view;
     }
 

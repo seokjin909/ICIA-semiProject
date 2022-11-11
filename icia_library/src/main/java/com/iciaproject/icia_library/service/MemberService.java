@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,21 +64,23 @@ public class MemberService {
         log.info("memberLogin()");
         String msg = null;
         String view = null;
-//        String mempwd = mRepo.findMemberByMpwd(member.getMid());
 
-//        if (mempwd != null) {
-//            if (mempwd.equals(member.getMpwd())) {
-//                member = mRepo.findMemberBy(member.getMid());
-//                session.setAttribute("mem", member);
-//                msg = "로그인 성공";
-//                view = "redirect:/";
-//            } else {
-//                msg = "로그인 실패";
-//                view = "redirect:/";
-//            }
-//            rttr.addFlashAttribute("msg", msg);
-//
-//        }
+        Optional<Member> mem = mRepo.findById(member.getMid());
+        try {
+            Member m2 = mem.get();
+            if(m2.getMpwd().equals(member.getMpwd())) {
+                msg = "로그인 성공";
+                member = mRepo.findMemberByMid(m2.getMid());
+                session.setAttribute("mem", member);
+            }else {
+                msg = "비밀번호 오류";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            msg = "로그인 불가능";
+        }
+        view = "redirect:/";
+        rttr.addFlashAttribute("msg", msg);
         return view;
     }
 }
