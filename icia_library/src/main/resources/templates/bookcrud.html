@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>도서 관리</title>
+
+</head>
+<body>
+
+<!--도서 추가-->
+<div class="text-center">
+    <form th:action="@{bookinput}">
+        <a><input type="text" name="bname" placeholder="책 제목을 입력하세요."></a>
+        <a><input type="text" name="bauthor" placeholder="저자를 입력하세요."></a>
+        <input type="text" name="blent" value="0" hidden>
+        <input type="submit" value="등록">
+    </form>
+</div>
+
+<!--도서 목록 출력-->
+<div class="text-center">
+    <table border="1">
+        <thead class="table-header">
+        <tr>
+            <th class="w-100">제목</th>
+            <th class="w-50">작가</th>
+            <th class="w-25">대출상태</th>
+            <th class="w-25">코드</th>
+            <th class="w-25">삭제</th>
+        </tr>
+        </thead>
+        <tbody id="result">
+        </tbody>
+    </table>
+</div>
+
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+    $.ajax({
+        type: 'get',
+        url:'booklist',
+        data: 'json',
+        success:function (result){
+            $.each(result, function (idx, bList){
+                var $tr = $('<tr>').appendTo('tbody');
+                $('<form th:action="@{deleteBook}>"').appendTo($tr);
+                $('<td>').text(bList.bname).appendTo($tr);
+                $('<td>').text(bList.bauthor).appendTo($tr);
+                $('<td>').text(bList.blent).appendTo($tr);
+                $('<td>').text(bList.bid).appendTo($tr);
+                //$('<input type="text" name="bid" hidden>').text(bList.bid).appendTo($tr);
+                $('<input type="button" class="btn btn-primary" value="삭제">').appendTo($tr);
+                $('</form>').appendTo($tr);
+
+            });
+        },
+        error: function (error){
+            console.log(error);
+        }
+    }); // ajax end
+
+    $(document).on("click", "input[type=button]", function (){
+        console.log($(this).prev("td").text());
+        $(this).parent().remove();
+
+        let no = $(this).prev("td").text();
+
+        let d = {bid:no}
+        $.ajax({
+            url: "deleteBook",
+            type: "get",
+            data: d,
+            success: function (result) {
+                if(result == "ok"){
+                    alert("삭제성공");
+                }
+                else {
+                    alert("실패");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    })
+</script>
+</html>
+
+<!-- 석진 수정 예정 -->

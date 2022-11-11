@@ -8,6 +8,7 @@ import com.iciaproject.icia_library.repository.MemberRepository;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,5 +60,33 @@ public class MemberService {
         mv.addObject("book", gbook);
 
         return mv;
+    }
+
+    public String inputBook(Book book) {
+        String view = null;
+        try {
+            bRepo.save(book);
+            view = "redirect:/";
+        } catch (Exception e) {
+            e.printStackTrace();
+            view = "redirect:/";
+        }
+        return view;
+    }
+
+    public List<Book> getBookList() {
+        List<Book> bList = (List<Book>) bRepo.findAll();
+        return bList;
+    }
+
+    @Transactional
+    public String deleteBook(Book book) {
+
+        try {
+            bRepo.delete(book);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "ok";
     }
 }

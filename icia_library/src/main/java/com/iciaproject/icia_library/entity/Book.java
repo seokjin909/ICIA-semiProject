@@ -23,12 +23,10 @@ public class Book {
     private String bauthor;
 
     @Column
-    @CreationTimestamp
-    @JsonFormat(pattern = "YY-MM-dd")
-    private Timestamp bsdate;
+    private String bsdate;
 
     @Column
-    private Timestamp bedate;
+    private String bedate;
 
     @ColumnDefault("0")
     @Column(nullable = false)
