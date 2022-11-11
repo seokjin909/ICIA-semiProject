@@ -22,7 +22,7 @@ public class MemberService {
         log.info("memberJoin()");
         String msg = null;
         String view = null;
-        Optional<Member> dbMem = mRepo.findById(member.getM_id());
+        Optional<Member> dbMem = mRepo.findById(member.getMid());
 
         if (dbMem.isEmpty()) { // 입력한 아이디가 있을 경우
             try {
@@ -39,6 +39,26 @@ public class MemberService {
             view = "redirect:/";
         }
         rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
+
+    public String logProc(Member member, HttpSession session, RedirectAttributes rttr) {
+        log.info("logProc()");
+        String msg = null;
+        String view = null;
+
+//        String pwd = mRepo.findByM_pwd(member.getM_id());
+//        if (pwd != null){
+//            member = mRepo.findMemberBy(member.getM_id());
+//            session.setAttribute("mem", member);
+//
+//            msg = "로그인 성공";
+//            view = "redirect:/";
+//        } else {
+//            msg = "로그인 실패";
+//            view = "redirect:/";
+//        }
+        rttr.addFlashAttribute("msg",msg);
         return view;
     }
 }
