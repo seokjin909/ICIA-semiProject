@@ -6,4 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface MemberRepository
         extends CrudRepository<Member, String> {
 
+    String findByMpwd (String mid);
+    Member findMemberByMid(String mid);
+
 }

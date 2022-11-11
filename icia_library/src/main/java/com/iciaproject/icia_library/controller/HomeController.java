@@ -1,5 +1,6 @@
 package com.iciaproject.icia_library.controller;
 
+import com.iciaproject.icia_library.entity.Board;
 import com.iciaproject.icia_library.entity.Book;
 import com.iciaproject.icia_library.entity.Member;
 import com.iciaproject.icia_library.service.MemberService;
@@ -9,10 +10,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @Log
@@ -47,4 +51,24 @@ public class HomeController {
         return mv;
     }
 
+    @GetMapping("part")
+    public String part(){
+        log.info("part()");
+        return "part";
+    }
+
+    @GetMapping("writeFrm")
+    public String writeFrm(){
+        log.info("writeFrm()");
+        return "writeFrm";
+    }
+
+//    @PostMapping("writeProc")
+//    public String writeProc(@RequestPart List<MultipartFile> files,
+//                            Board board, HttpSession session, RedirectAttributes rttr){
+//        log.info("writeProc()");
+//        String view = mSev.insertBoard(files, board, session, rttr);
+//
+//        return view;
+//    }
 }

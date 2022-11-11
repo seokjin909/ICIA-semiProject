@@ -8,4 +8,5 @@ import java.util.Collection;
 public interface BookRepository extends CrudRepository<Book, Integer> {
 
     Collection<Book> findByBnameLike(String bname);
+
 }
