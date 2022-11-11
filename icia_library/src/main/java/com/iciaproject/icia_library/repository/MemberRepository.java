@@ -7,5 +7,5 @@ public interface MemberRepository
         extends CrudRepository<Member, String> {
     String findMemberByMpwd(String mid);
 
-    Member findMemberBy(String mid);
+    Member findByMid(String mid);
 }

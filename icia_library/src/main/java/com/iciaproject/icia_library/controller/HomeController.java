@@ -39,6 +39,13 @@ public class HomeController {
         return "signup";
     }
 
+    @PostMapping("joinProc")
+    public String joinProc(Member member, HttpSession session, RedirectAttributes rttr) {
+        log.info("joinProc()");
+        String view = mSev.memberJoin(member, session, rttr);
+        return view;
+    }
+
     @GetMapping("searchProc")
     public ModelAndView searchProc(String bname){
         log.info("searchProc()");
@@ -50,7 +57,7 @@ public class HomeController {
     @PostMapping("logProc")
     public String logProc(Member member, HttpSession session, RedirectAttributes rttr) {
         log.info("logProcI()");
-        String view=null;
+        String view=mSev.memberLogin(member, session, rttr);
         return view;
     }
 
