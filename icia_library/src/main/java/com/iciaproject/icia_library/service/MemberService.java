@@ -60,4 +60,26 @@ public class MemberService {
 
         return mv;
     }
+
+    public String memberLogin(Member member, HttpSession session, RedirectAttributes rttr) {
+        log.info("memberLogin()");
+        String msg = null;
+        String view = null;
+        String mempwd = mRepo.findMemberByMpwd(member.getMid());
+
+        if (mempwd != null) {
+            if (mempwd.equals(member.getMpwd())) {
+                member = mRepo.findMemberBy(member.getMid());
+                session.setAttribute("mem", member);
+                msg = "로그인 성공";
+                view = "redirect:/";
+            } else {
+                msg = "로그인 실패";
+                view = "redirect:/";
+            }
+            rttr.addFlashAttribute("msg", msg);
+
+        }
+        return view;
+    }
 }

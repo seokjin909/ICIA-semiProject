@@ -5,5 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface MemberRepository
         extends CrudRepository<Member, String> {
+    String findMemberByMpwd(String mid);
 
+    Member findMemberBy(String mid);
 }

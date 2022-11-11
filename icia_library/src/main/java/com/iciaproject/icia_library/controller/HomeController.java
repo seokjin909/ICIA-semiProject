@@ -47,6 +47,13 @@ public class HomeController {
         return mv;
     }
 
+    @PostMapping("logProc")
+    public String logProc(Member member, HttpSession session, RedirectAttributes rttr) {
+        log.info("logProcI()");
+        String view=null;
+        return view;
+    }
+
 
 
 }
