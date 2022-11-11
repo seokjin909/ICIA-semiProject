@@ -46,5 +46,25 @@ public class HomeController {
         mv.setViewName("book");
         return mv;
     }
+/*
+    @GetMapping("searchTag")
+    public ModelAndView searchTag(String tag){
+        log.info("searchTag()");
+        mv = mSev.getList(tag);
+        return mv;
+    }*/
+    @GetMapping("bookRent")
+    public String bookRent(Member member,Book book, RedirectAttributes rttr){
+        log.info("bookLent()");
+        String view = mSev.bookRent(member, book, rttr);
+        return view;
+    }
 
+    @GetMapping("bookReturn")
+    public String bookReturn(Member member, Book book, RedirectAttributes rttr){
+        log.info("bookReturn()");
+        String view = mSev.bookReturn(member, book, rttr);
+
+        return view;
+    }
 }
