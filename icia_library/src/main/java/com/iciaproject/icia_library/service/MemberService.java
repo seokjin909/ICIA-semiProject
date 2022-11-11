@@ -22,7 +22,7 @@ public class MemberService {
         log.info("memberJoin()");
         String msg = null;
         String view = null;
-        Optional<Member> dbMem = mRepo.findById(member.getM_id());
+        Optional<Member> dbMem = mRepo.findById(member.getMid());
 
         if (dbMem.isEmpty()) { // 입력한 아이디가 있을 경우
             try {
