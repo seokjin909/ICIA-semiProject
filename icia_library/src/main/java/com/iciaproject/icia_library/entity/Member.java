@@ -15,17 +15,17 @@ import java.sql.Timestamp;
 public class Member {
     @Id
     @Column(nullable = false, length = 20)
-    private String mid;
+    private String m_id;
 
     @Column(nullable = false, length = 30)
-    private String mpwd;
+    private String m_pwd;
 
     @Column(nullable = false, length = 20)
-    private String mname;
+    private String m_name;
 
     @Column(nullable = false, length = 20)
-    private String mphone;
+    private String m_phone;
 
     @Column(nullable = false, length = 20)
-    private String mbirth;
+    private String m_birth;
 }

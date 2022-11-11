@@ -1,7 +1,6 @@
 package com.iciaproject.icia_library.controller;
 
 import com.iciaproject.icia_library.entity.Member;
-import com.iciaproject.icia_library.service.MemberService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpSession;
 @Controller
 @Log
 public class HomeController {
-    @Autowired
-    private MemberService mServ;
 
     @GetMapping("/")
     public String home() {
@@ -35,13 +32,6 @@ public class HomeController {
         return "signup";
     }
 
-    // 로그인 페이지
-    @GetMapping("logProc")
-    public String logProc(Member member, HttpSession session, RedirectAttributes rttr){
-        log.info("logProc()");
-        String view = mServ.logProc(member, session, rttr);
 
-        return view;
-    }
 
 }

@@ -14,24 +14,24 @@ import java.sql.Timestamp;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bid;
+    private int b_id;
 
     @Column(nullable = false, length = 20)
-    private String bname;
+    private String b_name;
 
     @Column(nullable = false, length = 10)
-    private String bauthor;
+    private String b_author;
 
     @Column
     @CreationTimestamp
     @JsonFormat(pattern = "YY-MM-dd")
-    private Timestamp bsdate;
+    private Timestamp b_sdate;
 
     @Column
-    private Timestamp bedate;
+    private Timestamp b_edate;
 
     @ColumnDefault("0")
     @Column(nullable = false)
-    private Boolean blent;
+    private Boolean b_lent;
 
 }
