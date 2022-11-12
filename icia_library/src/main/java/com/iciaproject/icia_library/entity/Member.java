@@ -1,6 +1,7 @@
 package com.iciaproject.icia_library.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Column;
@@ -28,4 +29,8 @@ public class Member {
 
     @Column(nullable = false, length = 20)
     private String mbirth;
+
+    @ColumnDefault("0")
+    @Column(nullable = false)
+    private int count;
 }
