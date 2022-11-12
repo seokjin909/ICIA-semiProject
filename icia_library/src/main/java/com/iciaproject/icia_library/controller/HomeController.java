@@ -2,6 +2,7 @@ package com.iciaproject.icia_library.controller;
 
 import com.iciaproject.icia_library.entity.Board;
 import com.iciaproject.icia_library.entity.Book;
+import com.iciaproject.icia_library.entity.Member;
 import com.iciaproject.icia_library.service.MemberService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;

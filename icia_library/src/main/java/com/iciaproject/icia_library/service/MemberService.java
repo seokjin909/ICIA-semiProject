@@ -86,19 +86,21 @@ public class MemberService {
         Optional<Member> mem = mRepo.findById(member.getMid());
         try {
             Member m2 = mem.get();
-            if(m2.getMpwd().equals(member.getMpwd())) {
+            if (m2.getMpwd().equals(member.getMpwd())) {
                 msg = "로그인 성공";
                 member = mRepo.findMemberByMid(m2.getMid());
                 session.setAttribute("mem", member);
-            }else {
+            } else {
                 msg = "비밀번호 오류";
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             msg = "로그인 불가능";
+            view = "redirect:/";
         }
-        view = "redirect:/";
-
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
 
     public String inputBook(Book book) {
         String view = null;
@@ -126,7 +128,7 @@ public class MemberService {
             e.printStackTrace();
         }
         return "ok";
-
+    }
 //    @Transactional
 //    public String insertBoard(List<MultipartFile> files, Board board, HttpSession session, RedirectAttributes rttr) {
 //        log.info("insertBoard()");
@@ -194,13 +196,13 @@ public class MemberService {
 
     // Book Rental Function
     @Transactional
-    public String bookRent(Member member,Book book, RedirectAttributes rttr){
+    public String bookRent(Member member, Book book, RedirectAttributes rttr) {
         log.info("bookRent()");
         String msg = null;
         String view = null;
 
-        if(member.getCount()<5){
-            try{
+        if (member.getCount() < 5) {
+            try {
                 // 대여일 계산
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Calendar cal = Calendar.getInstance();
@@ -214,18 +216,18 @@ public class MemberService {
                 book.setBedate(edate);
 
                 // 현재 user의 대여수 증가
-                member.setCount(member.getCount()+1);
+                member.setCount(member.getCount() + 1);
 
                 mRepo.save(member);
                 bRepo.save(book);
                 msg = "대여 성공";
                 view = "redirect:/";
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 msg = "대여 실패";
                 view = "redirect:/";
             }
-        }else{
+        } else {
             msg = "대여 가능 수를 초과하였습니다.";
             view = "redirect:/";
         }
@@ -235,29 +237,29 @@ public class MemberService {
 
     // Book Return Function
     @Transactional
-    public String bookReturn(Member member, Book book, RedirectAttributes rttr){
+    public String bookReturn(Member member, Book book, RedirectAttributes rttr) {
         log.info("bookReturn()");
         String msg = null;
         String view = null;
 
-        if(member.getCount()>0){
-            try{
+        if (member.getCount() > 0) {
+            try {
                 book.setBlent(false);
                 book.setBsdate("-");
                 book.setBedate("-");
 
-                member.setCount(member.getCount()-1);
+                member.setCount(member.getCount() - 1);
                 bRepo.save(book);
                 mRepo.save(member);
                 msg = "반납 성공";
                 view = "redirect:/";
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 msg = "반납 실패";
                 view = "redirect:/";
             }
-        }else{
-            msg="대여하신 책이 없습니다.";
+        } else {
+            msg = "대여하신 책이 없습니다.";
             view = "redirect:/";
         }
 

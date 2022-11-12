@@ -15,7 +15,5 @@ public interface MemberRepository
     Optional<Member> findById(String mid);
 
     String findByMpwd (String mid);
-    Member findMemberByMid(String mid);
-
 
 }
