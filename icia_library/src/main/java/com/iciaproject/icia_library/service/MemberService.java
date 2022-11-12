@@ -22,7 +22,6 @@ import javax.servlet.http.HttpSession;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 import java.text.SimpleDateFormat;
@@ -77,6 +76,28 @@ public class MemberService {
 
         return mv;
     }
+
+
+    public String memberLogin(Member member, HttpSession session, RedirectAttributes rttr) {
+        log.info("memberLogin()");
+        String msg = null;
+        String view = null;
+
+        Optional<Member> mem = mRepo.findById(member.getMid());
+        try {
+            Member m2 = mem.get();
+            if(m2.getMpwd().equals(member.getMpwd())) {
+                msg = "로그인 성공";
+                member = mRepo.findMemberByMid(m2.getMid());
+                session.setAttribute("mem", member);
+            }else {
+                msg = "비밀번호 오류";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            msg = "로그인 불가능";
+        }
+        view = "redirect:/";
 
 
     public String inputBook(Book book) {
@@ -239,6 +260,7 @@ public class MemberService {
             msg="대여하신 책이 없습니다.";
             view = "redirect:/";
         }
+
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
