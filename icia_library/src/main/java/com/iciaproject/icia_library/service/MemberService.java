@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.web.multipart.MultipartFile;
 
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -78,6 +79,32 @@ public class MemberService {
     }
 
 
+    public String inputBook(Book book) {
+        String view = null;
+        try {
+            bRepo.save(book);
+            view = "redirect:/";
+        } catch (Exception e) {
+            e.printStackTrace();
+            view = "redirect:/";
+        }
+        return view;
+    }
+
+    public List<Book> getBookList() {
+        List<Book> bList = (List<Book>) bRepo.findAll();
+        return bList;
+    }
+
+    @Transactional
+    public String deleteBook(Book book) {
+
+        try {
+            bRepo.delete(book);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "ok";
 
 //    @Transactional
 //    public String insertBoard(List<MultipartFile> files, Board board, HttpSession session, RedirectAttributes rttr) {

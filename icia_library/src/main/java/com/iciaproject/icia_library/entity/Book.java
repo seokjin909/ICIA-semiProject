@@ -20,6 +20,12 @@ public class Book {
     @Column(nullable = false, length = 10)
     private String bauthor;
 
+
+    @Column
+    private String bsdate;
+
+    @Column
+
     @ColumnDefault("-")
     @Column(nullable = false, length = 15)
     private String bsdate;
@@ -31,5 +37,4 @@ public class Book {
     @ColumnDefault("0")
     @Column(nullable = false)
     private Boolean blent;
-
 }
