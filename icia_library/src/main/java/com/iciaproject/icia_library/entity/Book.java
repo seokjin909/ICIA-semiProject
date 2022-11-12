@@ -1,12 +1,10 @@
 package com.iciaproject.icia_library.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Entity
 @Table(name = "book")
@@ -22,16 +20,21 @@ public class Book {
     @Column(nullable = false, length = 10)
     private String bauthor;
 
-    @Column
-    @CreationTimestamp
-    @JsonFormat(pattern = "YY-MM-dd")
-    private Timestamp bsdate;
 
     @Column
-    private Timestamp bedate;
+    private String bsdate;
+
+    @Column
+
+    @ColumnDefault("-")
+    @Column(nullable = false, length = 15)
+    private String bsdate;
+
+    @ColumnDefault("-")
+    @Column(nullable = false, length = 15)
+    private String bedate;
 
     @ColumnDefault("0")
     @Column(nullable = false)
     private Boolean blent;
-
 }

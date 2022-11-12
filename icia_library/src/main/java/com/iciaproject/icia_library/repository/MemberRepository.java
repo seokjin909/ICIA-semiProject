@@ -10,6 +10,12 @@ public interface MemberRepository
         extends CrudRepository<Member, String> {
     //String findMpwdByMid(String mid);
 
+
     Member findMemberByMid(String mid);
     Optional<Member> findById(String mid);
+
+    String findByMpwd (String mid);
+    Member findMemberByMid(String mid);
+
+
 }
