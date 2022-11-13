@@ -90,8 +90,10 @@ public class MemberService {
                 msg = "로그인 성공";
                 member = mRepo.findMemberByMid(m2.getMid());
                 session.setAttribute("mem", member);
+                view = "redirect:/";
             } else {
                 msg = "비밀번호 오류";
+                view = "redirect:/";
             }
         } catch (Exception e) {
             e.printStackTrace();
