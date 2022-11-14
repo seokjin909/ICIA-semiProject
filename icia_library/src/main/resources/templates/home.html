@@ -4,26 +4,197 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
+    <style>
+        .main_search {
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+            /*padding-top: 60px;*/
+        }
+        #search {
+            width: 50%;
+            height: 60px;
+            border: white 1.5px solid;
+            border-radius: 20px;
+            padding-left: 40px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .ui-icon-search{
+            margin-left: 5px;
+            width: 80px;
+            color: #f1f1f1;
+            font-size: 16px;
+            font-weight: bold;
+            border: #f1f1f1 1.5px solid;
+            border-radius: 20px;
+            background-color: #2e74d9;
+        }
+
+        #form_search{
+            background: linear-gradient(to right, #6da9ff, #064bbd); /*#569aff, #0b5ace*/
+            height: 300px;
+            text-align: center;
+                    }
+
+        /*#form_search{*/
+        /*    background: linear-gradient(to right, #ffd193, #e18d22);*/
+        /*    height: 300px;*/
+        /*    text-align: center;*/
+        /*}*/
+
+        #form_main{
+            display: flex;
+            justify-content: center;
+        }
+
+        #icia_name {
+            color: white;
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+            display: block;
+            padding-top: 50px;
+            margin-bottom: 60px;
+            text-shadow: -1px 0 #06357a, 0 1px #06357a, 1px 0 #06357a, 0 -1px #06357a;
+            text-shadow:1px 1px 1px #000
+        }
+        .over {
+            fill: white;
+        }
+        .over:hover {
+            fill : rgba(195, 199, 203, 0.13);
+        }
+
+    </style>
 </head>
 <body>
 <th:block th:include="header.html"></th:block>
-<form th:action="@{searchProc}" method="get" class="form-text text-center">
-    <input type="text" class="searchTagLink" name="searchText" placeholder="검색어를 입력하세요.">
-    <button class="ui-icon-search">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
-             viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-        </svg>
-    </button>
+
+<!--<a href="bookcrud">도서관리</a>-->
+<form th:action="@{searchProc}" method="get" class="form-text text-center" id="form_search">
+    <span id="icia_name">인천일보아카데미 도서관</span>
+    <div class="main_search">
+        <input type="text" class="searchTagLink" name="bname" placeholder="검색어를 입력하세요." id="search">
+        <button class="ui-icon-search">
+            <span>검색</span>
+<!--            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">-->
+<!--                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>-->
+<!--            </svg>-->
+        </button>
+    </div>
+</form>
+<form id="form_main">
+    <div class="album py-5">
+        <div class="container">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="over bd-placeholder-img card-img-top " width="20%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title><rect width="100%" height="100%" />
+                            <text x="50%" y="50%" dy=".3em">Thumbnail</text></svg>
+
+<!--                        <div class="card-body">-->
+<!--                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+<!--                            <div class="d-flex justify-content-between align-items-center">-->
+<!--                                <div class="btn-group">-->
+<!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
+<!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+<!--                                </div>-->
+<!--                                <small class="text-muted">9 mins</small>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="over1 card shadow-sm">
+                        <svg class="over bd-placeholder-img card-img-top" width="20%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title><rect width="100%" height="100%"/>
+                            <text x="50%" y="50%"dy=".3em">Thumbnail</text></svg>
+
+    <!--                    <div class="card-body">-->
+    <!--                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+    <!--                        <div class="d-flex justify-content-between align-items-center">-->
+    <!--                            <div class="btn-group">-->
+    <!--                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
+    <!--                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+    <!--                            </div>-->
+    <!--                            <small class="text-muted">9 mins</small>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="over bd-placeholder-img card-img-top" width="20%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title><rect width="100%" height="100%"/>
+                            <text x="50%" y="50%" dy=".3em">Thumbnail</text></svg>
+
+    <!--                    <div class="card-body">-->
+    <!--                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+    <!--                        <div class="d-flex justify-content-between align-items-center">-->
+    <!--                            <div class="btn-group">-->
+    <!--                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
+    <!--                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+    <!--                            </div>-->
+    <!--                            <small class="text-muted">9 mins</small>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="over bd-placeholder-img card-img-top" width="20%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title><rect width="100%" height="100%"/>
+                            <text x="50%" y="50%" dy=".3em">Thumbnail</text></svg>
+
+    <!--                    <div class="card-body">-->
+    <!--                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+    <!--                        <div class="d-flex justify-content-between align-items-center">-->
+    <!--                            <div class="btn-group">-->
+    <!--                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
+    <!--                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+    <!--                            </div>-->
+    <!--                            <small class="text-muted">9 mins</small>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+                    </div>
+                </div>
+                <div class="col">
+                    <div class=" card shadow-sm">
+                        <svg class="over bd-placeholder-img card-img-top" width="20%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title><rect width="100%" height="100%"/>
+                            <text x="50%" y="50%" dy=".3em">Thumbnail</text></svg>
+
+    <!--                    <div class="card-body">-->
+    <!--                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+    <!--                        <div class="d-flex justify-content-between align-items-center">-->
+    <!--                            <div class="btn-group">-->
+    <!--                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
+    <!--                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+    <!--                            </div>-->
+    <!--                            <small class="text-muted">9 mins</small>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 <th:block th:include="footer.html"></th:block>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script th:inline="javascript">
-    let m = [[${msg}]];
-    if (m != "") {
-        alert(m);
-    }
+
+    // let m = [[${msg}]];
+    // if (m != ""){
+    //     alert(m);
+    // }
+
 </script>
 </html>

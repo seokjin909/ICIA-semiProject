@@ -9,8 +9,10 @@ import java.util.Optional;
 
 public interface BookRepository extends CrudRepository<Book, Integer> {
 
-    Collection<Book> findByBnameLike(String bname);
+    List<Book> findByBnameLike(String bname);
 
+    List<Book> findByBtag(String tag);
 
-    //List<Book> findAllByTag(String tag);
+    Book findByBname(String bname);
+
 }
