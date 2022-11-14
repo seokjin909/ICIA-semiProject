@@ -88,7 +88,7 @@ public class MemberService {
             Member m2 = mem.get();
             if (m2.getMpwd().equals(member.getMpwd())) {
                 msg = "로그인 성공";
-                member = mRepo.findMemberByMid(m2.getMid());
+                member = m2;
                 session.setAttribute("mem", member);
                 view = "redirect:/";
             } else {
