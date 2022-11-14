@@ -7,12 +7,12 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Data
 @Table(name = "board")
+@Data
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bnum;
+    private long bnum;
 
     @Column(nullable = false, length = 45)
     private String btitle;

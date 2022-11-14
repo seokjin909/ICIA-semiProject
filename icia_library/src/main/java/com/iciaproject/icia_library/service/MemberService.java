@@ -179,9 +179,7 @@ public class MemberService {
         Page<Board> result = boRepo.findByBnumGreaterThan(0L, pb);
         List<Board> bList = result.getContent();
         int totalPage = result.getTotalPages();
-
         String paging = getPaging(pageNum, totalPage);
-
         mv.addObject("bList", bList);
         mv.addObject("paging", paging);
 
