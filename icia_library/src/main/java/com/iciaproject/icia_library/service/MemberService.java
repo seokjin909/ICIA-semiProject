@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -75,9 +76,15 @@ public class MemberService {
     public ModelAndView getBook(String bname) {
         log.info("getBook()");
         mv = new ModelAndView();
-        Collection<Book> gbook = bRepo.findByBnameLike("%bname%");
-        mv.addObject("book", gbook);
+        String searchName = "%" + bname + "%";
+        try{
+            List<Book> gbook = (List<Book>) bRepo.findByBnameLike(searchName);
+            mv.addObject("gbook", gbook);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+        mv.setViewName("booklist");
         return mv;
     }
 
@@ -179,27 +186,28 @@ public class MemberService {
 //        }
 //    }
 
-/*
+
     @Transactional
-    public ModelAndView getList(String tag){
+    public ModelAndView getTagList(String tag){
         log.info("getList()");
         mv = new ModelAndView();
 
-        if(tag !="total"){
+        if(tag !=null){
             try{
-                List<Book> blist = bRepo.findAllByTag("tag");
-                mv.addObject("blist",blist);
+                List<Book> btaglist = bRepo.findByBtag(tag);
+                mv.addObject("btaglist",btaglist);
             }catch (Exception e){
                 e.printStackTrace();
             }
         }else{
-            List<Book> blist = (List<Book>) bRepo.findAll();
-            mv.addObject("blist", blist);
+            List<Book> btaglist = (List<Book>) bRepo.findAll();
+            mv.addObject("btaglist", btaglist);
         }
+        mv.setViewName("booklist");
 
         return mv;
     }
-*/
+
 
     // Book Rental Function
     @Transactional
