@@ -20,11 +20,11 @@ public class Book {
     @Column(nullable = false, length = 10)
     private String bauthor;
 
-    @ColumnDefault("-")
+    @ColumnDefault("0")
     @Column(nullable = false, length = 15)
     private String bsdate;
 
-    @ColumnDefault("-")
+    @ColumnDefault("0")
     @Column(nullable = false, length = 15)
     private String bedate;
 
