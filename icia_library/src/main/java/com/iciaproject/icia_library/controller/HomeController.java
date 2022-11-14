@@ -77,9 +77,9 @@ public class HomeController {
         return "part";
     }
 
-    @GetMapping("writeFrm")
-    public String writeFrm(){
-        log.info("writeFrm()");
+    @GetMapping("writefrm")
+    public String writefrm(){
+        log.info("writefrm()");
         return "writefrm";
     }
 
