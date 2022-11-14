@@ -27,13 +27,6 @@ public class Book {
 
     @ColumnDefault(".")
     @Column(length = 15)
-
-    @ColumnDefault("0")
-    @Column(nullable = false, length = 15)
-    private String bsdate;
-
-    @ColumnDefault("0")
-    @Column(nullable = false, length = 15)
     private String bedate;
 
     @ColumnDefault("0")
