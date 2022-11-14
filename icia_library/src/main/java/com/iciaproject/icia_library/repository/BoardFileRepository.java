@@ -1,5 +1,6 @@
 package com.iciaproject.icia_library.repository;
 
+
 import com.iciaproject.icia_library.entity.Board;
 import com.iciaproject.icia_library.entity.BoardFile;
 import org.springframework.data.repository.CrudRepository;
