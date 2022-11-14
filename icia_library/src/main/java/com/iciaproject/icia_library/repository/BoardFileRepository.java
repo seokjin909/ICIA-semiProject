@@ -8,5 +8,5 @@
 //import java.util.List;
 //
 //public interface BoardFileRepository extends CrudRepository<BoardFile, Long> {
-////    List<BoardFile> findByBfbid(Board board);
-//}
+//    List<BoardFile> findByBfbid(Board board);
+

@@ -78,26 +78,26 @@ public class HomeController {
         return view;
     }
     @GetMapping("part")
-    public String part(){
+    public ModelAndView part(Integer pageNum, HttpSession session){
         log.info("part()");
-        return "part";
+        mv = mSev.getBoardList(pageNum, session);
+        mv.setViewName("part");
+        return mv;
     }
 
     @GetMapping("writeFrm")
-    public String writeFrm(){
+    public String writefrm(){
         log.info("writeFrm()");
-        return "writefrm";
+        return "writeFrm";
     }
 
     @PostMapping("writeProc")
-    public String writeProc(@RequestPart List<MultipartFile> files,
+    public String writeProc(
                             Board board, HttpSession session, RedirectAttributes rttr){
         log.info("writeProc()");
-        String view = mSev.insertBoard(files, board, session, rttr);
-
+        String view = mSev.insertBoard(board, session, rttr);
         return view;
     }
-
 
     // 도서 관리 페이지
     @GetMapping("bookcrud")
