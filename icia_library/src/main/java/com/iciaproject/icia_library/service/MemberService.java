@@ -81,10 +81,10 @@ public class MemberService {
         log.info("getBook()");
         mv = new ModelAndView();
         String searchName = "%" + bname + "%";
-        try{
+        try {
             List<Book> gbook = (List<Book>) bRepo.findByBnameLike(searchName);
             mv.addObject("gbook", gbook);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -138,7 +138,7 @@ public class MemberService {
         List<Book> bList = new ArrayList<>();
         Iterable<Book> bIter = bRepo.findAll();
 
-        for (Book b : bIter){
+        for (Book b : bIter) {
             bList.add(b);
         }
 
@@ -159,7 +159,6 @@ public class MemberService {
         return msg;
     }
 
-   
 
     @Transactional
     public String insertBoard(Board board, HttpSession session, RedirectAttributes rttr) {
@@ -223,42 +222,40 @@ public class MemberService {
         return pageHtml;
     }
 
+    private void fileUpload(List<MultipartFile> files, HttpSession session, Board board) {
+        log.info("fileUpload()");
+        String realPath = session.getServletContext().getRealPath("/");
+        log.info("realPath: " + realPath);
 
-//    private void fileUpload(List<MultipartFile> files, HttpSession session, Board board) {
-//        log.info("fileUpload()");
-//        String realPath = session.getServletContext().getRealPath("/");
-//        log.info("realPath: " + realPath);
-//
-//        realPath +="upload/";
-//        File folder = new File(realPath);
-//        if (folder.isDirectory() == false){
-//            folder.mkdir();
-//        }
-//        for (MultipartFile mf : files){
-//            String orname = mf.getOriginalFilename();
-//            if (orname.equals("")){
-//                return;
-//            }
-//            Board b = new Board();
-//
-//        }
-//    }
+        realPath += "upload/";
+        File folder = new File(realPath);
+        if (folder.isDirectory() == false) {
+            folder.mkdir();
+        }
+        for (MultipartFile mf : files) {
+            String orname = mf.getOriginalFilename();
+            if (orname.equals("")) {
+                return;
+            }
+            Board b = new Board();
 
-/*
+        }
+    }
+
 
     @Transactional
-    public ModelAndView getTagList(String tag){
+    public ModelAndView getTagList(String tag) {
         log.info("getList()");
         mv = new ModelAndView();
 
-        if(tag !=null){
-            try{
+        if (tag != null) {
+            try {
                 List<Book> btaglist = bRepo.findByBtag(tag);
-                mv.addObject("btaglist",btaglist);
-            }catch (Exception e){
+                mv.addObject("btaglist", btaglist);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             List<Book> btaglist = (List<Book>) bRepo.findAll();
             mv.addObject("btaglist", btaglist);
         }
