@@ -4,7 +4,7 @@ package com.iciaproject.icia_library.service;
 import com.iciaproject.icia_library.entity.Board;
 import com.iciaproject.icia_library.entity.Book;
 import com.iciaproject.icia_library.entity.Member;
-import com.iciaproject.icia_library.repository.BoardFileRepository;
+//import com.iciaproject.icia_library.repository.BoardFileRepository;
 import com.iciaproject.icia_library.repository.BoardRepository;
 import com.iciaproject.icia_library.repository.BookRepository;
 import com.iciaproject.icia_library.repository.MemberRepository;
@@ -41,8 +41,8 @@ public class MemberService {
     @Autowired
     private BoardRepository boRepo;
 
-    @Autowired
-    private BoardFileRepository bfRepo;
+//    @Autowired
+//    private BoardFileRepository bfRepo;
 
     ModelAndView mv;
 
