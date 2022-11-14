@@ -1,15 +1,18 @@
 package com.iciaproject.icia_library.service;
 
-
 import com.iciaproject.icia_library.entity.Board;
 import com.iciaproject.icia_library.entity.Book;
 import com.iciaproject.icia_library.entity.Member;
-//import com.iciaproject.icia_library.repository.BoardFileRepository;
 import com.iciaproject.icia_library.repository.BoardRepository;
 import com.iciaproject.icia_library.repository.BookRepository;
 import com.iciaproject.icia_library.repository.MemberRepository;
+import com.iciaproject.icia_library.util.PagingUtil;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -135,6 +138,7 @@ public class MemberService {
         }
         return "ok";
     }
+
     @Transactional
     public String insertBoard(Board board, HttpSession session, RedirectAttributes rttr) {
         log.info("insertBoard()");
@@ -149,7 +153,7 @@ public class MemberService {
             view = "redirect:/";
             msg = "저장 성공";
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             view = "redirect:writeFrm";
             msg = "저장 실패";
@@ -158,6 +162,47 @@ public class MemberService {
 
         return view;
     }
+
+    public ModelAndView getBoardList(Integer pageNum, HttpSession session) {
+        log.info("getBoardList()");
+        mv = new ModelAndView();
+
+        if (pageNum == null) {
+            pageNum = 1;
+        }
+
+        int listCnt = 5;    // 페이지당 보여질 게시글
+        //페이징 조건 생성
+        Pageable pb = PageRequest.of((pageNum - 1), listCnt,
+                Sort.Direction.DESC, "bnum");
+
+        Page<Board> result = boRepo.findByBnumGreaterThan(0L, pb);
+        List<Board> bList = result.getContent();
+        int totalPage = result.getTotalPages();
+
+        String paging = getPaging(pageNum, totalPage);
+
+        mv.addObject("bList", bList);
+        mv.addObject("paging", paging);
+
+        session.setAttribute("pageNum", pageNum);
+
+        return mv;
+    }
+
+    //페이징 처리 메소드
+    private String getPaging(Integer pageNum, int totalPage) {
+        String pageHtml = null;
+        int pageCnt = 2; //보여질 페이지 개수
+        String listName = "?";
+
+        PagingUtil paging = new PagingUtil(totalPage, pageNum, pageCnt, listName);
+
+        pageHtml = paging.makePaging();
+
+        return pageHtml;
+    }
+
 
 //    private void fileUpload(List<MultipartFile> files, HttpSession session, Board board) {
 //        log.info("fileUpload()");

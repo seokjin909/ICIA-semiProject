@@ -69,9 +69,11 @@ public class HomeController {
         return view;
     }
     @GetMapping("part")
-    public String part(){
+    public ModelAndView part(Integer pageNum, HttpSession session){
         log.info("part()");
-        return "part";
+        mv = mSev.getBoardList(pageNum, session);
+        mv.setViewName("part");
+        return mv;
     }
 
     @GetMapping("writeFrm")
@@ -87,7 +89,6 @@ public class HomeController {
         String view = mSev.insertBoard(board, session, rttr);
         return view;
     }
-
 
     // 도서 관리 페이지
     @GetMapping("bookcrud")

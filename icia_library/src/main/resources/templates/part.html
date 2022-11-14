@@ -27,11 +27,25 @@
                 <th:block>
                     <div class="non-content">작성한 글이 없습니다.</div>
                 </th:block>
+                <th:block th:if="${#lists.isEmpty(bList)}">
+                    <div class="non-content">작성한 글이 없습니다.</div>
+                </th:block>
+                <th:block th:unless="${#lists.isEmpty(bList)}">
+                    <th:block th:each="bitem:${bList}">
+                            <div class="p-10" th:text="${bitem.bnum}"></div>
+                        <div class="p-30">
+                            <a th:text="${bitem.btitle}"></a>
+                        </div>
+                        <div class="p-15" th:text="${bitem.bwriter}"></div>
+                        <div class="t-date p-45"
+                             th:text="${#dates.format(bitem.rdate, 'yyyy-MM-dd HH:mm:ss')}">
+                        </div>
+                    </th:block>
+                </th:block>
             </div>
         </div>
         <div class="btn-area">
-            <!-- 페이지 번호 출력하기 -->
-            <div class="paging"></div>
+            <div class="paging" th:utext="${paging}"></div>
             <button class=" wr-btn" onclick="location.href='writeFrm'">
                 글쓰기
             </button>
