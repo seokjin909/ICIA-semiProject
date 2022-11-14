@@ -60,6 +60,27 @@
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
         }
+
+        .join, .join1{
+            border-radius: 30px;
+            width: 80px;
+            height: 40px;
+            font-size: 14px;
+            font-weight: bold;
+            /*text-shadow: -1px 0 #06357a, 0 1px #06357a, 1px 0 #06357a, 0 -1px #06357a;*/
+
+        }
+        .join {
+            border: #0c63e4 1px solid;
+            background-color: white;
+            color: #0c63e4;
+        }
+
+        .join1{
+            border: #0c63e4 1px solid;
+            background-color: #0c63e4;
+            color: white;
+        }
     </style>
 
 
@@ -120,9 +141,9 @@
             </th:block>
             <th:block th:unless="${session.mem!=null}">
                 <div class="col-md-3 text-end">
-                    <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='login'">Login
+                    <button type="button" class="join " onclick="location.href='login'">로그인
                     </button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='signup'">Sign-up</button>
+                    <button type="button" class="join1 " onclick="location.href='signup'">회원가입</button>
                 </div>
             </th:block>
         </header>
