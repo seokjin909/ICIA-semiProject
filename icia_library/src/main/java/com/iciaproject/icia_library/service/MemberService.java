@@ -135,30 +135,30 @@ public class MemberService {
         }
         return "ok";
     }
-//    @Transactional
-//    public String insertBoard(List<MultipartFile> files, Board board, HttpSession session, RedirectAttributes rttr) {
-//        log.info("insertBoard()");
-//        String msg = null;
-//        String view = null;
-//
-//        try {
-//            boRepo.save(board);
-//            log.info("bnum : " + board.getBnum());
+    @Transactional
+    public String insertBoard(Board board, HttpSession session, RedirectAttributes rttr) {
+        log.info("insertBoard()");
+        String msg = null;
+        String view = null;
+
+        try {
+            boRepo.save(board);
+            log.info("bnum : " + board.getBnum());
 //            fileUpload(files, session, board);
-//
-//            view = "redirect:/";
-//            msg = "저장 성공";
-//
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            view = "redirect:writeFrm";
-//            msg = "저장 실패";
-//        }
-//        rttr.addFlashAttribute("msg", msg);
-//
-//        return view;
-//    }
-//
+
+            view = "redirect:/";
+            msg = "저장 성공";
+
+        }catch (Exception e){
+            e.printStackTrace();
+            view = "redirect:writeFrm";
+            msg = "저장 실패";
+        }
+        rttr.addFlashAttribute("msg", msg);
+
+        return view;
+    }
+
 //    private void fileUpload(List<MultipartFile> files, HttpSession session, Board board) {
 //        log.info("fileUpload()");
 //        String realPath = session.getServletContext().getRealPath("/");
