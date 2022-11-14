@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,16 +60,16 @@ public class HomeController {
     public ModelAndView searchProc(String bname) {
         log.info("searchProc()");
         mv = mSev.getBook(bname);
-        mv.setViewName("book");
         return mv;
     }
-/*
+
     @GetMapping("searchTag")
     public ModelAndView searchTag(String tag){
         log.info("searchTag()");
-        mv = mSev.getList(tag);
+        mv = mSev.getTagList(tag);
         return mv;
-    }*/
+    }
+
     @GetMapping("bookRent")
     public String bookRent(Member member,Book book, RedirectAttributes rttr){
         log.info("bookLent()");

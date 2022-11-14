@@ -20,15 +20,18 @@ public class Book {
     @Column(nullable = false, length = 10)
     private String bauthor;
 
-    @ColumnDefault("-")
-    @Column(nullable = false, length = 15)
+    @ColumnDefault(".")
+    @Column(length = 15)
     private String bsdate;
 
-    @ColumnDefault("-")
-    @Column(nullable = false, length = 15)
+    @ColumnDefault(".")
+    @Column(length = 15)
     private String bedate;
 
     @ColumnDefault("0")
-    @Column(nullable = false)
+    @Column
     private Boolean blent;
+
+    @Column(nullable = false, length = 10)
+    private String btag;
 }
