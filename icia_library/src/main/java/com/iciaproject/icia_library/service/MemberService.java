@@ -4,7 +4,7 @@ package com.iciaproject.icia_library.service;
 import com.iciaproject.icia_library.entity.Board;
 import com.iciaproject.icia_library.entity.Book;
 import com.iciaproject.icia_library.entity.Member;
-import com.iciaproject.icia_library.repository.BoardFileRepository;
+//import com.iciaproject.icia_library.repository.BoardFileRepository;
 import com.iciaproject.icia_library.repository.BoardRepository;
 import com.iciaproject.icia_library.repository.BookRepository;
 import com.iciaproject.icia_library.repository.MemberRepository;
@@ -40,9 +40,9 @@ public class MemberService {
 
     @Autowired
     private BoardRepository boRepo;
-
-    @Autowired
-    private BoardFileRepository bfRepo;
+//
+//    @Autowired
+//    private BoardFileRepository bfRepo;
 
     ModelAndView mv;
 
@@ -120,64 +120,77 @@ public class MemberService {
         return view;
     }
 
-    public List<Book> getBookList() {
-        List<Book> bList = (List<Book>) bRepo.findAll();
-        return bList;
+    public ModelAndView getBookList() {
+        mv = new ModelAndView();
+        mv.setViewName("bookcrud");
+
+        List<Book> bList = new ArrayList<>();
+        Iterable<Book> bIter = bRepo.findAll();
+
+        for (Book b : bIter){
+            bList.add(b);
+        }
+
+        mv.addObject("blist", bList);
+        return mv;
     }
 
     @Transactional
-    public String deleteBook(Book book) {
-
+    public String deleteBook(Book bid) {
+        String msg = null;
         try {
-            bRepo.delete(book);
+            bRepo.delete(bid);
+            msg = "삭제 성공";
         } catch (Exception e) {
             e.printStackTrace();
+            msg = "삭제 실패";
         }
-        return "ok";
+        return msg;
     }
-//    @Transactional
-//    public String insertBoard(List<MultipartFile> files, Board board, HttpSession session, RedirectAttributes rttr) {
-//        log.info("insertBoard()");
-//        String msg = null;
-//        String view = null;
-//
-//        try {
-//            boRepo.save(board);
-//            log.info("bnum : " + board.getBnum());
-//            fileUpload(files, session, board);
-//
-//            view = "redirect:/";
-//            msg = "저장 성공";
-//
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            view = "redirect:writeFrm";
-//            msg = "저장 실패";
-//        }
-//        rttr.addFlashAttribute("msg", msg);
-//
-//        return view;
-//    }
-//
-//    private void fileUpload(List<MultipartFile> files, HttpSession session, Board board) {
-//        log.info("fileUpload()");
-//        String realPath = session.getServletContext().getRealPath("/");
-//        log.info("realPath: " + realPath);
-//
-//        realPath +="upload/";
-//        File folder = new File(realPath);
-//        if (folder.isDirectory() == false){
-//            folder.mkdir();
-//        }
-//        for (MultipartFile mf : files){
-//            String orname = mf.getOriginalFilename();
-//            if (orname.equals("")){
-//                return;
-//            }
-//            Board b = new Board();
-//
-//        }
-//    }
+
+    @Transactional
+    public String insertBoard(List<MultipartFile> files, Board board, HttpSession session, RedirectAttributes rttr) {
+        log.info("insertBoard()");
+        String msg = null;
+        String view = null;
+
+        try {
+            boRepo.save(board);
+            log.info("bnum : " + board.getBnum());
+            fileUpload(files, session, board);
+
+            view = "redirect:/";
+            msg = "저장 성공";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            view = "redirect:writeFrm";
+            msg = "저장 실패";
+        }
+        rttr.addFlashAttribute("msg", msg);
+
+        return view;
+    }
+
+    private void fileUpload(List<MultipartFile> files, HttpSession session, Board board) {
+        log.info("fileUpload()");
+        String realPath = session.getServletContext().getRealPath("/");
+        log.info("realPath: " + realPath);
+
+        realPath += "upload/";
+        File folder = new File(realPath);
+        if (folder.isDirectory() == false) {
+            folder.mkdir();
+        }
+        for (MultipartFile mf : files) {
+            String orname = mf.getOriginalFilename();
+            if (orname.equals("")) {
+                return;
+            }
+            Board b = new Board();
+
+        }
+    }
 
 /*
     @Transactional

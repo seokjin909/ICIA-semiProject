@@ -42,6 +42,13 @@ public class HomeController {
         return "login";
     }
 
+    // 로그아웃
+    @GetMapping("logoutProc")
+    public String logoutProc(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
+    }
+
     // 회원가입 페이지
     @GetMapping("signup")
     public String signup() {
@@ -87,20 +94,21 @@ public class HomeController {
         return "writeFrm";
     }
 
-//    @PostMapping("writeProc")
-//    public String writeProc(@RequestPart List<MultipartFile> files,
-//                            Board board, HttpSession session, RedirectAttributes rttr){
-//        log.info("writeProc()");
-//        String view = mSev.insertBoard(files, board, session, rttr);
-//
-//        return view;
-//    }
+    @PostMapping("writeProc")
+    public String writeProc(@RequestPart List<MultipartFile> files,
+                            Board board, HttpSession session, RedirectAttributes rttr){
+        log.info("writeProc()");
+        String view = mSev.insertBoard(files, board, session, rttr);
+
+        return view;
+    }
 
 
     // 도서 관리 페이지
     @GetMapping("bookcrud")
-    public String bookcrud() {
-        return "bookcrud";
+    public ModelAndView bookcrud() {
+        mv = mSev.getBookList();
+        return mv;
     }
 
     // 도서 추가
@@ -111,16 +119,16 @@ public class HomeController {
     }
 
     // 도서 목록
-    @RequestMapping("booklist")
-    public @ResponseBody List<Book> bookList(){
-        return mSev.getBookList();
-    }
+//    @RequestMapping("booklist")
+//    public @ResponseBody List<Book> bookList(){
+//        return mSev.getBookList();
+//    }
 
     // 도서 삭제
     @GetMapping("deleteBook")
-    public String deleteBook(Book book){
+    public String deleteBook(Book bid){
         log.info("deleteBook()");
-        String msg = mSev.deleteBook(book);
+        String msg = mSev.deleteBook(bid);
         return msg;
     }
 
