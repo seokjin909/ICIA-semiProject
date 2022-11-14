@@ -77,10 +77,10 @@ public class HomeController {
         return "part";
     }
 
-    @GetMapping("writefrm")
+    @GetMapping("writeFrm")
     public String writefrm(){
-        log.info("writefrm()");
-        return "writefrm";
+        log.info("writeFrm()");
+        return "writeFrm";
     }
 
 //    @PostMapping("writeProc")
