@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -43,6 +44,7 @@ public class MemberService {
 
     @Autowired
     private BoardRepository boRepo;
+
 
 //    @Autowired
 //    private BoardFileRepository bfRepo;
@@ -78,9 +80,15 @@ public class MemberService {
     public ModelAndView getBook(String bname) {
         log.info("getBook()");
         mv = new ModelAndView();
-        Collection<Book> gbook = bRepo.findByBnameLike("%bname%");
-        mv.addObject("book", gbook);
+        String searchName = "%" + bname + "%";
+        try{
+            List<Book> gbook = (List<Book>) bRepo.findByBnameLike(searchName);
+            mv.addObject("gbook", gbook);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+        mv.setViewName("booklist");
         return mv;
     }
 
@@ -123,21 +131,35 @@ public class MemberService {
         return view;
     }
 
-    public List<Book> getBookList() {
-        List<Book> bList = (List<Book>) bRepo.findAll();
-        return bList;
+    public ModelAndView getBookList() {
+        mv = new ModelAndView();
+        mv.setViewName("bookcrud");
+
+        List<Book> bList = new ArrayList<>();
+        Iterable<Book> bIter = bRepo.findAll();
+
+        for (Book b : bIter){
+            bList.add(b);
+        }
+
+        mv.addObject("blist", bList);
+        return mv;
     }
 
     @Transactional
-    public String deleteBook(Book book) {
-
+    public String deleteBook(Book bid) {
+        String msg = null;
         try {
-            bRepo.delete(book);
+            bRepo.delete(bid);
+            msg = "삭제 성공";
         } catch (Exception e) {
             e.printStackTrace();
+            msg = "삭제 실패";
         }
-        return "ok";
+        return msg;
     }
+
+   
 
     @Transactional
     public String insertBoard(Board board, HttpSession session, RedirectAttributes rttr) {
@@ -223,26 +245,28 @@ public class MemberService {
 //    }
 
 /*
+
     @Transactional
-    public ModelAndView getList(String tag){
+    public ModelAndView getTagList(String tag){
         log.info("getList()");
         mv = new ModelAndView();
 
-        if(tag !="total"){
+        if(tag !=null){
             try{
-                List<Book> blist = bRepo.findAllByTag("tag");
-                mv.addObject("blist",blist);
+                List<Book> btaglist = bRepo.findByBtag(tag);
+                mv.addObject("btaglist",btaglist);
             }catch (Exception e){
                 e.printStackTrace();
             }
         }else{
-            List<Book> blist = (List<Book>) bRepo.findAll();
-            mv.addObject("blist", blist);
+            List<Book> btaglist = (List<Book>) bRepo.findAll();
+            mv.addObject("btaglist", btaglist);
         }
+        mv.setViewName("booklist");
 
         return mv;
     }
-*/
+
 
     // Book Rental Function
     @Transactional

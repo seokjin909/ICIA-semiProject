@@ -5,10 +5,14 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface BookRepository extends CrudRepository<Book, Integer> {
 
-    Collection<Book> findByBnameLike(String bname);
+    List<Book> findByBnameLike(String bname);
 
-    //List<Book> findAllByTag(String tag);
+    List<Book> findByBtag(String tag);
+
+    Book findByBname(String bname);
+
 }
