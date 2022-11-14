@@ -4,6 +4,7 @@ package com.iciaproject.icia_library.service;
 import com.iciaproject.icia_library.entity.Board;
 import com.iciaproject.icia_library.entity.Book;
 import com.iciaproject.icia_library.entity.Member;
+//import com.iciaproject.icia_library.repository.BoardFileRepository;
 import com.iciaproject.icia_library.repository.BoardRepository;
 import com.iciaproject.icia_library.repository.BookRepository;
 import com.iciaproject.icia_library.repository.MemberRepository;
@@ -40,6 +41,9 @@ public class MemberService {
 
     @Autowired
     private BoardRepository boRepo;
+
+//    @Autowired
+//    private BoardFileRepository bfRepo;
 
     ModelAndView mv;
 
@@ -95,7 +99,7 @@ public class MemberService {
             Member m2 = mem.get();
             if (m2.getMpwd().equals(member.getMpwd())) {
                 msg = "로그인 성공";
-                member = mRepo.findMemberByMid(m2.getMid());
+                member = m2;
                 session.setAttribute("mem", member);
                 view = "redirect:/";
             } else {
@@ -174,11 +178,12 @@ public class MemberService {
 //        }
 //        for (MultipartFile mf : files){
 //            String orname = mf.getOriginalFilename();
-//            return;
+//            if (orname.equals("")){
+//                return;
+//            }
+//            Board b = new Board();
+//
 //        }
-//
-//        Board b = new Board();
-//
 //    }
 
 
