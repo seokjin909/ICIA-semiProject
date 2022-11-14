@@ -6,11 +6,18 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
     <title>로그인 페이지</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Noto Serif KR', serif;
+
+        }
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -61,6 +68,32 @@
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
         }
+        .a {
+            border-radius: 20px;
+            font-size: 16px;
+            /*font-weight: bold;*/
+            height: 50px;
+        }
+        .b{
+            margin-bottom: 5px;
+        }
+
+        .btn_style{
+            display: flex;
+            justify-content: center;
+        }
+
+        .c {
+            margin-left: 5px;
+        }
+
+        .h1 {
+            font-weight: bold;
+            font-size: 24px;
+            color: #092348;
+            margin-bottom: 20px;
+        }
+
     </style>
 
 
@@ -72,14 +105,15 @@
 <main class="form-signin w-100 m-auto">
     <form th:action="@{logProc}" method="post">
         <img class="mb-4" src="images/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">로그인</h1>
+        <h1 class="h1">로그인</h1>
 
-        <div class="form-floating">
+        <div class="form-floating b">
             <input type="text" class="form-control" id="floatingInput" placeholder="ID" name="mid">
             <label for="floatingInput">ID</label>
         </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="mpwd">
+        <div class="form-floating b">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="mpwd"
+                   style="border-radius: 6px">
             <label for="floatingPassword">Password</label>
         </div>
 
@@ -88,11 +122,12 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" style="margin-bottom: 5px">로그인</button><br>
+        <div class="btn_style">
+            <button class="a w-75 btn btn-lg btn-primary" type="submit" style="margin-bottom: 5px">로그인</button><br>
 
-        <button class="w-50 btn btn-lg btn-primary" type="button" style="float: left">회원가입</button>
-        <button class="w-50 btn btn-lg btn-primary" type="button" style="clear:both">관리자모드</button>
-
+            <button class="a c w-75  btn btn-lg btn-primary" type="button" style="float: left">회원가입</button>
+    <!--        <button class="a btn btn-lg btn-primary" type="button" style="clear:both">관리자모드</button>-->
+        </div>
         <p class="mt-5 mb-3 text-muted">&copy; ICIA ACADEMY</p>
     </form>
 </main>
