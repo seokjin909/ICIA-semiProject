@@ -112,10 +112,19 @@
                 <li><a href="#" class="nav-link px-2 link-dark">세미나실</a></li>
             </ul>
 
-            <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='login'">Login</button>
-                <button type="button" class="btn btn-primary" onclick="location.href='signup'">Sign-up</button>
-            </div>
+            <th:block th:if="${session.mem!=null}">
+                <div class="col-md-3 text-end text-center">
+                    <p th:text="${session.mem.mname}+'님'"></p>
+                    <button type="button" class="btn btn-primary" onclick="location.href='logoutProc'">로그아웃</button>
+                </div>
+            </th:block>
+            <th:block th:unless="${session.mem!=null}">
+                <div class="col-md-3 text-end">
+                    <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='login'">Login
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='signup'">Sign-up</button>
+                </div>
+            </th:block>
         </header>
     </div>
 </main>
