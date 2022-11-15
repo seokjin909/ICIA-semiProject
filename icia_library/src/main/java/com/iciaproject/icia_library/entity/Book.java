@@ -21,14 +21,6 @@ public class Book {
     private String bauthor;
 
     @ColumnDefault("0")
-    @Column(length = 15)
-    private String bsdate;
-
-    @ColumnDefault("0")
-    @Column(length = 15)
-    private String bedate;
-
-    @ColumnDefault("0")
     @Column
     private Boolean blent;
 
