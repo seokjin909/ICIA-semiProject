@@ -50,6 +50,8 @@ public class MemberService {
     @Autowired
     private RentRepository rRepo;
 
+
+    @Autowired
     private ManagerRepository mnRepo;
 
 
@@ -324,7 +326,7 @@ public class MemberService {
 
     // Book Rental Function
     @Transactional
-    public String bookRent(String mname,String bname, RedirectAttributes rttr) {
+    public String bookRent(String mname, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
         String msg = null;
         String view = null;
