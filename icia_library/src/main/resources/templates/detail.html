@@ -44,7 +44,7 @@
         <div>
             <div class="t_content p-15 file_h">FILES</div>
             <div class="d_content p-85 file_h" style="overflow: auto;">
-                <th:block th:if="${#lists.isEmpty(bfList)}">
+                <th:block>
                     첨부된 파일이 없습니다.
                 </th:block>
 <!--                <th:block th:unless="${#lists.isEmpty(bfList)}">-->
@@ -66,21 +66,21 @@
 <th:block th:include="footer.html"></th:block>
 </body>
 <script th:inline="javascript">
-    // $("#backbtn").click(function () {
-    //     location.href = "/?pageNum=" + [[${session.pageNum}]];
-    // });
-    // $("#upbtn").click(function () {
-    //     let pw = prompt("비밀번호를 입력하세요.");
-    //     console.log(pw)
-    //     if (pw == null || pw == "") {
-    //         alert("비밀번호를 입력되지 않았습니다.");
-    //         return;
-    //     }
-    //
-    //     if(pw == [[${board.bpwd}]]) {
-    //         location.href="updateFrm?bnum="+[[${board.bnum}]];
-    //     }
-    // });
+    $("#backbtn").click(function () {
+        location.href = "/?pageNum=" + [[${session.pageNum}]];
+    });
+    $("#upbtn").click(function () {
+        let pw = prompt("비밀번호를 입력하세요.");
+        console.log(pw)
+        if (pw == null || pw == "") {
+            alert("비밀번호를 입력되지 않았습니다.");
+            return;
+        }
+
+        if(pw == [[${board.bpwd}]]) {
+            location.href="updateFrm?bnum="+[[${board.bnum}]];
+        }
+    });
     //
     // //게시글 삭제
     //

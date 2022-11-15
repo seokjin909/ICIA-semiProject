@@ -150,4 +150,19 @@ public class HomeController {
         return mv;
     }
 
+    @GetMapping("updateFrm")
+    public ModelAndView updateFrm(long bnum) {
+        log.info("updateFrm()");
+        mv =mSev.getBoard(bnum);
+        mv.setViewName("updateFrm");
+        return mv;
+    }
+
+    @PostMapping("updateProc")
+    public String updateProc(Board board, HttpSession session, RedirectAttributes rttr) {
+        log.info("updateProc");
+        String view = mSev.boardUpdate(board, session, rttr);
+        return view;
+    }
+
 }
