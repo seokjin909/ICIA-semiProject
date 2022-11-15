@@ -6,6 +6,11 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gugi&display=swap" rel="stylesheet">
+
     <title>Headers · Bootstrap v5.2</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -90,6 +95,9 @@
             background-color: #0c63e4;
             color: white;
         }
+        .bd{
+            font-family: 'Gowun Dodum', sans-serif;
+        }
 
     </style>
 
@@ -97,7 +105,7 @@
     <!-- Custom styles for this template -->
     <link href="css/headers.css" rel="stylesheet">
 </head>
-<body>
+<body class="bd">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
         <title>Bootstrap</title>
@@ -145,7 +153,7 @@
 
             <th:block th:if="${session.mem!=null}">
                 <div class="col-md-3 text-end text-center">
-                    <p th:text="${session.mem.mname}+'님'"></p>
+                    <span th:text="${session.mem.mname}+'님 환영합니다.&nbsp;&nbsp;'"></span>
                     <button type="button" class="bt btn btn-primary" onclick="location.href='logoutProc'">로그아웃</button>
                 </div>
             </th:block>

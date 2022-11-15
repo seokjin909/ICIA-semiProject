@@ -2,7 +2,17 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gugi&display=swap" rel="stylesheet">
+
+    <title>상세보기</title>
+    <style>
+        .bd{
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+    </style>
     <link rel="stylesheet" href="css/part.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -15,34 +25,34 @@
         });
     </script>
 </head>
-<body>
+<body class="bd">
 <th:block th:include="header.html"></th:block>
 <div class="content">
     <div class="write-form">
         <h2 class="login-header">상세 보기</h2>
         <!-- 게시글 상세 내용 출력(div) -->
         <div>
-            <div class="t_content p-15">NUM</div>
+            <div class="t_content p-15">번호</div>
             <div class="d_content p-85" th:text="${board.bnum}"></div>
         </div>
         <div>
-            <div class="t_content p-15">WRITER</div>
+            <div class="t_content p-15">작성자</div>
             <div class="d_content dp-30" th:text="${board.bwriter}"></div>
-            <div class="t_content p-15">DATE</div>
+            <div class="t_content p-15">날짜</div>
             <div class="d_content dp-40" th:text="${#dates.format(board.rdate, 'yyyy-MM-dd HH:mm:ss')}"></div>
         </div>
         <div>
-            <div class="t_content p-15">TITLE</div>
+            <div class="t_content p-15">제목</div>
             <div class="d_content p-85" th:text="${board.btitle}"></div>
         </div>
         <div>
-            <div class="t_content p-15 content_h">CONTENTS</div>
+            <div class="t_content p-15 content_h">내용</div>
             <div class="d_content p-85 content_h">
                 <div class="content_in" th:text="${board.bcontent}"></div>
             </div>
         </div>
         <div>
-            <div class="t_content p-15 file_h">FILES</div>
+            <div class="t_content p-15 file_h">첨부파일</div>
             <div class="d_content p-85 file_h" style="overflow: auto;">
                 <th:block>
                     첨부된 파일이 없습니다.
@@ -57,9 +67,9 @@
             </div>
         </div>
         <div class="btn-area">
-            <button class="btn-write" id="upbtn">U</button>
-            <button class="btn-write" id="delbtn">D</button>
-            <button class="btn-sub" id="backbtn">B</button>
+            <button class="btn-write" id="upbtn">글수정</button>
+            <button class="btn-write" id="delbtn">글삭제</button>
+<!--            <button class="btn-sub" id="backbtn">B</button>-->
         </div>
     </div>
 </div>

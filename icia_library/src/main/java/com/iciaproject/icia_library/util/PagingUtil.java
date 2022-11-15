@@ -43,7 +43,7 @@ public class PagingUtil {
         for(int i = start; i <= end; i++){
             //보여질 페이지 번호 처리(링크가 없는 페이지번호)
             if(pageNum == i){
-                sb.append("<font class='pno' style='color: red;'>");
+                sb.append("<font class='pno' style='color: #103d7d;'>");
                 sb.append("&nbsp;" + i + "&nbsp;</font>");
             }//<font class='pno' style='color: red;'> 3 </font>
             else {
