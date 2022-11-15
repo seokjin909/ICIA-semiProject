@@ -3,9 +3,11 @@ package com.iciaproject.icia_library.service;
 import com.iciaproject.icia_library.entity.Board;
 import com.iciaproject.icia_library.entity.Book;
 import com.iciaproject.icia_library.entity.Member;
+import com.iciaproject.icia_library.entity.Rent;
 import com.iciaproject.icia_library.repository.BoardRepository;
 import com.iciaproject.icia_library.repository.BookRepository;
 import com.iciaproject.icia_library.repository.MemberRepository;
+import com.iciaproject.icia_library.repository.RentRepository;
 import com.iciaproject.icia_library.util.PagingUtil;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,8 @@ public class MemberService {
     @Autowired
     private BoardRepository boRepo;
 
+    @Autowired
+    private RentRepository rRepo;
 
 //    @Autowired
 //    private BoardFileRepository bfRepo;
@@ -277,11 +281,14 @@ public class MemberService {
 
     // Book Rental Function
     @Transactional
-    public String bookRent(Member member, Book book, RedirectAttributes rttr) {
+    public String bookRent(String mname,String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
         String msg = null;
         String view = null;
 
+        Member member = mRepo.findByMname(mname);
+        Book book = bRepo.findByBname(bname);
+        Rent rent = new Rent();
         if (member.getCount() < 5) {
             try {
                 // 대여일 계산
@@ -289,16 +296,19 @@ public class MemberService {
                 Calendar cal = Calendar.getInstance();
                 String sdate = sdf.format(cal.getTime());
 
-                book.setBsdate(sdate);
+                rent.setRmember(member);
+                rent.setRbook(book);
+                rent.setRsdate(sdate);
 
                 // 반납일 계산
                 cal.add(Calendar.DATE, 7);
                 String edate = sdf.format(cal.getTime());
-                book.setBedate(edate);
+                rent.setRedate(edate);
 
                 // 현재 user의 대여수 증가
                 member.setCount(member.getCount() + 1);
 
+                rRepo.save(rent);
                 mRepo.save(member);
                 bRepo.save(book);
                 msg = "대여 성공";
@@ -318,20 +328,22 @@ public class MemberService {
 
     // Book Return Function
     @Transactional
-    public String bookReturn(Member member, Book book, RedirectAttributes rttr) {
+    public String bookReturn(String mname, String bname, RedirectAttributes rttr) {
         log.info("bookReturn()");
         String msg = null;
         String view = null;
+        Member member = mRepo.findByMname(mname);
+        Book book = bRepo.findByBname(bname);
+        Rent rent = rRepo.findByRmember(member);
 
         if (member.getCount() > 0) {
             try {
                 book.setBlent(false);
-                book.setBsdate("-");
-                book.setBedate("-");
 
                 member.setCount(member.getCount() - 1);
                 bRepo.save(book);
                 mRepo.save(member);
+                rRepo.delete(rent);
                 msg = "반납 성공";
                 view = "redirect:/";
             } catch (Exception e) {
@@ -347,6 +359,4 @@ public class MemberService {
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
-
-
 }

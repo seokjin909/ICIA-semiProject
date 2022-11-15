@@ -8,7 +8,25 @@
 
 </head>
 <body>
-<div th:text="${gbook}"></div>
+<div>[[${gbook}]]</div>
+<hr>
+<form th:action="@{bookRent}" method="get">
+    <div>
+        대여자<input type="text" name="mname" placeholder="대여자명을 입력하세요">
+        대여 도서<input type="text" name="bname" placeholder="대여 도서명을 입력하세요">
+    </div>
+    <button type="submit">대여</button>
+</form>
+<hr>
+<form th:action="@{bookReturn}" method = "get">
+    <div>
+        <div>
+            반납자<input type="text" name="rmember" placeholder="반납자명을 입력하세요">
+            반납 도서<input type="text" name="rbook" placeholder="반납 도서명을 입력하세요">
+        </div>
+        <button type="submit">반납</button>
+    </div>
+</form>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
