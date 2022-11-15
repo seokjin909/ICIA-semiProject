@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gugi&display=swap" rel="stylesheet">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>관리자 페이지</title>
+  <title>Title</title>
   <style>
 
     .main_search {
@@ -18,7 +22,7 @@
       border: white 1.5px solid;
       border-radius: 20px;
       padding-left: 40px;
-      font-size: 17px;
+      font-size: 20px;
       font-weight: bold;
     }
 
@@ -26,7 +30,7 @@
       margin-left: 5px;
       width: 80px;
       color: #f1f1f1;
-      font-size: 16px;
+      font-size: 20px;
       font-weight: bold;
       border: #f1f1f1 1.5px solid;
       border-radius: 20px;
@@ -50,14 +54,25 @@
       justify-content: center;
     }
 
-    #icia_name {
+    .icia_name {
       color: white;
-      font-size: 30px;
+      font-size: 34px;
       font-weight: bolder;
       text-align: center;
       display: block;
-      padding-top: 50px;
-      margin-bottom: 60px;
+      padding-top: 40px;
+      margin-bottom: 10px;
+      text-shadow: -1px 0 #06357a, 0 1px #06357a, 1px 0 #06357a, 0 -1px #06357a;
+      text-shadow:1px 1px 1px #000
+    }
+    #icia_middle {
+      color: white;
+      font-size: 20px;
+      font-weight: bolder;
+      text-align: center;
+      display: block;
+      /*padding-top: 50px;*/
+      margin-bottom: 30px;
       text-shadow: -1px 0 #06357a, 0 1px #06357a, 1px 0 #06357a, 0 -1px #06357a;
       text-shadow:1px 1px 1px #000
     }
@@ -68,13 +83,18 @@
       fill : rgba(195, 199, 203, 0.13);
     }
 
+    .bd{
+      font-family: 'Gowun Dodum', sans-serif;
+    }
+
   </style>
 </head>
-<body>
+<body class="bd">
 <th:block th:include="manager/header_manager.html"></th:block>
 
 <form th:action="@{searchProc}" method="get" class="form-text text-center" id="form_search">
-  <span id="icia_name">인천일보아카데미 도서관</span>
+  <span class="icia_name">소 . 작 . 도</span>
+  <span id="icia_middle">소석진의 작은 도서관</span>
   <div class="main_search">
     <input type="text" class="searchTagLink" name="bname" placeholder="검색어를 입력하세요." id="search">
     <button class="ui-icon-search">
