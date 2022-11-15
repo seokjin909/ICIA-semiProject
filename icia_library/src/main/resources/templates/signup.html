@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gugi&display=swap" rel="stylesheet">
+
     <title>JOIN</title>
     <link href="css/signin.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
 
     <style>
         .nav-scroller .nav {
@@ -27,45 +33,98 @@
             padding-bottom: 20px;
         }
 
+        .a{
+            width: 49%;
+            height: 50px;
+            color: whitesmoke;
+            background-color: #0d6efd;
+            border: #0a58ca 1px solid;
+            border-radius: 100px;
+            box-sizing: border-box;
+            margin-right: 1px;
+            margin-top: 10px;
+            display: inline;
+            justify-content: center;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .form-signin {
+            vertical-align: -.125em;
+            fill: currentColor;
+            padding-bottom: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+        }
+        .text-center {
+            width: 100%;
+        }
+
+        .form-floating{
+            width: 300px;
+        }
+
+        .bd{
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .join{
+            font-weight: bold;
+            font-size: 30px;
+        }
     </style>
 
 </head>
-<body class="text-center">
-<main class="form-signin w-100 m-auto">
+<body class="bd text-center">
+<main class="form-signin">
     <form th:action="@{joinProc}" method="post">
         <img class="mb-4" src="images/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">JOIN</h1>
+        <h1 class="mb-3 fw-normal join">JOIN</h1>
 
-        <div class="form-floating">
+        <div class="form-floating di">
             <input type="text" placeholder="ID"
                    class="form-control" id="joinId" name="mid" required>
-            <input type="button" class="w-50 btn btn-lg btn-primary" value="중복체크" >
+<!--            <input type="button" class="w-50 btn btn-lg btn-primary" value="중복체크" >-->
             <label for="joinId">ID</label>
         </div>
-        <div class="form-floating" style="margin-bottom: -10px">
+        <div class="form-floating di" style="margin-bottom: -10px">
             <input type="password" placeholder="PASSWORD"
                    class="form-control" id="joinPwd" name="mpwd">
             <label for="joinPwd">PASSWORD</label>
         </div>
-        <div class="form-floating">
+        <div class="form-floating di">
             <input type="text" placeholder="NAME"
                    class="form-control" id="joinName" name="mname">
             <label for="joinName">NAME</label>
         </div>
-        <div class="form-floating">
+        <div class="form-floating di">
             <input type="text" placeholder="PHONE"
                    class="form-control" id="joinPhone" name="mphone">
             <label for="joinPhone">PHONE</label>
         </div>
-        <div class="form-floating">
+        <div class="form-floating di">
             <input type="date" placeholder="BIRTH"
                    class="form-control" id="joinBirth" name="mbirth">
             <label for="joinBirth">BIRTH</label>
         </div>
-        <input type="submit" class="w-50 btn btn-lg btn-primary" value="회원가입">
-        <input type="reset" class="w-50 btn btn-lg btn-primary" style="float: right" value="취소" onclick="location.href='/'">
+        <div>
+            <input type="submit" class="a" value="회원가입">
+            <input type="reset" class="a" style="float: right" value="취소" onclick="location.href='/'">
+        </div>
     </form>
-    <th:block th:include="footer.html"></th:block>
+<!--    <th:block th:include="footer.html"></th:block>-->
 </main>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
@@ -75,9 +134,9 @@
      alert("회원가입");
  })
 
- $("#check").click(function (){
-     alert("중복확인");
- })
+ // $("#check").click(function (){
+ //     alert("중복확인");
+ // })
 </script>
 
 </html>
