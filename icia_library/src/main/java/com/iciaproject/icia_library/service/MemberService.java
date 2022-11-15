@@ -177,7 +177,7 @@ public class MemberService {
             log.info("bnum : " + board.getBnum());
 //            fileUpload(files, session, board);
 
-            view = "redirect:/";
+            view = "redirect:part";
             msg = "저장 성공";
 
         } catch (Exception e) {
@@ -228,6 +228,54 @@ public class MemberService {
         return pageHtml;
     }
 
+    public ModelAndView getBoard(long bnum) {
+        log.info("getBoard()");
+        mv = new ModelAndView();
+        Board board = boRepo.findById(bnum).get();
+        mv.addObject("board", board);
+
+        return mv;
+    }
+
+    @Transactional
+    public String boardUpdate(Board board, HttpSession session, RedirectAttributes rttr) {
+        log.info("boardUpdate()");
+        String msg = null;
+        String view = null;
+
+        try {
+            boRepo.save(board);
+
+            msg = "수정 성공";
+            view = "redirect:detail?bnum=" + board.getBnum();
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = "수정 실패";
+            view = "redirect:updateFrm?bnum=" + board.getBnum();
+        }
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
+
+    @Transactional
+    public String boardDelete(long bnum, HttpSession session, RedirectAttributes rttr) {
+        log.info("boardDelete()");
+        String msg = null;
+        String view = null;
+
+        try {
+            boRepo.deleteById(bnum);
+            msg = "삭제 성공";
+            view = "redirect:part";
+        } catch (Exception e) {
+            msg = "삭제 실패";
+            view = "redirect:detail?bnum=" + bnum;
+        }
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
+
+
     private void fileUpload(List<MultipartFile> files, HttpSession session, Board board) {
         log.info("fileUpload()");
         String realPath = session.getServletContext().getRealPath("/");
@@ -244,7 +292,6 @@ public class MemberService {
                 return;
             }
             Board b = new Board();
-
         }
     }
 
@@ -344,6 +391,7 @@ public class MemberService {
         return view;
     }
 
+
     // 관리자 로그인 메소드
     public String managerLogin(Manager manager, HttpSession session, RedirectAttributes rttr) {
         log.info("managerLogin()");
@@ -370,4 +418,6 @@ public class MemberService {
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
+
+
 }

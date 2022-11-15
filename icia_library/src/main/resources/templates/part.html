@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gugi&display=swap" rel="stylesheet">
+
+
     <title>참여마당</title>
     <link href="css/part.css" rel="stylesheet">
     <style>
+        .bd{
+            font-family: 'Gowun Dodum', sans-serif;
+        }
     </style>
 </head>
-<body>
+<body class="bd">
 <th:block th:include="header.html"></th:block>
 </p>
 <div class="content">
@@ -31,7 +40,8 @@
                     <th:block th:each="bitem:${bList}">
                             <div class="p-10" th:text="${bitem.bnum}"></div>
                         <div class="p-30">
-                            <div th:text="${bitem.btitle}"></div>
+                            <a th:href="@{detail(bnum=${bitem.bnum})}"
+                                    th:text="${bitem.btitle}"></a>
                         </div>
                         <div class="p-15" th:text="${bitem.bwriter}"></div>
                         <div class="t-date p-45"

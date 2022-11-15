@@ -6,6 +6,10 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gugi&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
@@ -94,13 +98,17 @@
             margin-bottom: 20px;
         }
 
+        .bd{
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
     </style>
 
 
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
 </head>
-<body class="text-center">
+<body class="bd text-center">
 
 <main class="form-signin w-100 m-auto">
     <form th:action="@{logProc}" method="post">

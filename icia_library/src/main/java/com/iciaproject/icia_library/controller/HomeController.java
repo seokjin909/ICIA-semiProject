@@ -123,11 +123,6 @@ public class HomeController {
         return msg;
     }
 
-    // 도서 목록
-//    @RequestMapping("booklist")
-//    public @ResponseBody List<Book> bookList(){
-//        return mSev.getBookList();
-//    }
 
     // 도서 삭제
     @GetMapping("deleteBook")
@@ -149,6 +144,36 @@ public class HomeController {
     public String logProc(Member member, HttpSession session, RedirectAttributes rttr) {
         log.info("logProc()");
         String view = mSev.memberLogin(member, session, rttr);
+        return view;
+    }
+
+    @GetMapping("detail")
+    public ModelAndView detail(long bnum) {
+        log.info("detail()");
+        mv = mSev.getBoard(bnum);
+        mv.setViewName("detail");
+        return mv;
+    }
+
+    @GetMapping("updateFrm")
+    public ModelAndView updateFrm(long bnum) {
+        log.info("updateFrm()");
+        mv =mSev.getBoard(bnum);
+        mv.setViewName("updateFrm");
+        return mv;
+    }
+
+    @PostMapping("updateProc")
+    public String updateProc(Board board, HttpSession session, RedirectAttributes rttr) {
+        log.info("updateProc");
+        String view = mSev.boardUpdate(board, session, rttr);
+        return view;
+    }
+
+    @GetMapping("delete")
+    public String delete(long bnum, HttpSession session, RedirectAttributes rttr) {
+        log.info("delete()");
+        String view = mSev.boardDelete(bnum, session, rttr);
         return view;
     }
 
