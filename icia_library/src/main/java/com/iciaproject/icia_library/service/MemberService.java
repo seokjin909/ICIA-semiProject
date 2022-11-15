@@ -50,6 +50,8 @@ public class MemberService {
     @Autowired
     private RentRepository rRepo;
 
+
+    @Autowired
     private ManagerRepository mnRepo;
 
 
@@ -91,6 +93,20 @@ public class MemberService {
         try {
             List<Book> gbook = (List<Book>) bRepo.findByBnameLike(searchName);
             mv.addObject("gbook", gbook);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mv.setViewName("booklist");
+        return mv;
+    }
+    public ModelAndView getAuthorBook(String bauthor) {
+        log.info("getAuthorBook()");
+        mv = new ModelAndView();
+        String searchAuthor = "%" + bauthor + "%";
+        try {
+            List<Book> gauthorbook = bRepo.findByBauthorLike(searchAuthor);
+            mv.addObject("gauthorbook", gauthorbook);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -302,7 +318,7 @@ public class MemberService {
 
     @Transactional
     public ModelAndView getTagList(String tag) {
-        log.info("getList()");
+        log.info("getTagList()");
         mv = new ModelAndView();
 
         if (tag != null) {
@@ -317,14 +333,13 @@ public class MemberService {
             mv.addObject("btaglist", btaglist);
         }
         mv.setViewName("booklist");
-
         return mv;
     }
 
 
     // Book Rental Function
     @Transactional
-    public String bookRent(String mname,String bname, RedirectAttributes rttr) {
+    public String bookRent(String mname, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
         String msg = null;
         String view = null;

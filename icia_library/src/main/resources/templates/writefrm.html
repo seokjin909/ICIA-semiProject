@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gugi&display=swap" rel="stylesheet">
+
     <title>글쓰기</title>
     <link href="css/part.css" rel="stylesheet">
+    <style>
+        .bd{
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+    </style>
 </head>
-<body>
+<body class="bd">
 <th:block th:include="header.html"></th:block>
 <div class="content">
     <form th:action="@{writeProc}" method="post" class="write-form" enctype="multipart/form-data">
@@ -27,9 +37,9 @@
             <input type="text" class="upload-name" value="파일선택">
         </div>
         <div class="btn-area">
-            <input type="submit" class="btn-write" value="W">
-            <input type="reset" class="btn-write" value="R">
-            <input type="button" class="btn-write" value="B" id="backbtn">
+            <input type="submit" class="btn-write" value="글쓰기">
+            <input type="reset" class="btn-write" value="취소">
+<!--            <input type="button" class="btn-write" value="이전" id="backbtn">-->
         </div>
     </form>
 </div>
