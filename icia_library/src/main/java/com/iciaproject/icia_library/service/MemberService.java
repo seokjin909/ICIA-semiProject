@@ -2,9 +2,11 @@ package com.iciaproject.icia_library.service;
 
 import com.iciaproject.icia_library.entity.Board;
 import com.iciaproject.icia_library.entity.Book;
+import com.iciaproject.icia_library.entity.Manager;
 import com.iciaproject.icia_library.entity.Member;
 import com.iciaproject.icia_library.repository.BoardRepository;
 import com.iciaproject.icia_library.repository.BookRepository;
+import com.iciaproject.icia_library.repository.ManagerRepository;
 import com.iciaproject.icia_library.repository.MemberRepository;
 import com.iciaproject.icia_library.util.PagingUtil;
 import lombok.extern.java.Log;
@@ -16,7 +18,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -26,7 +27,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Optional;
 
 import java.text.SimpleDateFormat;
@@ -44,6 +44,9 @@ public class MemberService {
 
     @Autowired
     private BoardRepository boRepo;
+
+    @Autowired
+    private ManagerRepository mnRepo;
 
 
 //    @Autowired
@@ -119,21 +122,23 @@ public class MemberService {
         return view;
     }
 
+    // 도서 추가 메소드
     public String inputBook(Book book) {
         String view = null;
         try {
             bRepo.save(book);
-            view = "redirect:/";
+            view = "redirect:bookInput";
         } catch (Exception e) {
             e.printStackTrace();
-            view = "redirect:/";
+            view = "redirect:bookInput";
         }
         return view;
     }
 
+    // 도서 목록 출력 메소드
     public ModelAndView getBookList() {
         mv = new ModelAndView();
-        mv.setViewName("bookcrud");
+        mv.setViewName("manager/bookcrud");
 
         List<Book> bList = new ArrayList<>();
         Iterable<Book> bIter = bRepo.findAll();
@@ -146,6 +151,7 @@ public class MemberService {
         return mv;
     }
 
+    // 도서 삭제 메소드
     @Transactional
     public String deleteBook(Book bid) {
         String msg = null;
@@ -171,7 +177,7 @@ public class MemberService {
             log.info("bnum : " + board.getBnum());
 //            fileUpload(files, session, board);
 
-            view = "redirect:/";
+            view = "redirect:part";
             msg = "저장 성공";
 
         } catch (Exception e) {
@@ -222,6 +228,54 @@ public class MemberService {
         return pageHtml;
     }
 
+    public ModelAndView getBoard(long bnum) {
+        log.info("getBoard()");
+        mv = new ModelAndView();
+        Board board = boRepo.findById(bnum).get();
+        mv.addObject("board", board);
+
+        return mv;
+    }
+
+    @Transactional
+    public String boardUpdate(Board board, HttpSession session, RedirectAttributes rttr) {
+        log.info("boardUpdate()");
+        String msg = null;
+        String view = null;
+
+        try {
+            boRepo.save(board);
+
+            msg = "수정 성공";
+            view = "redirect:detail?bnum=" + board.getBnum();
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = "수정 실패";
+            view = "redirect:updateFrm?bnum=" + board.getBnum();
+        }
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
+
+    @Transactional
+    public String boardDelete(long bnum, HttpSession session, RedirectAttributes rttr) {
+        log.info("boardDelete()");
+        String msg = null;
+        String view = null;
+
+        try {
+            boRepo.deleteById(bnum);
+            msg = "삭제 성공";
+            view = "redirect:part";
+        } catch (Exception e) {
+            msg = "삭제 실패";
+            view = "redirect:detail?bnum=" + bnum;
+        }
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
+
+
     private void fileUpload(List<MultipartFile> files, HttpSession session, Board board) {
         log.info("fileUpload()");
         String realPath = session.getServletContext().getRealPath("/");
@@ -238,7 +292,6 @@ public class MemberService {
                 return;
             }
             Board b = new Board();
-
         }
     }
 
@@ -337,4 +390,34 @@ public class MemberService {
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
+
+
+    // 관리자 로그인 메소드
+    public String managerLogin(Manager manager, HttpSession session, RedirectAttributes rttr) {
+        log.info("managerLogin()");
+        String msg = null;
+        String view = null;
+
+        Optional<Manager> man = mnRepo.findById(manager.getManagerid());
+        try {
+            Manager man2 = man.get();
+            if (man2.getManagerpwd().equals(manager.getManagerpwd())) {
+                msg = "관리자 로그인 성공";
+                manager = man2;
+                session.setAttribute("man", manager);
+                view = "redirect:home_manager";
+            } else {
+                msg = "비밀번호 오류";
+                view = "redirect:/";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = "로그인 불가능";
+            view = "redirect:/";
+        }
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
+
+
 }

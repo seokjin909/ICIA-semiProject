@@ -40,7 +40,8 @@
                     <th:block th:each="bitem:${bList}">
                             <div class="p-10" th:text="${bitem.bnum}"></div>
                         <div class="p-30">
-                            <div th:text="${bitem.btitle}"></div>
+                            <a th:href="@{detail(bnum=${bitem.bnum})}"
+                                    th:text="${bitem.btitle}"></a>
                         </div>
                         <div class="p-15" th:text="${bitem.bwriter}"></div>
                         <div class="t-date p-45"
