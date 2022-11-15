@@ -50,6 +50,7 @@ public class MemberService {
     @Autowired
     private RentRepository rRepo;
 
+
     @Autowired
     private ManagerRepository mnRepo;
 
