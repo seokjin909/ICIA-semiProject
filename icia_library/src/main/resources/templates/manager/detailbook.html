@@ -18,7 +18,7 @@
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 </head>
 <body class="bd">
-<th:block th:include="header.html"></th:block>
+<th:block th:include="manager/header_manager.html"></th:block>
 <div class="content">
     <div class="write-form">
         <h2 class="login-header">도서 정보</h2>
@@ -54,11 +54,11 @@
 </body>
 <script th:inline="javascript">
     $("#backbtn").click(function () {
-        location.href = "manager/bookcrud";
+        location.href = "bookcrud";
     });
 
     $("#upbtn").click(function (){
-        location.href = "manager/bookUpdate?bid="+[[${book.bid}]];
+        location.href = "bookUpdate?bid="+[[${book.bid}]];
     })
 
     let lent = "[[${book.blent}]]";

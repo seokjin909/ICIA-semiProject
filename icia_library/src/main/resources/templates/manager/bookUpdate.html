@@ -9,7 +9,7 @@
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 </head>
 <body>
-<th:block th:include="header_manager.html"></th:block>
+<th:block th:include="manager/header_manager.html"></th:block>
 <div class="content">
     <form th:action="@{bookUpdateProc}" method="post" class="write-form">
         <h2 class="login-header">도서 수정</h2>
@@ -24,13 +24,12 @@
             <input type="text" class="write-input" th:value="*{btag}"
                    name="btag" placeholder="장르"
                    required>
-            <input type="hidden" name="blent" th:value="*{blent}">
+            <input type="hidden" name="0" th:value="*{blent}">
         </th:block>
         <!-- 파일 입력 처리 영역 -->
         <div class="btn-area">
             <input type="submit" class="btn-write" value="글수정">
             <input type="reset" class="btn-write" value="취소">
-            <!--            <input type="button" class="btn-write" value="B" id="backbtn">-->
         </div>
     </form>
 </div>
