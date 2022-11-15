@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/part.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script th:inline="javascript">
@@ -27,7 +27,7 @@
         </div>
         <div>
             <div class="t_content p-15">WRITER</div>
-            <div class="d_content dp-30" th:text="${board.bwrite}"></div>
+            <div class="d_content dp-30" th:text="${board.bwriter}"></div>
             <div class="t_content p-15">DATE</div>
             <div class="d_content dp-40" th:text="${#dates.format(board.rdate, 'yyyy-MM-dd HH:mm:ss')}"></div>
         </div>
@@ -44,7 +44,7 @@
         <div>
             <div class="t_content p-15 file_h">FILES</div>
             <div class="d_content p-85 file_h" style="overflow: auto;">
-                <th:block>
+                <th:block th:if="${#lists.isEmpty(bfList)}">
                     첨부된 파일이 없습니다.
                 </th:block>
 <!--                <th:block th:unless="${#lists.isEmpty(bfList)}">-->
@@ -66,36 +66,36 @@
 <th:block th:include="footer.html"></th:block>
 </body>
 <script th:inline="javascript">
-    $("#backbtn").click(function () {
-        location.href = "/?pageNum=" + [[${session.pageNum}]];
-    });
-    $("#upbtn").click(function () {
-        let pw = prompt("비밀번호를 입력하세요.");
-        console.log(pw)
-        if (pw == null || pw == "") {
-            alert("비밀번호를 입력되지 않았습니다.");
-            return;
-        }
-
-        if(pw == [[${board.bpwd}]]) {
-            location.href="updateFrm?bnum="+[[${board.bnum}]];
-        }
-    });
-
-    //게시글 삭제
-
-    $("#delbtn").click(function () {
-        let pw = prompt("비밀번홀를 입력하세요");
-        if(pw == null || pw == "") {
-            alert("비밀번호가 입력되지 않았습니다.")
-            return;
-        }
-        if(pw ==[[${board.bpwd}]]) {
-            location.href = "delete?bnum=" + [[${board.bnum}]];
-        }else {
-            alert("비밀번호가 틀립니다.")
-        }
-
-    })
+    // $("#backbtn").click(function () {
+    //     location.href = "/?pageNum=" + [[${session.pageNum}]];
+    // });
+    // $("#upbtn").click(function () {
+    //     let pw = prompt("비밀번호를 입력하세요.");
+    //     console.log(pw)
+    //     if (pw == null || pw == "") {
+    //         alert("비밀번호를 입력되지 않았습니다.");
+    //         return;
+    //     }
+    //
+    //     if(pw == [[${board.bpwd}]]) {
+    //         location.href="updateFrm?bnum="+[[${board.bnum}]];
+    //     }
+    // });
+    //
+    // //게시글 삭제
+    //
+    // $("#delbtn").click(function () {
+    //     let pw = prompt("비밀번홀를 입력하세요");
+    //     if(pw == null || pw == "") {
+    //         alert("비밀번호가 입력되지 않았습니다.")
+    //         return;
+    //     }
+    //     if(pw ==[[${board.bpwd}]]) {
+    //         location.href = "delete?bnum=" + [[${board.bnum}]];
+    //     }else {
+    //         alert("비밀번호가 틀립니다.")
+    //     }
+    //
+    // })
 </script>
 </html>
