@@ -445,4 +445,30 @@ public class MemberService {
         return view;
     }
 
+    public ModelAndView getDetailBook(int bid) {
+        log.info("getDetailBook()");
+        mv = new ModelAndView();
+        Book book = bRepo.findById(bid).get();
+        mv.addObject("book", book);
+        return mv;
+    }
+
+    public String bookUpdate(Book book, RedirectAttributes rttr, HttpSession session) {
+        log.info("bookUpdate()");
+        String msg = null;
+        String view = null;
+
+        try {
+            bRepo.save(book);
+            msg = "수정 성공";
+            view = "manager/detailbook?bid=" + book.getBid();
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = "수정 실패";
+            view = "manager/bookUpdate?bid=" + book.getBid();
+            System.out.println(view);
+        }
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
 }

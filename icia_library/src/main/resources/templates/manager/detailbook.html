@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gugi&display=swap" rel="stylesheet">
+
+    <title>상세보기</title>
+    <style>
+        .bd {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="css/part.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</head>
+<body class="bd">
+<th:block th:include="manager/header_manager.html"></th:block>
+<div class="content">
+    <div class="write-form">
+        <h2 class="login-header">도서 정보</h2>
+        <!-- 게시글 상세 내용 출력(div) -->
+        <div>
+            <div class="t_content p-15">도서제목</div>
+            <div class="d_content p-85" th:text="${book.bname}"></div>
+        </div>
+        <div>
+            <div class="t_content p-15">작가</div>
+            <div class="d_content dp-30" th:text="${book.bauthor}"></div>
+            <div class="t_content p-15">장르</div>
+            <div class="d_content dp-40" th:text="${book.btag}"></div>
+        </div>
+        <div>
+            <div class="t_content p-15">도서코드</div>
+            <div class="d_content p-85" th:text="${book.bid}"></div>
+        </div>
+        <div>
+            <div class="t_content p-15 content_h">대여여부</div>
+            <div class="d_content p-85 content_h">
+                <div class="content_in" th:text="${book.blent}"></div>
+            </div>
+        </div>
+        <div class="btn-area">
+            <button class="btn-write" id="upbtn">수정</button>
+            <button class="btn-write" id="delbtn">삭제</button>
+            <button class="btn-write" id="backbtn">이전</button>
+        </div>
+    </div>
+</div>
+<th:block th:include="footer.html"></th:block>
+</body>
+<script th:inline="javascript">
+    $("#backbtn").click(function () {
+        location.href = "bookcrud";
+    });
+
+    $("#upbtn").click(function (){
+        location.href = "bookUpdate?bid="+[[${book.bid}]];
+    })
+
+    let lent = "[[${book.blent}]]";
+    console.log(lent);
+    $("#delbtn").click(function () {
+        if (lent!='false') {
+            alert("대여중이므로 삭제가 불가능합니다.")
+            return;
+        } else {
+            let yn = confirm("정말 삭제하시겠습니까?");
+            if (yn==true) {
+                alert("삭제 처리되었습니다.")
+            } else {
+                alert("취소되었습니다.");
+            }
+        }
+    })
+</script>
+</html>
