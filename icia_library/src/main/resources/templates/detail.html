@@ -81,21 +81,19 @@
             location.href="updateFrm?bnum="+[[${board.bnum}]];
         }
     });
-    //
-    // //게시글 삭제
-    //
-    // $("#delbtn").click(function () {
-    //     let pw = prompt("비밀번홀를 입력하세요");
-    //     if(pw == null || pw == "") {
-    //         alert("비밀번호가 입력되지 않았습니다.")
-    //         return;
-    //     }
-    //     if(pw ==[[${board.bpwd}]]) {
-    //         location.href = "delete?bnum=" + [[${board.bnum}]];
-    //     }else {
-    //         alert("비밀번호가 틀립니다.")
-    //     }
-    //
-    // })
+    //게시글 삭제
+
+    $("#delbtn").click(function () {
+        let pw = prompt("비밀번홀를 입력하세요");
+        if(pw == null || pw == "") {
+            alert("비밀번호가 입력되지 않았습니다.")
+            return;
+        }
+        if(pw ==[[${board.bpwd}]]) {
+            location.href = "delete?bnum=" + [[${board.bnum}]];
+        }else {
+            alert("비밀번호가 틀립니다.")
+        }
+    })
 </script>
 </html>
