@@ -171,7 +171,7 @@ public class MemberService {
             log.info("bnum : " + board.getBnum());
 //            fileUpload(files, session, board);
 
-            view = "redirect:/";
+            view = "redirect:part";
             msg = "저장 성공";
 
         } catch (Exception e) {
@@ -221,6 +221,16 @@ public class MemberService {
 
         return pageHtml;
     }
+
+    public ModelAndView getBoard(long bnum) {
+        log.info("getBoard()");
+        mv = new ModelAndView();
+        Board board = boRepo.findById(bnum).get();
+        mv.addObject("board", board);
+
+        return mv;
+    }
+
 
     private void fileUpload(List<MultipartFile> files, HttpSession session, Board board) {
         log.info("fileUpload()");
@@ -337,4 +347,6 @@ public class MemberService {
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
+
+
 }
