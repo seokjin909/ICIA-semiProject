@@ -4,22 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>도서 관리</title>
-
 </head>
 <body>
-
-<!--도서 추가-->
-<div class="text-center">
-    <form th:action="@{bookinput}">
-        <a><input type="text" name="bname" placeholder="책 제목을 입력하세요."></a>
-        <a><input type="text" name="bauthor" placeholder="저자를 입력하세요."></a>
-        <input type="text" name="bsdate" value="0" hidden>
-        <input type="text" name="bedate" value="0" hidden>
-        <input type="text" name="blent" value="0" hidden>
-        <input type="submit" value="등록">
-    </form>
-</div>
-
+<th:block th:include="manager/header_manager.html"></th:block>
 <!--도서 목록 출력-->
 <div class="text-center">
     <th:block th:if="${#lists.isEmpty(blist)}">
@@ -29,8 +16,8 @@
         <table border="1">
             <thead class="table-header">
             <tr>
-                <th class="w-100">제목</th>
-                <th class="w-50">작가</th>
+                <th class="w-25">제목</th>
+                <th class="w-25">작가</th>
                 <th class="w-25">대출상태</th>
                 <th class="w-25">코드</th>
                 <th class="w-25">삭제</th>
@@ -51,7 +38,7 @@
     </th:block>
 </div>
 
-
+<th:block th:include="footer.html"></th:block>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
