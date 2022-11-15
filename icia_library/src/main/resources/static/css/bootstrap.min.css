@@ -7309,8 +7309,10 @@ textarea.form-control-lg {
 }
 
 .link-dark:focus, .link-dark:hover {
-    color: #1a1e21 !important
+    color: #1a1e21 !important;
 }
+
+
 
 .ratio {
     position: relative;

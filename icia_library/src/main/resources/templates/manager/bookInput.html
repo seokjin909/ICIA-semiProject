@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>도서 추가</title>
+    <style>
+        .a1{
+            padding-left: 10px;
+        }
+    </style>
 </head>
 <body>
 <th:block th:include="manager/header_manager.html"></th:block>
 <!--도서 추가-->
 <div class="text-center">
     <form th:action="@{bookInputProc}">
-        <a><input type="text" name="bname" placeholder="책 제목을 입력하세요."></a>
-        <a><input type="text" name="bauthor" placeholder="저자를 입력하세요."></a>
-        <a><input type="text" name="btag" placeholder="장르를 입력하세요."></a>
+        <a><input class="a1" type="text" name="bname" placeholder="책 제목을 입력하세요."></a>
+        <a><input class="a1"  type="text" name="bauthor" placeholder="저자를 입력하세요."></a>
+        <a><input class="a1"  type="text" name="btag" placeholder="장르를 입력하세요."></a>
         <input type="text" name="blent" value="0" hidden>
         <input type="submit" value="등록">
     </form>
