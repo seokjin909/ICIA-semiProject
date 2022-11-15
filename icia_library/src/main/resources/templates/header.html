@@ -60,6 +60,14 @@
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
         }
+
+        .a{
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
     </style>
 
 
@@ -97,32 +105,32 @@
 <main>
     <h1 class="visually-hidden">Headers examples</h1>
     <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <header class="h d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
                 <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
                     <use xlink:href="#bootstrap"/>
                 </svg>
             </a>
 
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">자료검색</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">대출조회</a></li>
-                <li><a href="part" class="nav-link px-2 link-dark">참여마당</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">세미나실</a></li>
+            <ul class="a nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="#" class="nav-link px-2 link-secondary" style="margin-right: 20px">Home</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark" style="margin-right: 20px">자료검색</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark" style="margin-right: 20px">대출조회</a></li>
+                <li><a href="part" class="nav-link px-2 link-dark" style="margin-right: 20px">참여마당</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark" style="margin-right: 20px">세미나실</a></li>
             </ul>
 
             <th:block th:if="${session.mem!=null}">
                 <div class="col-md-3 text-end text-center">
                     <p th:text="${session.mem.mname}+'님'"></p>
-                    <button type="button" class="btn btn-primary" onclick="location.href='logoutProc'">로그아웃</button>
+                    <button type="button" class="bt btn btn-primary" onclick="location.href='logoutProc'">로그아웃</button>
                 </div>
             </th:block>
             <th:block th:unless="${session.mem!=null}">
                 <div class="col-md-3 text-end">
-                    <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='login'">Login
+                    <button type="button" class="bt btn btn-outline-primary me-2" onclick="location.href='login'">로그인
                     </button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='signup'">Sign-up</button>
+                    <button type="button" class="bt btn btn-primary" onclick="location.href='signup'">회원가입</button>
                 </div>
             </th:block>
         </header>
