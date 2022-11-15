@@ -241,11 +241,29 @@ public class MemberService {
             boRepo.save(board);
 
             msg = "수정 성공";
-            view = "redirect:detail?bnum="+ board.getBnum();
-        }catch (Exception e) {
+            view = "redirect:detail?bnum=" + board.getBnum();
+        } catch (Exception e) {
             e.printStackTrace();
             msg = "수정 실패";
-            view = "redirect:updateFrm?bnum="+ board.getBnum();
+            view = "redirect:updateFrm?bnum=" + board.getBnum();
+        }
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
+
+    @Transactional
+    public String boardDelete(long bnum, HttpSession session, RedirectAttributes rttr) {
+        log.info("boardDelete()");
+        String msg = null;
+        String view = null;
+
+        try {
+            boRepo.deleteById(bnum);
+            msg = "삭제 성공";
+            view = "redirect:part";
+        } catch (Exception e) {
+            msg = "삭제 실패";
+            view = "redirect:detail?bnum=" + bnum;
         }
         rttr.addFlashAttribute("msg", msg);
         return view;
@@ -268,7 +286,6 @@ public class MemberService {
                 return;
             }
             Board b = new Board();
-
         }
     }
 

@@ -165,4 +165,11 @@ public class HomeController {
         return view;
     }
 
+    @GetMapping("delete")
+    public String delete(long bnum, HttpSession session, RedirectAttributes rttr) {
+        log.info("delete()");
+        String view = mSev.boardDelete(bnum, session, rttr);
+        return view;
+    }
+
 }
