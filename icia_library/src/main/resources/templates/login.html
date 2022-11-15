@@ -105,6 +105,9 @@
             font-family: 'Gowun Dodum', sans-serif;
         }
 
+        #test {
+            width: 400px;
+        }
     </style>
 
 
@@ -134,12 +137,16 @@
             </label>
         </div>
         <div class="btn_style">
-            <button class="btn a w-100 btn btn-lg btn-primary" type="submit" style="margin-bottom: 30px">로그인</button>
+            <button id="test" class="a btn btn-lg btn-primary" type="submit" style="margin-bottom: 30px">로그인</button>
             <br>
         </div>
         <div class="btn_style">
-            <button class="a c w-75  btn btn-lg btn-primary" type="button" style="float: left" onclick="location.href='signup'">회원가입</button>
-            <button class="a c w-75  btn btn-lg btn-primary" type="button" style="float: left" onclick="location.href='login_manager'">관리자</button>
+            <button class="a c w-75  btn btn-lg btn-primary" type="button" style="float: left"
+                    onclick="location.href='signup'">회원가입
+            </button>
+            <button class="a c w-75  btn btn-lg btn-primary" type="button" style="float: left"
+                    onclick="location.href='login_manager'">관리자
+            </button>
         </div>
         <p class="mt-5 mb-3 text-muted">&copy; ICIA ACADEMY</p>
     </form>
@@ -147,13 +154,18 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-<!--<script>-->
-<!--    let btn = document.querySelector(".btn");-->
-<!--    let position;-->
-<!--    btn.addEventListener("mouseover", function (){-->
-<!--        position ? (position = 0) : (position = 150);-->
-<!--        btn.style.transform = `translate(${positon}px,0px)`;-->
-<!--        btn.style.transition = "all 0.3s ease";-->
-<!--    });-->
-<!--</script>-->
+<script>
+    let position
+    $('#test').on('mouseover', function () {
+        if ($('#floatingInput').val() == "" || $('#floatingPassword').val() == "") {
+            position ? (position = 0) : (position = 400);
+            this.style.transform = `translate(${position}px,0px)`;
+            this.style.transition = "0.1s";
+            console.log($('#floatingInput').val(), $('#floatingPassword').val())
+        }else {
+            this.style.transform = `translate(0px,0px)`;
+        }
+    })
+
+</script>
 </html>
