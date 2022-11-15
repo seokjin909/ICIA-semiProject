@@ -11,4 +11,5 @@ public interface MemberRepository
     Optional<Member> findById(String mid);
 
 
+    Member findByMname(String mname);
 }

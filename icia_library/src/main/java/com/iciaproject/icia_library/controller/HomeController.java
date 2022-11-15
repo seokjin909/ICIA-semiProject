@@ -4,6 +4,7 @@ import com.iciaproject.icia_library.entity.Board;
 import com.iciaproject.icia_library.entity.Book;
 import com.iciaproject.icia_library.entity.Manager;
 import com.iciaproject.icia_library.entity.Member;
+import com.iciaproject.icia_library.entity.Rent;
 import com.iciaproject.icia_library.service.MemberService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +77,9 @@ public class HomeController {
     }
 
     @GetMapping("bookRent")
-    public String bookRent(Member member, Book book, RedirectAttributes rttr) {
-        log.info("bookLent()");
-        String view = mSev.bookRent(member, book, rttr);
+    public String bookRent(String mname, String bname, RedirectAttributes rttr) {
+        log.info("bookRent()");
+        String view = mSev.bookRent(mname, bname, rttr);
         return view;
     }
 
@@ -133,9 +134,9 @@ public class HomeController {
     }
 
     @GetMapping("bookReturn")
-    public String bookReturn(Member member, Book book, RedirectAttributes rttr) {
+    public String bookReturn(String rmember, String rbook, RedirectAttributes rttr) {
         log.info("bookReturn()");
-        String view = mSev.bookReturn(member, book, rttr);
+        String view = mSev.bookReturn(rmember, rbook, rttr);
         return view;
     }
 
