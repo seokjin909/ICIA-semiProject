@@ -100,6 +100,20 @@ public class MemberService {
         mv.setViewName("booklist");
         return mv;
     }
+    public ModelAndView getAuthorBook(String bauthor) {
+        log.info("getAuthorBook()");
+        mv = new ModelAndView();
+        String searchAuthor = "%" + bauthor + "%";
+        try {
+            List<Book> gauthorbook = bRepo.findByBauthorLike(searchAuthor);
+            mv.addObject("gauthorbook", gauthorbook);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mv.setViewName("booklist");
+        return mv;
+    }
 
 
     public String memberLogin(Member member, HttpSession session, RedirectAttributes rttr) {
@@ -304,7 +318,7 @@ public class MemberService {
 
     @Transactional
     public ModelAndView getTagList(String tag) {
-        log.info("getList()");
+        log.info("getTagList()");
         mv = new ModelAndView();
 
         if (tag != null) {
@@ -319,7 +333,6 @@ public class MemberService {
             mv.addObject("btaglist", btaglist);
         }
         mv.setViewName("booklist");
-
         return mv;
     }
 

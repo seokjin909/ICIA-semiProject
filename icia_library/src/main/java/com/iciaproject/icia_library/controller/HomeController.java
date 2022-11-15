@@ -63,10 +63,24 @@ public class HomeController {
     }
 
     @GetMapping("searchProc")
-    public ModelAndView searchProc(String bname) {
+    public ModelAndView searchProc(String tag, String bname) {
         log.info("searchProc()");
-        mv = mSev.getBook(bname);
+        switch (tag){
+            case "제목":
+                mv = mSev.getBook(bname);
+                break;
+            case "저자":
+                mv = mSev.getAuthorBook(bname);
+                break;
+            case "장르":
+                mv = mSev.getTagList(bname);
+                break;
+        }
         return mv;
+    }
+    @GetMapping("booklist")
+    public String booklist(){
+        return "booklist";
     }
 
     @GetMapping("searchTag")
