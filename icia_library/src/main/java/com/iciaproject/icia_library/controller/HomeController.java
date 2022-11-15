@@ -156,14 +156,35 @@ public class HomeController {
         return mv;
     }
 
+    @GetMapping("detailbook")
+    public ModelAndView detailbook(int bid){
+        log.info("detailbook()");
+        mv = mSev.getDetailBook(bid);
+        mv.setViewName("manager/detailbook");
+        return mv;
+    }
     @GetMapping("updateFrm")
     public ModelAndView updateFrm(long bnum) {
         log.info("updateFrm()");
         mv =mSev.getBoard(bnum);
+        System.out.println(mv);
         mv.setViewName("updateFrm");
         return mv;
     }
-
+    @GetMapping("bookUpdate")
+    public ModelAndView bookUpdate(int bid){
+        log.info("bookUpdate()");
+        mv = mSev.getDetailBook(bid);
+        System.out.println(mv);
+        mv.setViewName("manager/bookUpdate");
+        return mv;
+    }
+    @PostMapping("bookUpdateProc")
+    public String bookUpdateProc(Book book, RedirectAttributes rttr, HttpSession session){
+        log.info("bookUpdateProc()");
+        String view = mSev.bookUpdate(book, rttr, session);
+        return view;
+    }
     @PostMapping("updateProc")
     public String updateProc(Board board, HttpSession session, RedirectAttributes rttr) {
         log.info("updateProc");

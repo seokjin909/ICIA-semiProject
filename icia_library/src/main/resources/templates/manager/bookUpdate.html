@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>도서 수정</title>
+    <link rel="stylesheet" href="css/part.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+<th:block th:include="header_manager.html"></th:block>
+<div class="content">
+    <form th:action="@{bookUpdateProc}" method="post" class="write-form">
+        <h2 class="login-header">도서 수정</h2>
+        <th:block th:object="${book}">
+            <input type="hidden" name="bid" th:value="*{bid}">
+            <input type="text" class="write-input" th:value="*{bname}"
+                   name="bname" autofocus placeholder="제목"
+                   required>
+            <input type="text" class="write-input" th:value="*{bauthor}"
+                   name="bauthor" placeholder="저자"
+                   required>
+            <input type="text" class="write-input" th:value="*{btag}"
+                   name="btag" placeholder="장르"
+                   required>
+            <input type="hidden" name="blent" th:value="*{blent}">
+        </th:block>
+        <!-- 파일 입력 처리 영역 -->
+        <div class="btn-area">
+            <input type="submit" class="btn-write" value="글수정">
+            <input type="reset" class="btn-write" value="취소">
+            <!--            <input type="button" class="btn-write" value="B" id="backbtn">-->
+        </div>
+    </form>
+</div>
+<th:block th:include="footer.html"></th:block>
+</body>
+<script th:inline="javascript">
+</script>
+</html>
