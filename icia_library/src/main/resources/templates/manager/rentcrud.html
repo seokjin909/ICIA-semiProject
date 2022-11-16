@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>대출/반납 관리</title>
+    <style>
+        .book-form {
+            max-width: 800px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+        .bd {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .font {
+        !important;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+    <link href="css/part.css" rel="stylesheet">
+</head>
+<body class="bd">
+<th:block th:include="manager/header_manager.html"></th:block>
+<h2 id="clock" class="text-center mt-5"></h2>
+<div class="container mt-5">
+    <div class="table-responsive">
+        <table class="table align-middle table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">번호</th>
+                <th scope="col">책 제목</th>
+                <th scope="col">책 저자</th>
+                <th scope="col">책 장르</th>
+                <th scope="col">대출자</th>
+                <th scope="col">대출일</th>
+                <th scope="col">반납예정일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:if="${#lists.isEmpty(rList)}">
+                <tr>
+                    <td colspan="8" class="text-center">대출이력이 없습니다.</td>
+                </tr>
+            </th:block>
+            <th:block th:unless="${#lists.isEmpty(rList)}">
+                <tr th:each="item:${rList}">
+                    <td th:text="${item.rnum}"></td>
+                    <td th:text="${item.rbook.bname}"></td>
+                    <td th:text="${item.rbook.bauthor}"></td>
+                    <td th:text="${item.rbook.btag}"></td>
+                    <td th:text="${item.rmember.mname}"></td>
+                    <td th:text="${item.rsdate}"></td>
+                    <td th:text="${item.redate}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<th:block th:include="footer.html"></th:block>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+    const clock = document.querySelector("h2#clock")
+
+    function getClock() {
+        const date = new Date();
+        const month = (date.getMonth() + 1)
+        const ddate = date.getDate();
+        const day = date.getDay();
+
+        const hours = String(date.getHours()).padStart(2,"0");
+        const minutes = String(date.getMinutes()).padStart(2,"0");
+        const seconds = String(date.getSeconds()).padStart(2,"0");
+        var week_array = new Array('일', '월', '화', '수', '목', '금', '토');
+        clock.innerText = `대출/반납 관리\n\n${month}월 ${ddate}일 [${week_array[day]}] ${hours}:${minutes}:${seconds}`;
+    }
+
+    getClock();
+    setInterval(getClock, 1000);
+</script>
+</html>

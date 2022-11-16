@@ -52,6 +52,7 @@ public class HomeController {
         return mv;
     }
 
+
     // 관리자 로그인 페이지
     @GetMapping("login_manager")
     public String login_manager() {
@@ -154,7 +155,11 @@ public class HomeController {
         mv = mSev.getBookList();
         return mv;
     }
-
+    @GetMapping("rentcrud")
+    public ModelAndView rentcrud() {
+        mv = mSev.getRentListAll();
+        return mv;
+    }
 
     // 회원 관리 페이지
     @GetMapping("membercrud")

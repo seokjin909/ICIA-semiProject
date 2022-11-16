@@ -106,6 +106,7 @@
             height: 1100px;
         }
     </style>
+
 </head>
 <body class="bd">
 <th:block th:include="header.html"></th:block>
@@ -126,6 +127,7 @@
                 <th scope="col">대출일</th>
                 <th scope="col">반납예정일</th>
                 <th scope="col">반납처리</th>
+                <th scope="col">비고</th>
             </tr>
             </thead>
             <tbody>
@@ -137,20 +139,28 @@
             <th:block th:unless="${#lists.isEmpty(rentList)}">
                 <tr th:each="item:${rentList}">
                     <form th:action="@{bookReturn}">
-                    <td th:text="${item.rnum}"></td>
-                    <td th:text="${item.rbook.bname}"></td>
-                    <td th:text="${item.rbook.bauthor}"></td>
-                    <td th:text="${item.rbook.btag}"></td>
-                    <td th:text="${item.rmember.mname}"></td>
-                    <td th:text="${item.rsdate}"></td>
-                    <td th:text="${item.redate}"></td>
-                    <td>
-                        <input style="visibility: hidden; position: absolute" th:value="${item.rmember.mname}"
-                                      name="rmember">
-                        <input style="visibility: hidden; position: absolute" th:value="${item.rbook.bname}"
-                               name="rbook">
-                        <input class="btn btn-primary" type="submit" value="반납">
-                    </td>
+                        <td th:text="${item.rnum}"></td>
+                        <td th:text="${item.rbook.bname}"></td>
+                        <td th:text="${item.rbook.bauthor}"></td>
+                        <td th:text="${item.rbook.btag}"></td>
+                        <td th:text="${item.rmember.mname}"></td>
+                        <td th:text="${item.rsdate}"></td>
+                        <td th:text="${item.redate}"></td>
+                        <td>
+                            <input style="visibility: hidden; position: absolute" th:value="${item.rmember.mname}"
+                                   name="rmember">
+                            <input style="visibility: hidden; position: absolute" th:value="${item.rbook.bname}"
+                                   name="rbook">
+                            <input class="btn btn-primary" type="submit" value="반납">
+                        </td>
+                        <th:block
+                                th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').equals(item.redate)}">
+                            <td>반납예정일입니다!!</td>
+                        </th:block>
+                        <th:block
+                                th:unless="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').equals(item.redate)}">
+                            <td>이상없음</td>
+                        </th:block>
                     </form>
                 </tr>
             </th:block>
@@ -164,16 +174,20 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script th:inline="javascript">
+
+    const today = new Date();
+    const tt = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
     const clock = document.querySelector("h2#clock")
 
-    function getClock(){
+    function getClock() {
         const date = new Date();
-        const month = (date.getMonth()+1)
+        const month = (date.getMonth() + 1)
         const ddate = date.getDate();
         const day = date.getDay();
         var week_array = new Array('일', '월', '화', '수', '목', '금', '토');
-        clock.innerText= `Today\n\n${month}월 ${ddate}일 [${week_array[day]}]`;
+        clock.innerText = `Today\n\n${month}월 ${ddate}일 [${week_array[day]}]`;
     }
-    getClock()
+
+    getClock();
 </script>
 </html>

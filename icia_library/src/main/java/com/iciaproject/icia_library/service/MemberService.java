@@ -123,7 +123,7 @@ public class MemberService {
         log.info("getRentList()");
         try {
             Member m = mRepo.findByMname(member.getMname());
-            List<Rent> rentList = rRepo.findAllByRmember(m);
+            List<Rent> rentList = rRepo.findAllByRmemberOrderByRsdate(m);
             mv = new ModelAndView();
             mv.addObject("rentList", rentList);
         } catch (Exception e) {
@@ -411,30 +411,24 @@ public class MemberService {
         String msg = null;
         String view = null;
         Member member = mRepo.findByMname(mname);
-
+        System.out.println(member);
         Book book = bRepo.findByBname(bname);
+        System.out.println(book);
+        Rent rent = rRepo.findByRbook(book);
 
-        Rent rent = rRepo.findByRmember(member);
-
-        if (member.getCount() > 0) {
-            try {
-                book.setBlent(false);
-                member.setCount(member.getCount() - 1);
-                bRepo.save(book);
-                mRepo.save(member);
-                rRepo.delete(rent);
-                msg = "반납 성공";
-                view = "redirect:/";
-            } catch (Exception e) {
-                e.printStackTrace();
-                msg = "반납 실패";
-                view = "redirect:/";
-            }
-        } else {
-            msg = "대여하신 책이 없습니다.";
+        try {
+            book.setBlent(false);
+            member.setCount(member.getCount() - 1);
+            bRepo.save(book);
+            mRepo.save(member);
+            rRepo.delete(rent);
+            msg = "반납 성공";
+            view = "redirect:/";
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = "반납 실패";
             view = "redirect:/";
         }
-
         rttr.addFlashAttribute("msg", msg);
         return view;
     }
@@ -544,5 +538,21 @@ public class MemberService {
         }
         rttr.addFlashAttribute("msg", msg);
         return view;
+    }
+
+    public ModelAndView getRentListAll() {
+        mv = new ModelAndView();
+        mv.setViewName("manager/rentcrud");
+
+        List<Rent> rList = new ArrayList<>();
+        Iterable<Rent> rIter = rRepo.findAll();
+
+        for (Rent r : rIter) {
+            rList.add(r);
+        }
+
+        mv.addObject("rList", rList);
+        return mv;
+
     }
 }
