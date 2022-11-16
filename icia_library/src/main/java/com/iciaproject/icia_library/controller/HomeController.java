@@ -114,18 +114,19 @@ public class HomeController {
 
     // 회원 관리 페이지
     @GetMapping("membercrud")
-    public ModelAndView membercrud(){
+    public ModelAndView membercrud() {
         mv = mSev.getMemberList();
         return mv;
     }
+
     // 도서 추가
     @GetMapping("bookInput")
     public String bookInput() {
         return "manager/bookInput";
     }
 
-    @GetMapping ("bookInputProc")
-    public String bookInputProc(Book book){
+    @GetMapping("bookInputProc")
+    public String bookInputProc(Book book) {
         String msg = mSev.inputBook(book);
         return msg;
     }
@@ -136,6 +137,13 @@ public class HomeController {
     public String deleteBook(Book bid) {
         log.info("deleteBook()");
         String msg = mSev.deleteBook(bid);
+        return msg;
+    }
+    // 회원 삭제
+    @GetMapping("deleteMember")
+    public String deleteMember(Member mid){
+        log.info("deleteMember()");
+        String msg = mSev.deleteMember(mid);
         return msg;
     }
 
@@ -163,34 +171,51 @@ public class HomeController {
     }
 
     @GetMapping("detailbook")
-    public ModelAndView detailbook(int bid){
+    public ModelAndView detailbook(int bid) {
         log.info("detailbook()");
         mv = mSev.getDetailBook(bid);
         mv.setViewName("manager/detailbook");
         return mv;
     }
+
     @GetMapping("updateFrm")
     public ModelAndView updateFrm(long bnum) {
         log.info("updateFrm()");
-        mv =mSev.getBoard(bnum);
+        mv = mSev.getBoard(bnum);
         System.out.println(mv);
         mv.setViewName("updateFrm");
         return mv;
     }
+
     @GetMapping("bookUpdate")
-    public ModelAndView bookUpdate(int bid){
+    public ModelAndView bookUpdate(int bid) {
         log.info("bookUpdate()");
         mv = mSev.getDetailBook(bid);
         System.out.println(mv);
         mv.setViewName("manager/bookUpdate");
         return mv;
     }
+
+    @GetMapping("memberUpdate")
+    public ModelAndView memberUpdate(String mid){
+        log.info("memberUpdate()");
+        mv = mSev.getDetailMember(mid);
+        mv.setViewName("manager/memberUpdate");
+        return mv;
+    }
+    @PostMapping("memberUpdateProc")
+    public String memberUpdateProc(Member member, RedirectAttributes rttr){
+        log.info("memberUpdateProc()");
+        String view = mSev.memberUpdate(member, rttr);
+        return view;
+    }
     @PostMapping("bookUpdateProc")
-    public String bookUpdateProc(Book book, RedirectAttributes rttr, HttpSession session){
+    public String bookUpdateProc(Book book, RedirectAttributes rttr, HttpSession session) {
         log.info("bookUpdateProc()");
         String view = mSev.bookUpdate(book, rttr, session);
         return view;
     }
+
     @PostMapping("updateProc")
     public String updateProc(Board board, HttpSession session, RedirectAttributes rttr) {
         log.info("updateProc");
