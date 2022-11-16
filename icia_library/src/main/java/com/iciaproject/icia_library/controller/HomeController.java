@@ -111,6 +111,8 @@ public class HomeController {
     @GetMapping("bookRent")
     public String bookRent(String mname, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
+        log.info("대출자 이름 : "+mname);
+        log.info("책 제목 : "+bname);
         String view = mSev.bookRent(mname, bname, rttr);
         return view;
     }

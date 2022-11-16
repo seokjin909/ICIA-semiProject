@@ -128,7 +128,7 @@
 </form>
 
 <!--    검색 자료 결과창       -->
-<div class="container mt-5">
+<div class="container mt-5">x
     <div class="table-responsive">
         <table class="table align-middle">
             <thead>
@@ -138,21 +138,21 @@
                 <th scope="col">장르</th>
                 <th scope="col">현재대출상태</th>
                 <th scope="col">대출</th>
-                <th scope="col">대출취소</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item:${gbook}">
-                <td th:text="${item.bname}"></td>
-                <td th:text="${item.bauthor}"></td>
-                <td th:text="${item.btag}"></td>
-                <td th:text="${item.blent}"></td>
-                <td>
-                    <input class="btn btn-primary" type="button" value="대출 하기">
-                </td>
-                <td>
-                    <input class="btn btn-primary" type="button" value="대출 취소">
-                </td>
+                <form th:action="bookRent">
+                    <td th:text="${item.bname}"></td>
+                    <td th:text="${item.bauthor}"></td>
+                    <td th:text="${item.btag}"></td>
+                    <td th:text="${item.blent}"></td>
+                    <td>
+                        <input class="btn btn-primary" type="submit" value="대출 하기">
+                        <input style="visibility: hidden; position: absolute" th:value="${item.bname}" name="bname">
+                        <input style="visibility: hidden; position: absolute" th:value="${session.mem.mname}" name="mname">
+                    </td>
+                </form>
             </tr>
             </tbody>
         </table>
