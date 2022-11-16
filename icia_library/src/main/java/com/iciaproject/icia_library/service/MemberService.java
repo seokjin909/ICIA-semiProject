@@ -27,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import javax.swing.text.html.Option;
 
 import java.io.File;
 import java.util.Optional;
@@ -101,7 +100,6 @@ public class MemberService {
         mv.setViewName("booklist");
         return mv;
     }
-
     public ModelAndView getAuthorBook(String bauthor) {
         log.info("getAuthorBook()");
         mv = new ModelAndView();
@@ -130,7 +128,6 @@ public class MemberService {
         }
         return mv;
     }
-
 
     public String memberLogin(Member member, HttpSession session, RedirectAttributes rttr) {
         log.info("memberLogin()");
@@ -361,12 +358,16 @@ public class MemberService {
 
     // Book Rental Function
     @Transactional
-    public String bookRent(String mname, String bname, RedirectAttributes rttr) {
+    public String bookRent(Optional<Member> omember, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
         String msg = null;
         String view = null;
 
-        Member member = mRepo.findByMname(mname);
+        if(omember == null){
+            return "redirect:login";
+        }
+
+        Member member = mRepo.findByMname(omember.get().getMname());
         Book book = bRepo.findByBname(bname);
         Rent rent = new Rent();
         if (member.getCount() < 5) {
@@ -483,7 +484,7 @@ public class MemberService {
         try {
             bRepo.save(book);
             msg = "수정 성공";
-            view = "redirect:detailbook?bid=" + book.getBid();
+            view = "redirect:detailbook?bid="+book.getBid();
         } catch (Exception e) {
             e.printStackTrace();
             msg = "수정 실패";
