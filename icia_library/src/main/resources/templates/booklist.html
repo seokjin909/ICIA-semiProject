@@ -142,7 +142,7 @@
             </thead>
             <tbody>
             <tr th:each="item:${gbook}">
-                <form th:action="bookRent">
+                <form th:action="@{bookRent}">
                     <td th:text="${item.bname}"></td>
                     <td th:text="${item.bauthor}"></td>
                     <td th:text="${item.btag}"></td>

@@ -113,7 +113,10 @@ public class HomeController {
     @GetMapping("bookRent")
     public String bookRent(HttpSession session, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
-        Optional<Member> member = (Optional<Member>) session.getAttribute("mem");
+        Member member = (Member) session.getAttribute("mem");
+        if(member == null){
+            return "redirect:login";
+        }
         String view = mSev.bookRent(member, bname, rttr);
         return view;
     }
