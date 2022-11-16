@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원 관리</title>
+    <style>
+        .book-form {
+            max-width: 800px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+        .bd {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .font {
+        !important;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+    <link href="css/part.css" rel="stylesheet">
+</head>
+<body class="bd">
+<th:block th:include="manager/header_manager.html"></th:block>
+<div class="text-center book-form">
+    <table border="1" class="table-bordered table-light">
+        <thead class="table-header">
+        <tr style="height: 50px">
+            <th style="width: 200px">이름</th>
+            <th style="width: 300px">아이디</th>
+            <th style="width: 100px">비밀번호</th>
+            <th style="width: 200px">연락처</th>
+            <th style="width: 200px">생일</th>
+        </tr>
+        </thead>
+        <th:block th:if="${#lists.isEmpty(mList)}">
+            <tbody>
+            <div class="non-content"><b>데이터가 없습니다.</b></div>
+            </tbody>
+        </th:block>
+        <th:block th:unless="${#lists.isEmpty(mList)}">
+            <th:block th:each="mList:${mList}">
+                <tbody id="result">
+                <td th:text="${mList.mname}"></td>
+                <td th:text="${mList.mid}"></td>
+                <td th:text="${mList.mpwd}"></td>
+                <td th:text="${mList.mphone}"></td>
+                <td th:text="${mList.mbirth}"></td>
+                </tbody>
+            </th:block>
+        </th:block>
+    </table>
+</div>
+
+<th:block th:include="footer.html"></th:block>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+
+</script>
+</html>

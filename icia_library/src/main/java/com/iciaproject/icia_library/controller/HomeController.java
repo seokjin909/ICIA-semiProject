@@ -112,6 +112,12 @@ public class HomeController {
         return mv;
     }
 
+    // 회원 관리 페이지
+    @GetMapping("membercrud")
+    public ModelAndView membercrud(){
+        mv = mSev.getMemberList();
+        return mv;
+    }
     // 도서 추가
     @GetMapping("bookInput")
     public String bookInput() {
