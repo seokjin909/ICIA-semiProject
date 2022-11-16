@@ -89,6 +89,7 @@ public class MemberService {
     public ModelAndView getBook(String bname) {
         log.info("getBook()");
         mv = new ModelAndView();
+        mv.clear();
         String searchName = "%" + bname + "%";
         try {
             List<Book> gbook = (List<Book>) bRepo.findByBnameLike(searchName);
@@ -103,10 +104,11 @@ public class MemberService {
     public ModelAndView getAuthorBook(String bauthor) {
         log.info("getAuthorBook()");
         mv = new ModelAndView();
+        mv.clear();
         String searchAuthor = "%" + bauthor + "%";
         try {
-            List<Book> gauthorbook = bRepo.findByBauthorLike(searchAuthor);
-            mv.addObject("gauthorbook", gauthorbook);
+            List<Book> gbook = bRepo.findByBauthorLike(searchAuthor);
+            mv.addObject("gbook", gbook);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -320,17 +322,17 @@ public class MemberService {
     public ModelAndView getTagList(String tag) {
         log.info("getTagList()");
         mv = new ModelAndView();
-
+        mv.clear();
         if (tag != null) {
             try {
-                List<Book> btaglist = bRepo.findByBtag(tag);
-                mv.addObject("btaglist", btaglist);
+                List<Book> gbook = bRepo.findByBtag(tag);
+                mv.addObject("gbook", gbook);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            List<Book> btaglist = (List<Book>) bRepo.findAll();
-            mv.addObject("btaglist", btaglist);
+            List<Book> gbook = (List<Book>) bRepo.findAll();
+            mv.addObject("gbook", gbook);
         }
         mv.setViewName("booklist");
         return mv;
