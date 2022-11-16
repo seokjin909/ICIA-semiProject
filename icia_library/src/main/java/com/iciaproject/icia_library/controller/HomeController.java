@@ -7,6 +7,7 @@ import com.iciaproject.icia_library.entity.Member;
 import com.iciaproject.icia_library.entity.Rent;
 import com.iciaproject.icia_library.service.MemberService;
 import lombok.extern.java.Log;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.spel.ast.OpAnd;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,20 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping("bookrtn")
+    public ModelAndView bookrtn(HttpSession session) {
+        log.info("bookrtn()");
+        Member member = (Member) session.getAttribute("mem");
+        if (member == null) {
+            mv = new ModelAndView();
+            mv.setViewName("redirect:login");
+            return mv;
+        }
+        mv = mSev.getRentList(member);
+        mv.setViewName("bookrtn");
+        return mv;
+    }
+
     // 관리자 로그인 페이지
     @GetMapping("login_manager")
     public String login_manager() {
@@ -45,9 +60,8 @@ public class HomeController {
 
     // 로그아웃
     @GetMapping("logoutProc")
-    public String logoutProc(HttpSession session, RedirectAttributes rttr) {
+    public String logoutProc(HttpSession session) {
         session.invalidate();
-        rttr.addFlashAttribute("msg","로그아웃 되었습니다.");
         return "redirect:/";
     }
 
@@ -68,10 +82,13 @@ public class HomeController {
     @GetMapping("searchProc")
     public ModelAndView searchProc(String tag, String bname) {
         log.info("searchProc()");
+        if (tag == null) {
+            tag = " ";
+            bname = null;
+        }
         switch (tag) {
             case "제목":
                 mv = mSev.getBook(bname);
-
                 break;
             case "저자":
                 mv = mSev.getAuthorBook(bname);
@@ -79,8 +96,10 @@ public class HomeController {
             case "장르":
                 mv = mSev.getTagList(bname);
                 break;
+            case " ":
+                mv = mSev.getBook(bname);
+                break;
         }
-        log.info(mv.toString());
         return mv;
     }
 
@@ -100,10 +119,10 @@ public class HomeController {
     public String bookRent(HttpSession session, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
         Member member = (Member) session.getAttribute("mem");
-        if(member == null){
+        if (member == null) {
             return "redirect:login";
         }
-        String view = mSev.bookRent(member, bname, rttr);
+        String view = mSev.bookRent(member, bname, rttr, session);
         return view;
     }
 
@@ -136,11 +155,20 @@ public class HomeController {
         return mv;
     }
 
+
+    // 회원 관리 페이지
+    @GetMapping("membercrud")
+    public ModelAndView membercrud() {
+        mv = mSev.getMemberList();
+        return mv;
+    }
+
     // 도서 추가
     @GetMapping("bookInput")
     public String bookInput() {
         return "manager/bookInput";
     }
+
 
     @GetMapping("bookInputProc")
     public String bookInputProc(Book book) {
@@ -148,18 +176,29 @@ public class HomeController {
         return msg;
     }
 
-
     // 도서 삭제
     @GetMapping("deleteBook")
-    public String deleteBook(Integer bid, RedirectAttributes rttr) {
+    public String deleteBook(Book bid) {
         log.info("deleteBook()");
-        String view = mSev.deleteBook(bid,rttr);
-        return view;
+        String msg = mSev.deleteBook(bid);
+        return msg;
     }
+
+
+    // 회원 삭제
+    @GetMapping("deleteMember")
+    public String deleteMember(Member mid){
+        log.info("deleteMember()");
+        String msg = mSev.deleteMember(mid);
+        return msg;
+    }
+
 
     @GetMapping("bookReturn")
     public String bookReturn(String rmember, String rbook, RedirectAttributes rttr) {
         log.info("bookReturn()");
+        log.info(rmember);
+        log.info(rbook);
         String view = mSev.bookReturn(rmember, rbook, rttr);
         return view;
     }
@@ -188,6 +227,7 @@ public class HomeController {
         return mv;
     }
 
+
     @GetMapping("updateFrm")
     public ModelAndView updateFrm(long bnum) {
         log.info("updateFrm()");
@@ -205,6 +245,23 @@ public class HomeController {
         mv.setViewName("manager/bookUpdate");
         return mv;
     }
+
+
+    @GetMapping("memberUpdate")
+    public ModelAndView memberUpdate(String mid){
+        log.info("memberUpdate()");
+        mv = mSev.getDetailMember(mid);
+        mv.setViewName("manager/memberUpdate");
+        return mv;
+    }
+
+    @PostMapping("memberUpdateProc")
+    public String memberUpdateProc(Member member, RedirectAttributes rttr){
+        log.info("memberUpdateProc()");
+        String view = mSev.memberUpdate(member, rttr);
+        return view;
+    }
+
 
     @PostMapping("bookUpdateProc")
     public String bookUpdateProc(Book book, RedirectAttributes rttr, HttpSession session) {

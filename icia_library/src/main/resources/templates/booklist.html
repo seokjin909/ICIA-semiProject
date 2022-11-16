@@ -8,8 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>자료 검색</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
-
         .main_search {
             display: flex;
             justify-content: center;
@@ -107,8 +108,6 @@
         }
     </style>
 </head>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <body class="bd">
 <th:block th:include="header.html"></th:block>
 <form th:action="@{searchProc}" method="get" class="form-text text-center" id="form_search">
@@ -128,33 +127,48 @@
     </div>
 </form>
 
-
 <!--    검색 자료 결과창       -->
-<div class="container mt-5">
-    <div class="table-responsive">
-        <table class="table align-middle">
-            <thead>
-            <tr>
-                <th scope="col">책제목</th>
-                <th scope="col">저자</th>
-                <th scope="col">장르</th>
-                <th scope="col">현재대출상태</th>
-                <th scope="col">대출</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item:${gbook}">
-                <form th:action="@{bookRent}">
-                    <td th:text="${item.bname}"></td>
-                    <td th:text="${item.bauthor}"></td>
-                    <td th:text="${item.btag}"></td>
-                    <td th:text="${item.blent}"></td>
-                    <td>
-                        <input class="btn btn-primary" type="submit" value="대출 하기">
-                        <input style="visibility: hidden; position: absolute" th:value="${item.bname}" name="bname">
-                    </td>
-                </form>
-            </tr>
+
+<div class="container mt-5 text-center">
+            <th:block th:if="${#lists.isEmpty(gbook)}">
+                <tr>
+                    <td colspan="5" class="text-center">검색결과가 없습니다.</td>
+                </tr>
+            </th:block>
+            <th:block th:unless="${#lists.isEmpty(gbook)}">
+                <tr th:each="item:${gbook}">
+                    <form th:action="@{bookRent}">
+                        <td th:text="${item.bname}"></td>
+                        <td th:text="${item.bauthor}"></td>
+                        <td th:text="${item.btag}"></td>
+                        <th:block th:if="${item.blent==false}">
+                            <td style="color: #0a53be">대출가능</td>
+                        </th:block>
+                        <th:block th:unless="${item.blent==false}">
+                            <td style="color: red">대여중</td>
+                        </th:block>
+                        <th:block th:if="${session.mem!=null}">
+                            <th:block th:if="${item.blent==false}">
+                                <td>
+                                    <input style="visibility: hidden; position: absolute" th:value="${item.bname}"
+                                           name="bname">
+                                    <input class="btn btn-primary" type="submit" value="대출하기">
+                                </td>
+                            </th:block>
+                            <th:block th:unless="${item.blent==false}">
+                                <td>
+                                    <input class="btn btn-danger" type="button" value="대출불가" readonly>
+                                </td>
+                            </th:block>
+                        </th:block>
+                        <th:block th:unless="${session.mem!=null}">
+                            <td>
+                                <input class="btn btn-danger" type="button" value="회원만 가능합니다" readonly>
+                            </td>
+                        </th:block>
+                    </form>
+                </tr>
+            </th:block>
             </tbody>
         </table>
     </div>
@@ -162,14 +176,9 @@
 
 <th:block th:include="footer.html"></th:block>
 </body>
-<script th:inline="javascript">
-    // let m = [[${msg}]];
-    // if (m != ""){
-    //     alert(m);
-    // }
-</script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-    let gbook = [[${gbook}]];
     $(function () {
         $("#searching").click(function () {
             var select = $("#search").val(); //

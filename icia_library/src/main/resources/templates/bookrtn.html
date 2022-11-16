@@ -111,37 +111,52 @@
 <th:block th:include="header.html"></th:block>
 
 
+<!--    검색 자료 결과창       -->
+<h2 class="text-center" id="clock"></h2>
 <div class="container mt-5">
-  <div class="table-responsive">
-    <table class="table align-middle">
-      <thead>
-      <tr>
-        <th scope="col">번호</th>
-        <th scope="col">책 제목</th>
-        <th scope="col">책 저자</th>
-        <th scope="col">책 장르</th>
-        <th scope="col">대출자</th>
-        <th scope="col">대출일자</th>
-        <th scope="col">반납일자</th>
-        <th scope="col">반납</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="item:${rentList}">
-        <td th:text="${item.rnum}"></td>
-        <td th:text="${item.rbook.bname}"></td>
-        <td th:text="${item.rbook.bauthor}"></td>
-        <td th:text="${item.rbook.btag}"></td>
-        <td th:text="${item.rmember.mname}"></td>
-        <td th:text="${item.rsdate}"></td>
-        <td th:text="${item.redate}"></td>
-        <td>
-          <input class="btn btn-primary" type="submit" value="반납">
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+            <tr>
+                <th scope="col">번호</th>
+                <th scope="col">책 제목</th>
+                <th scope="col">책 저자</th>
+                <th scope="col">책 장르</th>
+                <th scope="col">대출자</th>
+                <th scope="col">대출일</th>
+                <th scope="col">반납예정일</th>
+                <th scope="col">반납처리</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:if="${#lists.isEmpty(rentList)}">
+                <tr>
+                    <td colspan="8" class="text-center">대출이력이 없습니다.</td>
+                </tr>
+            </th:block>
+            <th:block th:unless="${#lists.isEmpty(rentList)}">
+                <tr th:each="item:${rentList}">
+                    <form th:action="@{bookReturn}">
+                    <td th:text="${item.rnum}"></td>
+                    <td th:text="${item.rbook.bname}"></td>
+                    <td th:text="${item.rbook.bauthor}"></td>
+                    <td th:text="${item.rbook.btag}"></td>
+                    <td th:text="${item.rmember.mname}"></td>
+                    <td th:text="${item.rsdate}"></td>
+                    <td th:text="${item.redate}"></td>
+                    <td>
+                        <input style="visibility: hidden; position: absolute" th:value="${item.rmember.mname}"
+                                      name="rmember">
+                        <input style="visibility: hidden; position: absolute" th:value="${item.rbook.bname}"
+                               name="rbook">
+                        <input class="btn btn-primary" type="submit" value="반납">
+                    </td>
+                    </form>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <th:block th:include="footer.html"></th:block>
@@ -149,7 +164,16 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script th:inline="javascript">
-</script>
-<script type="text/javascript">
+    const clock = document.querySelector("h2#clock")
+
+    function getClock(){
+        const date = new Date();
+        const month = (date.getMonth()+1)
+        const ddate = date.getDate();
+        const day = date.getDay();
+        var week_array = new Array('일', '월', '화', '수', '목', '금', '토');
+        clock.innerText= `Today\n\n${month}월 ${ddate}일 [${week_array[day]}]`;
+    }
+    getClock()
 </script>
 </html>
