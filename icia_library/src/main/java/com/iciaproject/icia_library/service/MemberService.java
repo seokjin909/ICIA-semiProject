@@ -191,16 +191,22 @@ public class MemberService {
 
     // 도서 삭제 메소드
     @Transactional
-    public String deleteBook(Book bid) {
+    public String deleteBook(Integer bid, RedirectAttributes rttr) {
+        log.info("deletedBook()");
         String msg = null;
+        String view = null;
+
         try {
-            bRepo.delete(bid);
+            bRepo.deleteById(bid);
             msg = "삭제 성공";
+            view = "redirect:bookcrud";
         } catch (Exception e) {
             e.printStackTrace();
             msg = "삭제 실패";
+            view = "redirect:detailbook?bid=" + bid;
         }
-        return msg;
+        rttr.addFlashAttribute("msg", msg);
+        return view;
     }
 
 
@@ -520,7 +526,6 @@ public class MemberService {
         log.info("getDetailMember()");
         mv = new ModelAndView();
         Member member = mRepo.findById(mid).get();
-        System.out.println(member);
         mv.addObject("member", member);
         return mv;
     }
