@@ -68,6 +68,7 @@ public class HomeController {
         switch (tag) {
             case "제목":
                 mv = mSev.getBook(bname);
+
                 break;
             case "저자":
                 mv = mSev.getAuthorBook(bname);
@@ -76,6 +77,7 @@ public class HomeController {
                 mv = mSev.getTagList(bname);
                 break;
         }
+        log.info(mv.toString());
         return mv;
     }
 
