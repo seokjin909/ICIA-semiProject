@@ -8,16 +8,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>자료 검색</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
+
         .main_search {
             display: flex;
             justify-content: center;
             box-sizing: border-box;
-            padding-top: 40px;
+            padding-top:40px;
         }
-
         #search {
             width: 30%;
             height: 60px;
@@ -28,7 +26,7 @@
             font-weight: bold;
         }
 
-        .ui-icon-search {
+        .ui-icon-search{
             margin-left: 5px;
             width: 80px;
             color: #f1f1f1;
@@ -39,7 +37,7 @@
             background-color: #0c63e4;
         }
 
-        #form_search {
+        #form_search{
             background: linear-gradient(to right, #6da9ff, #1865e5); /*#569aff, #0b5ace*/
             height: 150px;
             text-align: center;
@@ -51,7 +49,7 @@
         /*    text-align: center;*/
         /*}*/
 
-        #form_main {
+        #form_main{
             display: flex;
             justify-content: center;
         }
@@ -65,9 +63,8 @@
             padding-top: 40px;
             margin-bottom: 10px;
             text-shadow: -1px 0 #06357a, 0 1px #06357a, 1px 0 #06357a, 0 -1px #06357a;
-            text-shadow: 1px 1px 1px #000
+            text-shadow:1px 1px 1px #000
         }
-
         #icia_middle {
             color: white;
             font-size: 20px;
@@ -77,22 +74,19 @@
             /*padding-top: 50px;*/
             margin-bottom: 30px;
             text-shadow: -1px 0 #06357a, 0 1px #06357a, 1px 0 #06357a, 0 -1px #06357a;
-            text-shadow: 1px 1px 1px #000
+            text-shadow:1px 1px 1px #000
         }
-
         .over {
             fill: white;
         }
-
         .over:hover {
-            fill: rgba(195, 199, 203, 0.13);
+            fill : rgba(195, 199, 203, 0.13);
         }
 
-        .bd {
+        .bd{
             font-family: 'Gowun Dodum', sans-serif;
         }
-
-        #tag_option {
+        #tag_option{
             font-size: 18px;
             font-weight: bold;
             text-align: center;
@@ -102,8 +96,7 @@
             margin-right: 3px;
             width: 80px;
         }
-
-        #searchlist {
+        #searchlist{
             height: 1100px;
         }
     </style>
@@ -127,8 +120,12 @@
     </div>
 </form>
 
+<div>
 <!--    검색 자료 결과창       -->
-<div class="container mt-5">x
+<<<<<<< HEAD
+    <span>${gbook}</span>
+=======
+<div class="container mt-5">
     <div class="table-responsive">
         <table class="table align-middle">
             <thead>
@@ -157,19 +154,26 @@
             </tbody>
         </table>
     </div>
+>>>>>>> 287cbb051f5ab882a6d453442b05a773051a10ee
 </div>
 
 <th:block th:include="footer.html"></th:block>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script th:inline="javascript">
+    // let m = [[${msg}]];
+    // if (m != ""){
+    //     alert(m);
+    // }
+</script>
 <script type="text/javascript">
-    $(function () {
-        $("#searching").click(function () {
+    $(function(){
+        $("#searching").click(function(){
             var select = $("#search").val(); //
 
             var keytag = $("#tag_option").val();
-            location.href = "./booklist?tag=" + keytag
+            location.href="./booklist?tag=" + keytag
                 + "&bname=" + select;
         });
     });

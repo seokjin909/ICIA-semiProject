@@ -7,7 +7,6 @@ import com.iciaproject.icia_library.entity.Member;
 import com.iciaproject.icia_library.entity.Rent;
 import com.iciaproject.icia_library.service.MemberService;
 import lombok.extern.java.Log;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,15 +33,6 @@ public class HomeController {
     @GetMapping("login")
     public String login() {
         return "login";
-    }
-
-    @GetMapping("bookrtn")
-    public ModelAndView bookrtn(HttpSession session){
-        log.info("bookrtn()");
-        Member member = (Member) session.getAttribute("mem");
-        mv = mSev.getRentList(member);
-        mv.setViewName("bookrtn");
-        return mv;
     }
 
     // 관리자 로그인 페이지
@@ -75,13 +65,10 @@ public class HomeController {
     @GetMapping("searchProc")
     public ModelAndView searchProc(String tag, String bname) {
         log.info("searchProc()");
-        if(tag == null) {
-            tag = " ";
-            bname = null;
-        }
         switch (tag) {
             case "제목":
                 mv = mSev.getBook(bname);
+
                 break;
             case "저자":
                 mv = mSev.getAuthorBook(bname);
@@ -89,10 +76,8 @@ public class HomeController {
             case "장르":
                 mv = mSev.getTagList(bname);
                 break;
-            case " ":
-                mv = mSev.getBook(bname);
-                break;
         }
+        log.info(mv.toString());
         return mv;
     }
 
@@ -111,8 +96,6 @@ public class HomeController {
     @GetMapping("bookRent")
     public String bookRent(String mname, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
-        log.info("대출자 이름 : "+mname);
-        log.info("책 제목 : "+bname);
         String view = mSev.bookRent(mname, bname, rttr);
         return view;
     }
@@ -146,13 +129,6 @@ public class HomeController {
         return mv;
     }
 
-    // 회원 관리 페이지
-    @GetMapping("membercrud")
-    public ModelAndView membercrud() {
-        mv = mSev.getMemberList();
-        return mv;
-    }
-
     // 도서 추가
     @GetMapping("bookInput")
     public String bookInput() {
@@ -171,13 +147,6 @@ public class HomeController {
     public String deleteBook(Book bid) {
         log.info("deleteBook()");
         String msg = mSev.deleteBook(bid);
-        return msg;
-    }
-    // 회원 삭제
-    @GetMapping("deleteMember")
-    public String deleteMember(Member mid){
-        log.info("deleteMember()");
-        String msg = mSev.deleteMember(mid);
         return msg;
     }
 
@@ -228,22 +197,6 @@ public class HomeController {
         System.out.println(mv);
         mv.setViewName("manager/bookUpdate");
         return mv;
-    }
-
-
-    @GetMapping("memberUpdate")
-    public ModelAndView memberUpdate(String mid){
-        log.info("memberUpdate()");
-        mv = mSev.getDetailMember(mid);
-        mv.setViewName("manager/memberUpdate");
-        return mv;
-    }
-    
-    @PostMapping("memberUpdateProc")
-    public String memberUpdateProc(Member member, RedirectAttributes rttr){
-        log.info("memberUpdateProc()");
-        String view = mSev.memberUpdate(member, rttr);
-        return view;
     }
 
     @PostMapping("bookUpdateProc")
