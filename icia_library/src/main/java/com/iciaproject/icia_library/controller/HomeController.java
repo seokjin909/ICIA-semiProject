@@ -8,6 +8,7 @@ import com.iciaproject.icia_library.entity.Rent;
 import com.iciaproject.icia_library.service.MemberService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.OpAnd;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 @Log
@@ -94,9 +96,10 @@ public class HomeController {
     }
 
     @GetMapping("bookRent")
-    public String bookRent(String mname, String bname, RedirectAttributes rttr) {
+    public String bookRent(HttpSession session, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
-        String view = mSev.bookRent(mname, bname, rttr);
+        Optional<Member> member = (Optional<Member>) session.getAttribute("mem");
+        String view = mSev.bookRent(member, bname, rttr);
         return view;
     }
 

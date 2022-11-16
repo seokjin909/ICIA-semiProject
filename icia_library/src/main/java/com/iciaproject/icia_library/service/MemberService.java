@@ -341,12 +341,16 @@ public class MemberService {
 
     // Book Rental Function
     @Transactional
-    public String bookRent(String mname, String bname, RedirectAttributes rttr) {
+    public String bookRent(Optional<Member> omember, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
         String msg = null;
         String view = null;
 
-        Member member = mRepo.findByMname(mname);
+        if(omember == null){
+            return "redirect:login";
+        }
+
+        Member member = mRepo.findByMname(omember.get().getMname());
         Book book = bRepo.findByBname(bname);
         Rent rent = new Rent();
         if (member.getCount() < 5) {
