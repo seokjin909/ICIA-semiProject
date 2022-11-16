@@ -119,16 +119,16 @@ public class MemberService {
         return mv;
     }
 
-    public ModelAndView getRentList(Member member){
+    public ModelAndView getRentList(Member member) {
         log.info("getRentList()");
         try {
             Member m = mRepo.findByMname(member.getMname());
             List<Rent> rentList = rRepo.findAllByRmember(m);
             mv = new ModelAndView();
-            mv.addObject("rentList",rentList);
-        }
-        catch (Exception e){
+            mv.addObject("rentList", rentList);
+        } catch (Exception e) {
             e.printStackTrace();
+            log.info("대여목록 불러오기 실패");
         }
         return mv;
     }
@@ -357,7 +357,7 @@ public class MemberService {
 
     // Book Rental Function
     @Transactional
-    public String bookRent(Member members, String bname, RedirectAttributes rttr) {
+    public String bookRent(Member members, String bname, RedirectAttributes rttr, HttpSession session) {
         log.info("bookRent()");
         String msg = null;
         String view = null;
@@ -372,6 +372,7 @@ public class MemberService {
                 Calendar cal = Calendar.getInstance();
                 String sdate = sdf.format(cal.getTime());
 
+                book.setBlent(true);
                 rent.setRmember(member);
                 rent.setRbook(book);
                 rent.setRsdate(sdate);
@@ -381,9 +382,8 @@ public class MemberService {
                 String edate = sdf.format(cal.getTime());
                 rent.setRedate(edate);
 
-                // 현재 user의 대여수 증가
+                // 현재 user의 대여수 증가, 도서 상태 변경,
                 member.setCount(member.getCount() + 1);
-
                 rRepo.save(rent);
                 mRepo.save(member);
                 bRepo.save(book);
@@ -399,6 +399,7 @@ public class MemberService {
             view = "redirect:/";
         }
         rttr.addFlashAttribute("msg", msg);
+        session.setAttribute("man", member);
         return view;
     }
 
@@ -406,16 +407,18 @@ public class MemberService {
     @Transactional
     public String bookReturn(String mname, String bname, RedirectAttributes rttr) {
         log.info("bookReturn()");
+
         String msg = null;
         String view = null;
         Member member = mRepo.findByMname(mname);
+
         Book book = bRepo.findByBname(bname);
+
         Rent rent = rRepo.findByRmember(member);
 
         if (member.getCount() > 0) {
             try {
                 book.setBlent(false);
-
                 member.setCount(member.getCount() - 1);
                 bRepo.save(book);
                 mRepo.save(member);
@@ -483,7 +486,7 @@ public class MemberService {
         } catch (Exception e) {
             e.printStackTrace();
             msg = "수정 실패";
-            view = "redirect:bookUpdate?bid="+book.getBid();
+            view = "redirect:bookUpdate?bid=" + book.getBid();
         }
         rttr.addFlashAttribute("msg", msg);
         return view;

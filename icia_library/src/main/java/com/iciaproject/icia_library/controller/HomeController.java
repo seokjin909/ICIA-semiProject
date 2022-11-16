@@ -39,9 +39,14 @@ public class HomeController {
     }
 
     @GetMapping("bookrtn")
-    public ModelAndView bookrtn(HttpSession session){
+    public ModelAndView bookrtn(HttpSession session) {
         log.info("bookrtn()");
         Member member = (Member) session.getAttribute("mem");
+        if (member == null) {
+            mv = new ModelAndView();
+            mv.setViewName("redirect:login");
+            return mv;
+        }
         mv = mSev.getRentList(member);
         mv.setViewName("bookrtn");
         return mv;
@@ -77,7 +82,7 @@ public class HomeController {
     @GetMapping("searchProc")
     public ModelAndView searchProc(String tag, String bname) {
         log.info("searchProc()");
-        if(tag == null) {
+        if (tag == null) {
             tag = " ";
             bname = null;
         }
@@ -114,10 +119,10 @@ public class HomeController {
     public String bookRent(HttpSession session, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
         Member member = (Member) session.getAttribute("mem");
-        if(member == null){
+        if (member == null) {
             return "redirect:login";
         }
-        String view = mSev.bookRent(member, bname, rttr);
+        String view = mSev.bookRent(member, bname, rttr, session);
         return view;
     }
 
@@ -177,9 +182,10 @@ public class HomeController {
         String msg = mSev.deleteBook(bid);
         return msg;
     }
+
     // 회원 삭제
     @GetMapping("deleteMember")
-    public String deleteMember(Member mid){
+    public String deleteMember(Member mid) {
         log.info("deleteMember()");
         String msg = mSev.deleteMember(mid);
         return msg;
@@ -188,6 +194,8 @@ public class HomeController {
     @GetMapping("bookReturn")
     public String bookReturn(String rmember, String rbook, RedirectAttributes rttr) {
         log.info("bookReturn()");
+        log.info(rmember);
+        log.info(rbook);
         String view = mSev.bookReturn(rmember, rbook, rttr);
         return view;
     }
@@ -236,7 +244,7 @@ public class HomeController {
 
 
     @GetMapping("memberUpdate")
-    public ModelAndView memberUpdate(String mid){
+    public ModelAndView memberUpdate(String mid) {
         log.info("memberUpdate()");
         mv = mSev.getDetailMember(mid);
         mv.setViewName("manager/memberUpdate");
@@ -244,7 +252,7 @@ public class HomeController {
     }
 
     @PostMapping("memberUpdateProc")
-    public String memberUpdateProc(Member member, RedirectAttributes rttr){
+    public String memberUpdateProc(Member member, RedirectAttributes rttr) {
         log.info("memberUpdateProc()");
         String view = mSev.memberUpdate(member, rttr);
         return view;

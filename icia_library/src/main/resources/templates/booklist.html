@@ -128,31 +128,58 @@
 </form>
 
 <!--    검색 자료 결과창       -->
-<div class="container mt-5">
+<div class="container mt-5 text-center">
     <div class="table-responsive">
         <table class="table align-middle">
             <thead>
             <tr>
-                <th scope="col">책제목</th>
-                <th scope="col">저자</th>
-                <th scope="col">장르</th>
-                <th scope="col">현재대출상태</th>
-                <th scope="col">대출</th>
+                <th scope="col" style="width: 300px">책제목</th>
+                <th scope="col" style="width: 200px">저자</th>
+                <th scope="col" style="width: 100px">장르</th>
+                <th scope="col" style="width: 100px">대출상태</th>
+                <th scope="col" style="width: 200px">구분</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item:${gbook}">
-                <form th:action="@{bookRent}">
-                    <td th:text="${item.bname}"></td>
-                    <td th:text="${item.bauthor}"></td>
-                    <td th:text="${item.btag}"></td>
-                    <td th:text="${item.blent}"></td>
-                    <td>
-                        <input class="btn btn-primary" type="submit" value="대출 하기">
-                        <input style="visibility: hidden; position: absolute" th:value="${item.bname}" name="bname">
-                    </td>
-                </form>
-            </tr>
+            <th:block th:if="${#lists.isEmpty(gbook)}">
+                <tr>
+                    <td colspan="5" class="text-center">검색결과가 없습니다.</td>
+                </tr>
+            </th:block>
+            <th:block th:unless="${#lists.isEmpty(gbook)}">
+                <tr th:each="item:${gbook}">
+                    <form th:action="@{bookRent}">
+                        <td th:text="${item.bname}"></td>
+                        <td th:text="${item.bauthor}"></td>
+                        <td th:text="${item.btag}"></td>
+                        <th:block th:if="${item.blent==false}">
+                            <td style="color: #0a53be">대출가능</td>
+                        </th:block>
+                        <th:block th:unless="${item.blent==false}">
+                            <td style="color: red">대여중</td>
+                        </th:block>
+                        <th:block th:if="${session.mem!=null}">
+                            <th:block th:if="${item.blent==false}">
+                                <td>
+                                    <input style="visibility: hidden; position: absolute" th:value="${item.bname}"
+                                           name="bname">
+                                    <input class="btn btn-primary" type="submit" value="대출하기">
+                                </td>
+                            </th:block>
+                            <th:block th:unless="${item.blent==false}">
+                                <td>
+                                    <input class="btn btn-danger" type="button" value="대출불가" readonly>
+                                </td>
+                            </th:block>
+                        </th:block>
+                        <th:block th:unless="${session.mem!=null}">
+                            <td>
+                                <input class="btn btn-danger" type="button" value="회원만 가능합니다" readonly>
+                            </td>
+                        </th:block>
+                    </form>
+                </tr>
+            </th:block>
             </tbody>
         </table>
     </div>
