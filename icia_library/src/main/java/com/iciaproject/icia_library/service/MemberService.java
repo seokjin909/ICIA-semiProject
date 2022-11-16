@@ -123,7 +123,7 @@ public class MemberService {
         log.info("getRentList()");
         try {
             Member m = mRepo.findByMname(member.getMname());
-            List<Rent> rentList = rRepo.findAllByRmember(m);
+            List<Rent> rentList = rRepo.findAllByRmemberOrderByRsdate(m);
             mv = new ModelAndView();
             mv.addObject("rentList", rentList);
         } catch (Exception e) {

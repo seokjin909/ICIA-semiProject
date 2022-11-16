@@ -10,5 +10,5 @@ public interface RentRepository extends CrudRepository<Rent, Long> {
 
     Rent findByRmember(Member member);
 
-    List<Rent> findAllByRmember(Member member);
+    List<Rent> findAllByRmemberOrderByRsdate(Member member);
 }
