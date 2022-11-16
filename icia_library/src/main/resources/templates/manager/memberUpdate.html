@@ -48,5 +48,11 @@
 <th:block th:include="footer.html"></th:block>
 </body>
 <script th:inline="javascript">
+    let m = [[${msg}]];
+    if (m==null){
+        console.log(m);
+    } else {
+        alert(m);
+    }
 </script>
 </html>
