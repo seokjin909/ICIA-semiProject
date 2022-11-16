@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.Option;
 
 import java.io.File;
 import java.util.Optional;
@@ -97,9 +98,11 @@ public class MemberService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         mv.setViewName("booklist");
         return mv;
     }
+
     public ModelAndView getAuthorBook(String bauthor) {
         log.info("getAuthorBook()");
         mv = new ModelAndView();
@@ -116,18 +119,20 @@ public class MemberService {
         return mv;
     }
 
-    public ModelAndView getRentList(Member member) {
+    public ModelAndView getRentList(Member member){
         log.info("getRentList()");
         try {
             Member m = mRepo.findByMname(member.getMname());
             List<Rent> rentList = rRepo.findAllByRmember(m);
             mv = new ModelAndView();
-            mv.addObject("rentList", rentList);
-        } catch (Exception e) {
+            mv.addObject("rentList",rentList);
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
         return mv;
     }
+
 
     public String memberLogin(Member member, HttpSession session, RedirectAttributes rttr) {
         log.info("memberLogin()");
@@ -186,22 +191,16 @@ public class MemberService {
 
     // 도서 삭제 메소드
     @Transactional
-    public String deleteBook(Integer bid, RedirectAttributes rttr) {
-        log.info("deletedBook()");
+    public String deleteBook(Book bid) {
         String msg = null;
-        String view = null;
-
         try {
-            bRepo.deleteById(bid);
+            bRepo.delete(bid);
             msg = "삭제 성공";
-            view = "redirect:bookcrud";
         } catch (Exception e) {
             e.printStackTrace();
             msg = "삭제 실패";
-            view = "redirect:detailbook?bid=" + bid;
         }
-        rttr.addFlashAttribute("msg", msg);
-        return view;
+        return msg;
     }
 
 
@@ -358,16 +357,12 @@ public class MemberService {
 
     // Book Rental Function
     @Transactional
-    public String bookRent(Optional<Member> omember, String bname, RedirectAttributes rttr) {
+    public String bookRent(Member members, String bname, RedirectAttributes rttr) {
         log.info("bookRent()");
         String msg = null;
         String view = null;
 
-        if(omember == null){
-            return "redirect:login";
-        }
-
-        Member member = mRepo.findByMname(omember.get().getMname());
+        Member member = mRepo.findByMname(members.getMname());
         Book book = bRepo.findByBname(bname);
         Rent rent = new Rent();
         if (member.getCount() < 5) {
@@ -484,11 +479,11 @@ public class MemberService {
         try {
             bRepo.save(book);
             msg = "수정 성공";
-            view = "redirect:detailbook?bid="+book.getBid();
+            view = "redirect:detailbook?bid=" + book.getBid();
         } catch (Exception e) {
             e.printStackTrace();
             msg = "수정 실패";
-            view = "redirect:bookUpdate?bid=" + book.getBid();
+            view = "redirect:bookUpdate?bid="+book.getBid();
         }
         rttr.addFlashAttribute("msg", msg);
         return view;
@@ -525,6 +520,7 @@ public class MemberService {
         log.info("getDetailMember()");
         mv = new ModelAndView();
         Member member = mRepo.findById(mid).get();
+        System.out.println(member);
         mv.addObject("member", member);
         return mv;
     }
