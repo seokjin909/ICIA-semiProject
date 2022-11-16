@@ -117,6 +117,12 @@ public class MemberService {
         return mv;
     }
 
+    public ModelAndView getRentList(Member member){
+        log.info("getRentList()");
+        //List<Rent> rentbook = rRepo.findByRmember(member);
+        return mv;
+    }
+
 
     public String memberLogin(Member member, HttpSession session, RedirectAttributes rttr) {
         log.info("memberLogin()");
