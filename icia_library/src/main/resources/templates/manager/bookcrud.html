@@ -45,7 +45,8 @@
             <th:block th:each="blist:${blist}">
                 <tbody id="result">
                 <td th:text="${blist.bid}"></td>
-                <td><a th:text="${blist.bname}" th:href="@{detailbook(bid=${blist.bid})}"></a></td>
+                <td><a class="nav-link px-2 link-secondary" th:text="${blist.bname}"
+                       th:href="@{detailbook(bid=${blist.bid})}"></a></td>
                 <td th:text="${blist.bauthor}"></td>
                 <th:block th:if="${blist.blent==false}">
                     <td th:text="대출가능"></td>
@@ -64,6 +65,5 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script>
-
 </script>
 </html>

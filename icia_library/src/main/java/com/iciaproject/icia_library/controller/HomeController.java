@@ -45,8 +45,9 @@ public class HomeController {
 
     // 로그아웃
     @GetMapping("logoutProc")
-    public String logoutProc(HttpSession session) {
+    public String logoutProc(HttpSession session, RedirectAttributes rttr) {
         session.invalidate();
+        rttr.addFlashAttribute("msg","로그아웃 되었습니다.");
         return "redirect:/";
     }
 
@@ -147,10 +148,10 @@ public class HomeController {
 
     // 도서 삭제
     @GetMapping("deleteBook")
-    public String deleteBook(Book bid) {
+    public String deleteBook(Integer bid, RedirectAttributes rttr) {
         log.info("deleteBook()");
-        String msg = mSev.deleteBook(bid);
-        return msg;
+        String view = mSev.deleteBook(bid,rttr);
+        return view;
     }
 
     @GetMapping("bookReturn")

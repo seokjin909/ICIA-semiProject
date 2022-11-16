@@ -97,7 +97,6 @@ public class MemberService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         mv.setViewName("booklist");
         return mv;
     }
@@ -117,6 +116,18 @@ public class MemberService {
         return mv;
     }
 
+    public ModelAndView getRentList(Member member) {
+        log.info("getRentList()");
+        try {
+            Member m = mRepo.findByMname(member.getMname());
+            List<Rent> rentList = rRepo.findAllByRmember(m);
+            mv = new ModelAndView();
+            mv.addObject("rentList", rentList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mv;
+    }
 
     public String memberLogin(Member member, HttpSession session, RedirectAttributes rttr) {
         log.info("memberLogin()");
@@ -175,16 +186,22 @@ public class MemberService {
 
     // 도서 삭제 메소드
     @Transactional
-    public String deleteBook(Book bid) {
+    public String deleteBook(Integer bid, RedirectAttributes rttr) {
+        log.info("deletedBook()");
         String msg = null;
+        String view = null;
+
         try {
-            bRepo.delete(bid);
+            bRepo.deleteById(bid);
             msg = "삭제 성공";
+            view = "redirect:bookcrud";
         } catch (Exception e) {
             e.printStackTrace();
             msg = "삭제 실패";
+            view = "redirect:detailbook?bid=" + bid;
         }
-        return msg;
+        rttr.addFlashAttribute("msg", msg);
+        return view;
     }
 
 
@@ -471,8 +488,60 @@ public class MemberService {
         } catch (Exception e) {
             e.printStackTrace();
             msg = "수정 실패";
-            view = "redirect:bookUpdate?bid="+book.getBid();
-            System.out.println(view);
+            view = "redirect:bookUpdate?bid=" + book.getBid();
+        }
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
+
+    public ModelAndView getMemberList() {
+        mv = new ModelAndView();
+        mv.setViewName("manager/membercrud");
+
+        List<Member> mList = new ArrayList<>();
+        Iterable<Member> mIter = mRepo.findAll();
+
+        for (Member m : mIter) {
+            mList.add(m);
+        }
+
+        mv.addObject("mList", mList);
+        return mv;
+    }
+
+    public String deleteMember(Member mid) {
+        String msg = null;
+        try {
+            mRepo.delete(mid);
+            msg = "삭제 성공";
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = "삭제 실패";
+        }
+        return msg;
+    }
+
+    public ModelAndView getDetailMember(String mid) {
+        log.info("getDetailMember()");
+        mv = new ModelAndView();
+        Member member = mRepo.findById(mid).get();
+        mv.addObject("member", member);
+        return mv;
+    }
+
+    public String memberUpdate(Member member, RedirectAttributes rttr) {
+        log.info("memberUpdate()");
+        String msg = null;
+        String view = null;
+
+        try {
+            mRepo.save(member);
+            msg = "수정 성공";
+            view = "redirect:membercrud";
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = "수정 실패";
+            view = "redirect:memberUpdate?mid=" + member.getMid();
         }
         rttr.addFlashAttribute("msg", msg);
         return view;

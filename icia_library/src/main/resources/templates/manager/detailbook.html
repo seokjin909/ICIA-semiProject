@@ -19,6 +19,7 @@
 </head>
 <body class="bd">
 <th:block th:include="manager/header_manager.html"></th:block>
+<th:block th:include="manager/navi_manager.html"></th:block>
 <div class="content">
     <div class="write-form">
         <h2 class="login-header">도서 정보</h2>
@@ -53,6 +54,12 @@
 <th:block th:include="footer.html"></th:block>
 </body>
 <script th:inline="javascript">
+    let m = [[${msg}]];
+    if (m == null) {
+        console.log(m);
+    } else {
+        alert(m);
+    }
     $("#backbtn").click(function () {
         location.href = "bookcrud";
     });
@@ -63,14 +70,15 @@
 
     let lent = "[[${book.blent}]]";
     console.log(lent);
+    let bid = "[[${book.bid}]]";
     $("#delbtn").click(function () {
         if (lent!='false') {
             alert("대여중이므로 삭제가 불가능합니다.")
             return;
         } else {
             let yn = confirm("정말 삭제하시겠습니까?");
-            if (yn==true) {
-                alert("삭제 처리되었습니다.")
+            if (yn == true) {
+                location.href = "bookcrud";
             } else {
                 alert("취소되었습니다.");
             }
