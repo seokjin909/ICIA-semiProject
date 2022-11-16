@@ -105,9 +105,37 @@
 <th:block th:include="header.html"></th:block>
 
 
-<div>
-  <!--    검색 자료 결과창       -->
-  <span th:text="${rentList}"></span>
+<div class="container mt-5">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+      <tr>
+        <th scope="col">번호</th>
+        <th scope="col">책 제목</th>
+        <th scope="col">책 저자</th>
+        <th scope="col">책 장르</th>
+        <th scope="col">대출자</th>
+        <th scope="col">대출일자</th>
+        <th scope="col">반납일자</th>
+        <th scope="col">반납</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item:${rentList}">
+        <td th:text="${item.rnum}"></td>
+        <td th:text="${item.rbook.bname}"></td>
+        <td th:text="${item.rbook.bauthor}"></td>
+        <td th:text="${item.rbook.btag}"></td>
+        <td th:text="${item.rmember.mname}"></td>
+        <td th:text="${item.rsdate}"></td>
+        <td th:text="${item.redate}"></td>
+        <td>
+          <input class="btn btn-primary" type="submit" value="반납">
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <th:block th:include="footer.html"></th:block>
