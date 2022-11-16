@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,10 +14,10 @@
       display: flex;
       justify-content: center;
       box-sizing: border-box;
-      /*padding-top: 60px;*/
+      padding-top:40px;
     }
     #search {
-      width: 50%;
+      width: 30%;
       height: 60px;
       border: white 1.5px solid;
       border-radius: 20px;
@@ -39,7 +39,7 @@
 
     #form_search{
       background: linear-gradient(to right, #6da9ff, #1865e5); /*#569aff, #0b5ace*/
-      height: 300px;
+      height: 150px;
       text-align: center;
     }
 
@@ -96,13 +96,20 @@
       margin-right: 3px;
       width: 80px;
     }
+    #searchlist{
+      height: 1100px;
+    }
   </style>
 </head>
-<body>
+<body class="bd">
 <th:block th:include="header.html"></th:block>
-<div>
 
+
+<div>
+  <!--    검색 자료 결과창       -->
+  <span>${bookrtn}</span>
 </div>
+
 <th:block th:include="footer.html"></th:block>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
@@ -112,5 +119,7 @@
   // if (m != ""){
   //     alert(m);
   // }
+</script>
+<script type="text/javascript">
 </script>
 </html>

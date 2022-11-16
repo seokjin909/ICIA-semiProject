@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.Option;
 
 import java.io.File;
 import java.util.Optional;
@@ -119,7 +120,15 @@ public class MemberService {
 
     public ModelAndView getRentList(Member member){
         log.info("getRentList()");
-        //List<Rent> rentbook = rRepo.findByRmember(member);
+    try {
+        Member m = mRepo.findByMname(member.getMname());
+        List<Rent> rentList = rRepo.findAllByRmember(m);
+        mv = new ModelAndView();
+        mv.addObject("rentList",rentList);
+    }
+    catch (Exception e){
+        e.printStackTrace();
+    }
         return mv;
     }
 
