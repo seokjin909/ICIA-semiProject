@@ -63,10 +63,27 @@ public class HomeController {
     }
 
     @GetMapping("searchProc")
-    public ModelAndView searchProc(String bname) {
+    public ModelAndView searchProc(String tag, String bname) {
         log.info("searchProc()");
-        mv = mSev.getBook(bname);
+        switch (tag) {
+            case "제목":
+                mv = mSev.getBook(bname);
+
+                break;
+            case "저자":
+                mv = mSev.getAuthorBook(bname);
+                break;
+            case "장르":
+                mv = mSev.getTagList(bname);
+                break;
+        }
+        log.info(mv.toString());
         return mv;
+    }
+
+    @GetMapping("booklist")
+    public String booklist() {
+        return "booklist";
     }
 
     @GetMapping("searchTag")
@@ -118,8 +135,8 @@ public class HomeController {
         return "manager/bookInput";
     }
 
-    @GetMapping ("bookInputProc")
-    public String bookInputProc(Book book){
+    @GetMapping("bookInputProc")
+    public String bookInputProc(Book book) {
         String msg = mSev.inputBook(book);
         return msg;
     }
@@ -157,34 +174,38 @@ public class HomeController {
     }
 
     @GetMapping("detailbook")
-    public ModelAndView detailbook(int bid){
+    public ModelAndView detailbook(int bid) {
         log.info("detailbook()");
         mv = mSev.getDetailBook(bid);
         mv.setViewName("manager/detailbook");
         return mv;
     }
+
     @GetMapping("updateFrm")
     public ModelAndView updateFrm(long bnum) {
         log.info("updateFrm()");
-        mv =mSev.getBoard(bnum);
+        mv = mSev.getBoard(bnum);
         System.out.println(mv);
         mv.setViewName("updateFrm");
         return mv;
     }
+
     @GetMapping("bookUpdate")
-    public ModelAndView bookUpdate(int bid){
+    public ModelAndView bookUpdate(int bid) {
         log.info("bookUpdate()");
         mv = mSev.getDetailBook(bid);
         System.out.println(mv);
         mv.setViewName("manager/bookUpdate");
         return mv;
     }
+
     @PostMapping("bookUpdateProc")
-    public String bookUpdateProc(Book book, RedirectAttributes rttr, HttpSession session){
+    public String bookUpdateProc(Book book, RedirectAttributes rttr, HttpSession session) {
         log.info("bookUpdateProc()");
         String view = mSev.bookUpdate(book, rttr, session);
         return view;
     }
+
     @PostMapping("updateProc")
     public String updateProc(Board board, HttpSession session, RedirectAttributes rttr) {
         log.info("updateProc");
