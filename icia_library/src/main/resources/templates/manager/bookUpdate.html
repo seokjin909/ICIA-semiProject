@@ -24,17 +24,21 @@
             <input type="text" class="write-input" th:value="*{btag}"
                    name="btag" placeholder="장르"
                    required>
-            <input type="hidden" name="0" th:value="*{blent}">
+            <input type="hidden" name="blent" th:value="*{blent}">
         </th:block>
         <!-- 파일 입력 처리 영역 -->
         <div class="btn-area">
             <input type="submit" class="btn-write" value="글수정">
             <input type="reset" class="btn-write" value="취소">
+            <button class="btn-write" id="backbtn">이전</button>
         </div>
     </form>
 </div>
 <th:block th:include="footer.html"></th:block>
 </body>
 <script th:inline="javascript">
+    $("#backbtn").click(function () {
+        location.href = "detailbook?bid=" + [[${book.bid}]];
+    });
 </script>
 </html>
