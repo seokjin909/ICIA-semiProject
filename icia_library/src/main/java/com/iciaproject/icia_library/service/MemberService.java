@@ -98,7 +98,6 @@ public class MemberService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         mv.setViewName("booklist");
         return mv;
     }
@@ -119,17 +118,16 @@ public class MemberService {
         return mv;
     }
 
-    public ModelAndView getRentList(Member member){
+    public ModelAndView getRentList(Member member) {
         log.info("getRentList()");
-    try {
-        Member m = mRepo.findByMname(member.getMname());
-        List<Rent> rentList = rRepo.findAllByRmember(m);
-        mv = new ModelAndView();
-        mv.addObject("rentList",rentList);
-    }
-    catch (Exception e){
-        e.printStackTrace();
-    }
+        try {
+            Member m = mRepo.findByMname(member.getMname());
+            List<Rent> rentList = rRepo.findAllByRmember(m);
+            mv = new ModelAndView();
+            mv.addObject("rentList", rentList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return mv;
     }
 
@@ -489,7 +487,7 @@ public class MemberService {
         } catch (Exception e) {
             e.printStackTrace();
             msg = "수정 실패";
-            view = "redirect:bookUpdate?bid="+book.getBid();
+            view = "redirect:bookUpdate?bid=" + book.getBid();
         }
         rttr.addFlashAttribute("msg", msg);
         return view;

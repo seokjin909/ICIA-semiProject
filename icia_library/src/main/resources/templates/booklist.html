@@ -128,7 +128,7 @@
 </form>
 
 <!--    검색 자료 결과창       -->
-<div class="container mt-5">x
+<div class="container mt-5">
     <div class="table-responsive">
         <table class="table align-middle">
             <thead>
@@ -141,19 +141,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item:${gbook}">
-                <form th:action="bookRent">
-                    <td th:text="${item.bname}"></td>
-                    <td th:text="${item.bauthor}"></td>
-                    <td th:text="${item.btag}"></td>
-                    <td th:text="${item.blent}"></td>
-                    <td>
-                        <input class="btn btn-primary" type="submit" value="대출 하기">
-                        <input style="visibility: hidden; position: absolute" th:value="${item.bname}" name="bname">
-                        <input style="visibility: hidden; position: absolute" th:value="${session.mem.mname}" name="mname">
-                    </td>
-                </form>
-            </tr>
+            <th:block th:if="${#lists.isEmpty(gbook)}">
+                <tr>
+                    <td colspan="5" class="text-center">"검색 결과가 없습니다."</td>
+                </tr>
+            </th:block>
+            <th:block th:unless="${#lists.isEmpty(gbook)}">
+                <tr th:each="item:${gbook}">
+                    <form th:action="bookRent">
+                        <td th:text="${item.bname}"></td>
+                        <td th:text="${item.bauthor}"></td>
+                        <td th:text="${item.btag}"></td>
+                        <td th:text="${item.blent}"></td>
+                        <td>
+                            <input class="btn btn-primary" type="submit" value="대출 하기">
+                            <input style="visibility: hidden; position: absolute" th:value="${item.bname}" name="bname">
+                        </td>
+                    </form>
+                </tr>
+            </th:block>
             </tbody>
         </table>
     </div>
@@ -164,6 +170,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+    let gbook = [[${gbook}]];
     $(function () {
         $("#searching").click(function () {
             var select = $("#search").val(); //
