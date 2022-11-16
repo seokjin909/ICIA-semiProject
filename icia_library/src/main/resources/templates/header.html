@@ -151,14 +151,14 @@
             <ul class="a nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="#" class="over nav-link px-2 link-secondary" style="margin-right: 20px">Home</a></li>
                 <li><a th:href="@{searchProc}" class="over nav-link px-2 link-dark" style="margin-right: 20px">자료검색</a></li>
-                <li><a th:href="@{bookrtn}" class="over nav-link px-2 link-dark" style="margin-right: 20px">대출조회</a></li>
+                <li><a href="#" class="over nav-link px-2 link-dark" style="margin-right: 20px">대출조회</a></li>
                 <li><a href="part" class="over nav-link px-2 link-dark" style="margin-right: 20px">참여마당</a></li>
                 <li><a href="#" class="over nav-link px-2 link-dark" style="margin-right: 20px">세미나실</a></li>
             </ul>
 
             <th:block th:if="${session.mem!=null}">
                 <div class="col-md-3 text-end text-center">
-                    <span th:text="${session.mem.mname}+'님 환영합니다.&nbsp;&nbsp;'"></span>
+                    <span th:text="${session.mem.mname}'님 환영합니다.&nbsp;&nbsp;'"></span>
                     <button type="button" class="bt btn btn-primary" onclick="location.href='logoutProc'">로그아웃</button>
                 </div>
             </th:block>
