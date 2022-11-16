@@ -38,10 +38,10 @@ public class HomeController {
 
     @GetMapping("bookrtn")
     public ModelAndView bookrtn(HttpSession session){
-        Member member = (Member) session.getAttribute("mem");
         log.info("bookrtn()");
+        Member member = (Member) session.getAttribute("mem");
         mv = mSev.getRentList(member);
-
+        mv.setViewName("bookrtn");
         return mv;
     }
 
