@@ -176,8 +176,6 @@ public class HomeController {
         return msg;
     }
 
-
-
     // 도서 삭제
     @GetMapping("deleteBook")
     public String deleteBook(Book bid) {
