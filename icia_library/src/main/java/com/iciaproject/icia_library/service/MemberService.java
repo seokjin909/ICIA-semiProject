@@ -461,11 +461,11 @@ public class MemberService {
         try {
             bRepo.save(book);
             msg = "수정 성공";
-            view = "manager/detailbook?bid=" + book.getBid();
+            view = "redirect:detailbook?bid="+book.getBid();
         } catch (Exception e) {
             e.printStackTrace();
             msg = "수정 실패";
-            view = "manager/bookUpdate?bid=" + book.getBid();
+            view = "redirect:bookUpdate?bid="+book.getBid();
             System.out.println(view);
         }
         rttr.addFlashAttribute("msg", msg);
