@@ -24,6 +24,10 @@
         <h2 class="login-header">도서 정보</h2>
         <!-- 게시글 상세 내용 출력(div) -->
         <div>
+            <div class="t_content p-15">도서코드</div>
+            <div class="d_content p-85" th:text="${book.bid}"></div>
+        </div>
+        <div>
             <div class="t_content p-15">도서제목</div>
             <div class="d_content p-85" th:text="${book.bname}"></div>
         </div>
@@ -32,16 +36,6 @@
             <div class="d_content dp-30" th:text="${book.bauthor}"></div>
             <div class="t_content p-15">장르</div>
             <div class="d_content dp-40" th:text="${book.btag}"></div>
-        </div>
-        <div>
-            <div class="t_content p-15">도서코드</div>
-            <div class="d_content p-85" th:text="${book.bid}"></div>
-        </div>
-        <div>
-            <div class="t_content p-15 content_h">대여여부</div>
-            <div class="d_content p-85 content_h">
-                <div class="content_in" th:text="${book.blent}"></div>
-            </div>
         </div>
         <div class="btn-area">
             <button class="btn-write" id="upbtn">수정</button>
@@ -57,19 +51,19 @@
         location.href = "bookcrud";
     });
 
-    $("#upbtn").click(function (){
-        location.href = "bookUpdate?bid="+[[${book.bid}]];
+    $("#upbtn").click(function () {
+        location.href = "bookUpdate?bid=" + [[${book.bid}]];
     })
 
     let lent = "[[${book.blent}]]";
     console.log(lent);
     $("#delbtn").click(function () {
-        if (lent!='false') {
+        if (lent != 'false') {
             alert("대여중이므로 삭제가 불가능합니다.")
             return;
         } else {
             let yn = confirm("정말 삭제하시겠습니까?");
-            if (yn==true) {
+            if (yn == true) {
                 alert("삭제 처리되었습니다.")
             } else {
                 alert("취소되었습니다.");

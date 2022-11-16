@@ -28,36 +28,36 @@
 <div class="text-center book-form">
     <table border="1" class="table-bordered table-light">
         <thead class="table-header">
-        <tr style="height: 50px">
+        <tr style="height: 40px">
             <th style="width: 200px">이름</th>
             <th style="width: 300px">아이디</th>
-            <th style="width: 100px">비밀번호</th>
+            <th style="width: 150px">비밀번호</th>
             <th style="width: 200px">연락처</th>
             <th style="width: 200px">생일</th>
-            <th style="width: 50px">삭제</th>
-            <th style="width: 70px">수정</th>
+            <th style="width: 80px">삭제</th>
+            <th style="width: 80px">수정</th>
         </tr>
         </thead>
-        <tbody id="result">
         <th:block th:if="${#lists.isEmpty(mList)}">
-            <div class="non-content"><b>데이터가 없습니다.</b></div>
+            <td class="font" colspan="7" height="80px">데이터가 없습니다.</td>
         </th:block>
         <th:block th:unless="${#lists.isEmpty(mList)}">
             <th:block th:each="mList:${mList}">
+                <tbody id="result">
                 <td th:text="${mList.mname}"></td>
                 <td th:text="${mList.mid}"></td>
                 <td th:text="${mList.mpwd}"></td>
                 <td th:text="${mList.mphone}"></td>
                 <td th:text="${mList.mbirth}"></td>
                 <td>
-                    <input type="button" class="btn btn-primary" value="삭제">
+                    <input type="button" class="btn btn-dark" value="삭제">
                 </td>
                 <td>
-                    <button type="button" class="btn btn-dark">수정</button>
+                    <button type="button" class="btn btn-primary">수정</button>
                 </td>
+                </tbody>
             </th:block>
         </th:block>
-        </tbody>
     </table>
 </div>
 
@@ -67,26 +67,30 @@
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script>
     $("input[type=button]").click(function () {
-        console.log(this);
-        $(this).parent().parent().remove();
-        let no = $(this).parent().prev().prev().prev().prev("td").text();
+        let yn = confirm("삭제하시겠습니까?");
+        if (yn == true) {
+            $(this).parent().parent().remove();
+            let no = $(this).parent().prev().prev().prev().prev("td").text();
 
-        let d = {mid: no}
-        $.ajax({
-            url: "deleteMember",
-            type: "get",
-            data: d,
-            success: function (result) {
-                if (result == "삭제 성공") {
-                    alert("삭제성공");
-                } else {
-                    alert("실패");
+            let d = {mid: no}
+            $.ajax({
+                url: "deleteMember",
+                type: "get",
+                data: d,
+                success: function (result) {
+                    if (result == "삭제 성공") {
+                        alert("삭제성공");
+                    } else {
+                        alert("실패");
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
                 }
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
+            });
+        } else {
+            alert("취소되었습니다.");
+        }
     })
 
     $("button[type=button]").click(function () {
