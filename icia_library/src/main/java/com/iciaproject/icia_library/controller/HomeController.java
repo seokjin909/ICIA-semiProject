@@ -155,6 +155,7 @@ public class HomeController {
         return mv;
     }
 
+
     // 회원 관리 페이지
     @GetMapping("membercrud")
     public ModelAndView membercrud() {
@@ -168,11 +169,13 @@ public class HomeController {
         return "manager/bookInput";
     }
 
+
     @GetMapping("bookInputProc")
     public String bookInputProc(Book book) {
         String msg = mSev.inputBook(book);
         return msg;
     }
+
 
 
     // 도서 삭제
@@ -183,13 +186,15 @@ public class HomeController {
         return msg;
     }
 
+
     // 회원 삭제
     @GetMapping("deleteMember")
-    public String deleteMember(Member mid) {
+    public String deleteMember(Member mid){
         log.info("deleteMember()");
         String msg = mSev.deleteMember(mid);
         return msg;
     }
+
 
     @GetMapping("bookReturn")
     public String bookReturn(String rmember, String rbook, RedirectAttributes rttr) {
@@ -224,6 +229,7 @@ public class HomeController {
         return mv;
     }
 
+
     @GetMapping("updateFrm")
     public ModelAndView updateFrm(long bnum) {
         log.info("updateFrm()");
@@ -244,7 +250,7 @@ public class HomeController {
 
 
     @GetMapping("memberUpdate")
-    public ModelAndView memberUpdate(String mid) {
+    public ModelAndView memberUpdate(String mid){
         log.info("memberUpdate()");
         mv = mSev.getDetailMember(mid);
         mv.setViewName("manager/memberUpdate");
@@ -252,11 +258,12 @@ public class HomeController {
     }
 
     @PostMapping("memberUpdateProc")
-    public String memberUpdateProc(Member member, RedirectAttributes rttr) {
+    public String memberUpdateProc(Member member, RedirectAttributes rttr){
         log.info("memberUpdateProc()");
         String view = mSev.memberUpdate(member, rttr);
         return view;
     }
+
 
     @PostMapping("bookUpdateProc")
     public String bookUpdateProc(Book book, RedirectAttributes rttr, HttpSession session) {
