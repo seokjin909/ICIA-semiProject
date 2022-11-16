@@ -5,13 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>도서 추가</title>
     <style>
-        .a {
-            border-radius: 20px;
-            font-size: 16px;
-            /*font-weight: bold;*/
-            height: 50px;
-        }
-        .a1 {
+        .a1{
             padding-left: 10px;
         }
     </style>
@@ -20,14 +14,13 @@
 <th:block th:include="manager/header_manager.html"></th:block>
 <th:block th:include="manager/navi_manager.html"></th:block>
 <!--도서 추가-->
-<div class="text-center mt-5">
+<div class="text-center">
     <form th:action="@{bookInputProc}">
-        <h2>도서 정보를 입력하세요</h2>
-        <p>도서 제목 :&nbsp;&nbsp;<input class="a1" type="text" name="bname" placeholder="책 제목을 입력하세요." required></p>
-        <p>저자 :&nbsp;&nbsp;<input class="a1" type="text" name="bauthor" placeholder="저자를 입력하세요." required></p>
-        <p>장르 :&nbsp;&nbsp;<input class="a1" type="text" name="btag" placeholder="장르를 입력하세요." required></p>
+        <a><input class="a1" type="text" name="bname" placeholder="책 제목을 입력하세요."></a>
+        <a><input class="a1"  type="text" name="bauthor" placeholder="저자를 입력하세요."></a>
+        <a><input class="a1"  type="text" name="btag" placeholder="장르를 입력하세요."></a>
         <input type="text" name="blent" value="0" hidden>
-        <input class="w-25 a btn btn-lg btn-primary" type="submit" value="등록">
+        <input type="submit" value="등록">
     </form>
 </div>
 <th:block th:include="footer.html"></th:block>
@@ -35,6 +28,5 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script>
-
 </script>
 </html>
