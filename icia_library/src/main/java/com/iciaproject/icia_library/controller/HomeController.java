@@ -7,6 +7,7 @@ import com.iciaproject.icia_library.entity.Member;
 import com.iciaproject.icia_library.entity.Rent;
 import com.iciaproject.icia_library.service.MemberService;
 import lombok.extern.java.Log;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,15 @@ public class HomeController {
     @GetMapping("login")
     public String login() {
         return "login";
+    }
+
+    @GetMapping("bookrtn")
+    public ModelAndView bookrtn(HttpSession session){
+        log.info("bookrtn()");
+        Member member = (Member) session.getAttribute("mem");
+        mv = mSev.getRentList(member);
+        mv.setViewName("bookrtn");
+        return mv;
     }
 
     // 관리자 로그인 페이지
@@ -63,10 +73,32 @@ public class HomeController {
     }
 
     @GetMapping("searchProc")
-    public ModelAndView searchProc(String bname) {
+    public ModelAndView searchProc(String tag, String bname) {
         log.info("searchProc()");
-        mv = mSev.getBook(bname);
+        if(tag == null) {
+            tag = " ";
+            bname = null;
+        }
+        switch (tag) {
+            case "제목":
+                mv = mSev.getBook(bname);
+                break;
+            case "저자":
+                mv = mSev.getAuthorBook(bname);
+                break;
+            case "장르":
+                mv = mSev.getTagList(bname);
+                break;
+            case " ":
+                mv = mSev.getBook(bname);
+                break;
+        }
         return mv;
+    }
+
+    @GetMapping("booklist")
+    public String booklist() {
+        return "booklist";
     }
 
     @GetMapping("searchTag")
@@ -196,6 +228,7 @@ public class HomeController {
         return mv;
     }
 
+
     @GetMapping("memberUpdate")
     public ModelAndView memberUpdate(String mid){
         log.info("memberUpdate()");
@@ -203,12 +236,14 @@ public class HomeController {
         mv.setViewName("manager/memberUpdate");
         return mv;
     }
+    
     @PostMapping("memberUpdateProc")
     public String memberUpdateProc(Member member, RedirectAttributes rttr){
         log.info("memberUpdateProc()");
         String view = mSev.memberUpdate(member, rttr);
         return view;
     }
+
     @PostMapping("bookUpdateProc")
     public String bookUpdateProc(Book book, RedirectAttributes rttr, HttpSession session) {
         log.info("bookUpdateProc()");

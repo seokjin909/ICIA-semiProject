@@ -86,7 +86,16 @@
         .bd{
             font-family: 'Gowun Dodum', sans-serif;
         }
-
+        #tag_option{
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #494747;
+            border: none;
+            border-radius: 20px;
+            margin-right: 3px;
+            width: 80px;
+        }
     </style>
 </head>
 <body class="bd">
@@ -97,6 +106,11 @@
     <span class="icia_name">소 . 작 . 도</span>
     <span id="icia_middle">소석진의 작은 도서관</span>
     <div class="main_search">
+        <select name="tag" id="tag_option" >
+            <option value="저자">저자</option>
+            <option value="제목">제목</option>
+            <option value="장르">장르</option>
+        </select>
         <input type="text" class="searchTagLink" name="bname" placeholder="검색어를 입력하세요." id="search">
         <button class="ui-icon-search">
             <span>검색</span>

@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.Option;
 
 import java.io.File;
 import java.util.Optional;
@@ -89,6 +90,7 @@ public class MemberService {
     public ModelAndView getBook(String bname) {
         log.info("getBook()");
         mv = new ModelAndView();
+        mv.clear();
         String searchName = "%" + bname + "%";
         try {
             List<Book> gbook = (List<Book>) bRepo.findByBnameLike(searchName);
@@ -104,15 +106,30 @@ public class MemberService {
     public ModelAndView getAuthorBook(String bauthor) {
         log.info("getAuthorBook()");
         mv = new ModelAndView();
+        mv.clear();
         String searchAuthor = "%" + bauthor + "%";
         try {
-            List<Book> gauthorbook = bRepo.findByBauthorLike(searchAuthor);
-            mv.addObject("gauthorbook", gauthorbook);
+            List<Book> gbook = bRepo.findByBauthorLike(searchAuthor);
+            mv.addObject("gbook", gbook);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         mv.setViewName("booklist");
+        return mv;
+    }
+
+    public ModelAndView getRentList(Member member){
+        log.info("getRentList()");
+    try {
+        Member m = mRepo.findByMname(member.getMname());
+        List<Rent> rentList = rRepo.findAllByRmember(m);
+        mv = new ModelAndView();
+        mv.addObject("rentList",rentList);
+    }
+    catch (Exception e){
+        e.printStackTrace();
+    }
         return mv;
     }
 
@@ -321,17 +338,17 @@ public class MemberService {
     public ModelAndView getTagList(String tag) {
         log.info("getTagList()");
         mv = new ModelAndView();
-
+        mv.clear();
         if (tag != null) {
             try {
-                List<Book> btaglist = bRepo.findByBtag(tag);
-                mv.addObject("btaglist", btaglist);
+                List<Book> gbook = bRepo.findByBtag(tag);
+                mv.addObject("gbook", gbook);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            List<Book> btaglist = (List<Book>) bRepo.findAll();
-            mv.addObject("btaglist", btaglist);
+            List<Book> gbook = (List<Book>) bRepo.findAll();
+            mv.addObject("gbook", gbook);
         }
         mv.setViewName("booklist");
         return mv;
@@ -466,8 +483,7 @@ public class MemberService {
         } catch (Exception e) {
             e.printStackTrace();
             msg = "수정 실패";
-            view = "redirect:bookUpdate?bid=" + book.getBid();
-            System.out.println(view);
+            view = "redirect:bookUpdate?bid="+book.getBid();
         }
         rttr.addFlashAttribute("msg", msg);
         return view;
