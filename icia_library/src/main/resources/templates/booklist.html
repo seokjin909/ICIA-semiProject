@@ -122,7 +122,39 @@
 
 <div>
 <!--    검색 자료 결과창       -->
+<<<<<<< HEAD
     <span>${gbook}</span>
+=======
+<div class="container mt-5">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+            <tr>
+                <th scope="col">책제목</th>
+                <th scope="col">저자</th>
+                <th scope="col">장르</th>
+                <th scope="col">현재대출상태</th>
+                <th scope="col">대출</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item:${gbook}">
+                <form th:action="bookRent">
+                    <td th:text="${item.bname}"></td>
+                    <td th:text="${item.bauthor}"></td>
+                    <td th:text="${item.btag}"></td>
+                    <td th:text="${item.blent}"></td>
+                    <td>
+                        <input class="btn btn-primary" type="submit" value="대출 하기">
+                        <input style="visibility: hidden; position: absolute" th:value="${item.bname}" name="bname">
+                        <input style="visibility: hidden; position: absolute" th:value="${session.mem.mname}" name="mname">
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+>>>>>>> 287cbb051f5ab882a6d453442b05a773051a10ee
 </div>
 
 <th:block th:include="footer.html"></th:block>
