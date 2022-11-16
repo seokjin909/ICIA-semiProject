@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>도서 추가</title>
     <style>
-        .a1{
+        .a {
+            border-radius: 20px;
+            font-size: 16px;
+            /*font-weight: bold;*/
+            height: 50px;
+        }
+
+        .a1 {
             padding-left: 10px;
         }
     </style>
@@ -14,13 +21,14 @@
 <th:block th:include="manager/header_manager.html"></th:block>
 <th:block th:include="manager/navi_manager.html"></th:block>
 <!--도서 추가-->
-<div class="text-center">
+<div class="text-center mt-5">
     <form th:action="@{bookInputProc}">
-        <a><input class="a1" type="text" name="bname" placeholder="책 제목을 입력하세요."></a>
-        <a><input class="a1"  type="text" name="bauthor" placeholder="저자를 입력하세요."></a>
-        <a><input class="a1"  type="text" name="btag" placeholder="장르를 입력하세요."></a>
+        <h2>도서 정보를 입력하세요</h2>
+        <p>도서 제목 :&nbsp;&nbsp;<input class="a1" type="text" name="bname" placeholder="책 제목을 입력하세요." required></p>
+        <p>저자 :&nbsp;&nbsp;<input class="a1" type="text" name="bauthor" placeholder="저자를 입력하세요." required></p>
+        <p>장르 :&nbsp;&nbsp;<input class="a1" type="text" name="btag" placeholder="장르를 입력하세요." required></p>
         <input type="text" name="blent" value="0" hidden>
-        <input type="submit" value="등록">
+        <input class="w-25 a btn btn-lg btn-primary" type="submit" value="등록">
     </form>
 </div>
 <th:block th:include="footer.html"></th:block>
@@ -28,5 +36,52 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script>
+
+</script>
+</html>
+
+bookUpdate
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>도서 수정</title>
+    <link rel="stylesheet" href="css/part.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+<th:block th:include="manager/header_manager.html"></th:block>
+<div class="content">
+    <form th:action="@{bookUpdateProc}" method="post" class="write-form">
+        <h2 class="login-header">도서 수정</h2>
+        <th:block th:object="${book}">
+            <input type="hidden" name="bid" th:value="*{bid}">
+            <p>도서 제목 :&nbsp;&nbsp;<input type="text" class="write-input" th:value="*{bname}"
+                                         name="bname" autofocus placeholder="제목"
+                                         required></p>
+            <p>도서 저자 :&nbsp;&nbsp;
+                <input type="text" class="write-input" th:value="*{bauthor}"
+                       name="bauthor" placeholder="저자"
+                       required></p>
+            <p>도서 장르 :&nbsp;&nbsp;
+                <input type="text" class="write-input" th:value="*{btag}"
+                       name="btag" placeholder="장르"
+                       required></p>
+            <input type="hidden" name="blent" th:value="*{blent}">
+        </th:block>
+        <div class="btn-area">
+            <input type="submit" class="btn-write" value="수정">
+            <input id="backbtn" type="button" class="btn-write" value="취소">
+        </div>
+    </form>
+</div>
+<th:block th:include="footer.html"></th:block>
+</body>
+<script th:inline="javascript">
+    $("#backbtn").click(function () {
+        location.href = "detailbook?bid=" + [[${book.bid}]];
+    });
 </script>
 </html>

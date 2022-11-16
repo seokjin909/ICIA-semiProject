@@ -15,27 +15,27 @@
         <h2 class="login-header">회원 수정</h2>
         <th:block th:object="${member}">
             <p>아이디 :&nbsp;&nbsp;
-            <input type="text" class="write-input" name="mid" th:value="*{mid}" readonly>
+                <input type="text" class="write-input" name="mid" th:value="*{mid}" readonly>
             </p>
             <p>비밀번호 :&nbsp;&nbsp;
-            <input type="password" class="write-input" th:value="*{mpwd}"
-                   name="mpwd" autofocus placeholder="비밀번호"
-                   required>
+                <input type="password" class="write-input" th:value="*{mpwd}"
+                       name="mpwd" autofocus placeholder="비밀번호"
+                       required>
             </p>
             <p>이름 :&nbsp;&nbsp;
-            <input type="text" class="write-input" th:value="*{mname}"
-                   name="mname" placeholder="이름"
-                   required>
+                <input type="text" class="write-input" th:value="*{mname}"
+                       name="mname" placeholder="이름"
+                       required>
             </p>
             <p>연락처 :&nbsp;&nbsp;
-            <input type="text" class="write-input" th:value="*{mphone}"
-                   name="mphone" placeholder="연락처"
-                   required>
+                <input type="text" class="write-input" th:value="*{mphone}"
+                       name="mphone" placeholder="연락처"
+                       required>
             </p>
             <p>생년월일 :&nbsp;&nbsp;
-            <input type="date" class="write-input" th:value="*{mbirth}"
-                   name="mbirth" placeholder="생년원일"
-                   required>
+                <input type="date" class="write-input" th:value="*{mbirth}"
+                       name="mbirth" placeholder="생년원일"
+                       required>
             </p>
             <input type="hidden" name="count" th:value="*{count}">
         </th:block>
@@ -48,11 +48,5 @@
 <th:block th:include="footer.html"></th:block>
 </body>
 <script th:inline="javascript">
-    let m = [[${msg}]];
-    if (m==null){
-        console.log(m);
-    } else {
-        alert(m);
-    }
 </script>
 </html>
