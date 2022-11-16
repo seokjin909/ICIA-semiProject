@@ -144,6 +144,13 @@ public class HomeController {
         return mv;
     }
 
+    // 회원 관리 페이지
+    @GetMapping("membercrud")
+    public ModelAndView membercrud() {
+        mv = mSev.getMemberList();
+        return mv;
+    }
+
     // 도서 추가
     @GetMapping("bookInput")
     public String bookInput() {
@@ -162,6 +169,13 @@ public class HomeController {
     public String deleteBook(Book bid) {
         log.info("deleteBook()");
         String msg = mSev.deleteBook(bid);
+        return msg;
+    }
+    // 회원 삭제
+    @GetMapping("deleteMember")
+    public String deleteMember(Member mid){
+        log.info("deleteMember()");
+        String msg = mSev.deleteMember(mid);
         return msg;
     }
 
@@ -212,6 +226,22 @@ public class HomeController {
         System.out.println(mv);
         mv.setViewName("manager/bookUpdate");
         return mv;
+    }
+
+
+    @GetMapping("memberUpdate")
+    public ModelAndView memberUpdate(String mid){
+        log.info("memberUpdate()");
+        mv = mSev.getDetailMember(mid);
+        mv.setViewName("manager/memberUpdate");
+        return mv;
+    }
+    
+    @PostMapping("memberUpdateProc")
+    public String memberUpdateProc(Member member, RedirectAttributes rttr){
+        log.info("memberUpdateProc()");
+        String view = mSev.memberUpdate(member, rttr);
+        return view;
     }
 
     @PostMapping("bookUpdateProc")

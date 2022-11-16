@@ -15,22 +15,22 @@
         <h2 class="login-header">도서 수정</h2>
         <th:block th:object="${book}">
             <input type="hidden" name="bid" th:value="*{bid}">
-            <input type="text" class="write-input" th:value="*{bname}"
+            <p>도서 제목 :&nbsp;&nbsp;<input type="text" class="write-input" th:value="*{bname}"
                    name="bname" autofocus placeholder="제목"
-                   required>
+                                         required></p>
+            <p>도서 저자 :&nbsp;&nbsp;
             <input type="text" class="write-input" th:value="*{bauthor}"
                    name="bauthor" placeholder="저자"
-                   required>
+                   required></p>
+            <p>도서 장르 :&nbsp;&nbsp;
             <input type="text" class="write-input" th:value="*{btag}"
                    name="btag" placeholder="장르"
-                   required>
+                   required></p>
             <input type="hidden" name="blent" th:value="*{blent}">
         </th:block>
-        <!-- 파일 입력 처리 영역 -->
         <div class="btn-area">
-            <input type="submit" class="btn-write" value="글수정">
-            <input type="reset" class="btn-write" value="취소">
-            <button class="btn-write" id="backbtn">이전</button>
+            <input type="submit" class="btn-write" value="수정">
+            <input id="backbtn" type="button" class="btn-write" value="취소">
         </div>
     </form>
 </div>

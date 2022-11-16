@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원 수정</title>
+    <link rel="stylesheet" href="css/part.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+<th:block th:include="manager/header_manager.html"></th:block>
+<div class="content">
+    <form th:action="@{memberUpdateProc}" method="post" class="write-form">
+        <h2 class="login-header">회원 수정</h2>
+        <th:block th:object="${member}">
+            <p>아이디 :&nbsp;&nbsp;
+            <input type="text" class="write-input" name="mid" th:value="*{mid}" readonly>
+            </p>
+            <p>비밀번호 :&nbsp;&nbsp;
+            <input type="password" class="write-input" th:value="*{mpwd}"
+                   name="mpwd" autofocus placeholder="비밀번호"
+                   required>
+            </p>
+            <p>이름 :&nbsp;&nbsp;
+            <input type="text" class="write-input" th:value="*{mname}"
+                   name="mname" placeholder="이름"
+                   required>
+            </p>
+            <p>연락처 :&nbsp;&nbsp;
+            <input type="text" class="write-input" th:value="*{mphone}"
+                   name="mphone" placeholder="연락처"
+                   required>
+            </p>
+            <p>생년월일 :&nbsp;&nbsp;
+            <input type="date" class="write-input" th:value="*{mbirth}"
+                   name="mbirth" placeholder="생년원일"
+                   required>
+            </p>
+            <input type="hidden" name="count" th:value="*{count}">
+        </th:block>
+        <div class="btn-area">
+            <input type="submit" class="btn-write" value="수정">
+            <input type="reset" class="btn-write" value="취소">
+        </div>
+    </form>
+</div>
+<th:block th:include="footer.html"></th:block>
+</body>
+<script th:inline="javascript">
+</script>
+</html>

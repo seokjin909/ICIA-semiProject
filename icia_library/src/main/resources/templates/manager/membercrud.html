@@ -1,10 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원 관리</title>
+    <style>
+        .book-form {
+            max-width: 800px;
+            padding: 15px;
+            margin: 0 auto;
+        }
 
+        .bd {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .font {
+        !important;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+    <link href="css/part.css" rel="stylesheet">
+</head>
+<body class="bd">
+<th:block th:include="manager/header_manager.html"></th:block>
+<div class="text-center book-form">
+    <table border="1" class="table-bordered table-light">
+        <thead class="table-header">
+        <tr style="height: 40px">
+            <th style="width: 200px">이름</th>
+            <th style="width: 300px">아이디</th>
+            <th style="width: 150px">비밀번호</th>
+            <th style="width: 200px">연락처</th>
+            <th style="width: 200px">생일</th>
+            <th style="width: 80px">삭제</th>
+            <th style="width: 80px">수정</th>
+        </tr>
+        </thead>
+        <th:block th:if="${#lists.isEmpty(mList)}">
+            <td class="font" colspan="7" height="80px">데이터가 없습니다.</td>
+        </th:block>
+        <th:block th:unless="${#lists.isEmpty(mList)}">
+            <th:block th:each="mList:${mList}">
+                <tbody id="result">
+                <td th:text="${mList.mname}"></td>
+                <td th:text="${mList.mid}"></td>
+                <td th:text="${mList.mpwd}"></td>
+                <td th:text="${mList.mphone}"></td>
+                <td th:text="${mList.mbirth}"></td>
+                <td>
+                    <input type="button" class="btn btn-dark" value="삭제">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary">수정</button>
+                </td>
+                </tbody>
+            </th:block>
+        </th:block>
+    </table>
+</div>
+
+<th:block th:include="footer.html"></th:block>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+    $("input[type=button]").click(function () {
+        let yn = confirm("삭제하시겠습니까?");
+        if (yn == true) {
+            $(this).parent().parent().remove();
+            let no = $(this).parent().prev().prev().prev().prev("td").text();
+
+            let d = {mid: no}
+            $.ajax({
+                url: "deleteMember",
+                type: "get",
+                data: d,
+                success: function (result) {
+                    if (result == "삭제 성공") {
+                        alert("삭제성공");
+                    } else {
+                        alert("실패");
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        } else {
+            alert("취소되었습니다.");
+        }
+    })
+
+    $("button[type=button]").click(function () {
+        let no = $(this).parent().prev().prev().prev().prev().prev("td").text();
+        location.href = "memberUpdate?mid=" + no;
+    })
+</script>
 </html>

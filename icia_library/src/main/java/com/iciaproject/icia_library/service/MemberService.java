@@ -102,6 +102,7 @@ public class MemberService {
         mv.setViewName("booklist");
         return mv;
     }
+
     public ModelAndView getAuthorBook(String bauthor) {
         log.info("getAuthorBook()");
         mv = new ModelAndView();
@@ -478,12 +479,65 @@ public class MemberService {
         try {
             bRepo.save(book);
             msg = "수정 성공";
-            view = "redirect:detailbook?bid="+book.getBid();
+            view = "redirect:detailbook?bid=" + book.getBid();
         } catch (Exception e) {
             e.printStackTrace();
             msg = "수정 실패";
             view = "redirect:bookUpdate?bid="+book.getBid();
-            System.out.println(view);
+        }
+        rttr.addFlashAttribute("msg", msg);
+        return view;
+    }
+
+    public ModelAndView getMemberList() {
+        mv = new ModelAndView();
+        mv.setViewName("manager/membercrud");
+
+        List<Member> mList = new ArrayList<>();
+        Iterable<Member> mIter = mRepo.findAll();
+
+        for (Member m : mIter) {
+            mList.add(m);
+        }
+
+        mv.addObject("mList", mList);
+        return mv;
+    }
+
+    public String deleteMember(Member mid) {
+        String msg = null;
+        try {
+            mRepo.delete(mid);
+            msg = "삭제 성공";
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = "삭제 실패";
+        }
+        return msg;
+    }
+
+    public ModelAndView getDetailMember(String mid) {
+        log.info("getDetailMember()");
+        mv = new ModelAndView();
+        Member member = mRepo.findById(mid).get();
+        System.out.println(member);
+        mv.addObject("member", member);
+        return mv;
+    }
+
+    public String memberUpdate(Member member, RedirectAttributes rttr) {
+        log.info("memberUpdate()");
+        String msg = null;
+        String view = null;
+
+        try {
+            mRepo.save(member);
+            msg = "수정 성공";
+            view = "redirect:membercrud";
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = "수정 실패";
+            view = "redirect:memberUpdate?mid=" + member.getMid();
         }
         rttr.addFlashAttribute("msg", msg);
         return view;
