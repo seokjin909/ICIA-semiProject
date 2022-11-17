@@ -20,6 +20,10 @@
             font-size: 24px;
             font-weight: bold;
         }
+
+        .title1 {
+            background-color: rgb(238, 239, 250);
+        }
     </style>
     <link href="css/part.css" rel="stylesheet">
 </head>
@@ -30,10 +34,10 @@
     <table border="1" class="table-bordered table-light">
         <thead class="table-header">
         <tr style="height: 50px">
-            <th style="width: 100px">코드</th>
-            <th style="width: 400px">제목</th>
-            <th style="width: 200px">작가</th>
-            <th style="width: 100px">대출상태</th>
+            <th class="title1" style="width: 100px">코드</th>
+            <th class="title1" style="width: 400px">제목</th>
+            <th class="title1" style="width: 200px">작가</th>
+            <th class="title1" style="width: 100px">대출상태</th>
         </tr>
         </thead>
         <th:block th:if="${#lists.isEmpty(blist)}">

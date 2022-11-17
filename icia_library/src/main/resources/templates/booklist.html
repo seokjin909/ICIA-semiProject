@@ -106,15 +106,25 @@
         #searchlist {
             height: 1100px;
         }
+
+        .line {
+            border: rgb(222,226,230) 1px solid;
+        }
+
+        .center{
+            display: flex;
+            justify-content: center;
+        }
     </style>
+
 </head>
 <body class="bd">
 <th:block th:include="header.html"></th:block>
 <form th:action="@{searchProc}" method="get" class="form-text text-center" id="form_search">
     <div class="main_search">
         <select name="tag" id="tag_option">
-            <option value="저자">저자</option>
             <option value="제목">제목</option>
+            <option value="저자">저자</option>
             <option value="장르">장르</option>
         </select>
         <input type="text" class="searchTagLink" name="bname" placeholder="검색어를 입력하세요." id="search">
@@ -130,51 +140,51 @@
 <!--    검색 자료 결과창       -->
 <div class="container mt-5">
     <div class="table-responsive">
-        <table class="table align-middle">
+        <table class="table align-middle " style="text-align: center;">
             <thead>
-            <tr>
-                <th scope="col" style="width: 300px">책제목</th>
-                <th scope="col" style="width: 200px">저자</th>
-                <th scope="col" style="width: 100px">장르</th>
-                <th scope="col" style="width: 100px">대출상태</th>
-                <th scope="col" style="width: 200px">구분</th>
+            <tr style=" background-color: rgb(238, 239, 250)">
+                <th class="line" scope="col" style="width: 300px">책제목</th>
+                <th class="line" scope="col" style="width: 200px">저자</th>
+                <th class="line" scope="col" style="width: 100px">장르</th>
+                <th class="line" scope="col" style="width: 100px">대출상태</th>
+                <th class="line" scope="col" style="width: 200px">구분</th>
             </tr>
             </thead>
             <tbody>
             <th:block th:if="${#lists.isEmpty(gbook)}">
                 <tr>
-                    <td colspan="5" class="text-center">검색결과가 없습니다.</td>
+                    <td colspan="5" class="line text-center">검색결과가 없습니다.</td>
                 </tr>
             </th:block>
             <th:block th:unless="${#lists.isEmpty(gbook)}">
                 <tr th:each="item:${gbook}">
-                    <form th:action="@{bookRent}">
-                        <td th:text="${item.bname}"></td>
-                        <td th:text="${item.bauthor}"></td>
-                        <td th:text="${item.btag}"></td>
+                    <form th:action="@{bookRent}"class="align-top">
+                        <td class="line" th:text="${item.bname}"></td>
+                        <td class="line" th:text="${item.bauthor}"></td>
+                        <td class="line" th:text="${item.btag}"></td>
                         <th:block th:if="${item.blent==false}">
-                            <td style="color: #0a53be">대출가능</td>
+                            <td class="line" style="color: #0a53be">대출가능</td>
                         </th:block>
                         <th:block th:unless="${item.blent==false}">
-                            <td style="color: red">대여중</td>
+                            <td class="line" style="color: red">대여중</td>
                         </th:block>
                         <th:block th:if="${session.mem!=null}">
                             <th:block th:if="${item.blent==false}">
-                                <td>
+                                <td  class="line">
                                     <input style="visibility: hidden; position: absolute" th:value="${item.bname}"
                                            name="bname">
-                                    <input class="btn btn-primary" type="submit" value="대출하기">
+                                    <input class="line btn btn-primary center" type="submit" value="대출하기">
                                 </td>
                             </th:block>
                             <th:block th:unless="${item.blent==false}">
-                                <td>
-                                    <input class="btn btn-danger" type="button" value="대출불가" readonly>
+                                <td  class="line">
+                                    <input class="btn btn-danger2" type="button" value="대출불가" readonly>
                                 </td>
                             </th:block>
                         </th:block>
-                        <th:block th:unless="${session.mem!=null}">
-                            <td>
-                                <input class="btn btn-danger" type="button" value="회원만 가능합니다" readonly>
+                        <th:block th:unless="${session.mem!=null}" >
+                            <td class="line">
+                                <input class="btn btn-danger2" type="button" value="회원만 가능합니다" readonly>
                             </td>
                         </th:block>
                     </form>
