@@ -154,12 +154,16 @@
                             <input class="btn btn-primary" type="submit" value="반납">
                         </td>
                         <th:block
-                                th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').equals(item.redate)}">
+                                th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').compareTo(item.redate)==0}">
                             <td style="color: red; font-weight: bold">금일 내 꼭 반납요망</td>
                         </th:block>
                         <th:block
-                                th:unless="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').equals(item.redate)}">
+                                th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').compareTo(item.redate)<0}">
                             <td>이상없음</td>
+                        </th:block>
+                        <th:block
+                                th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').compareTo(item.redate)>0}">
+                            <td style="color: blue; font-weight: bold">반납일이 지났습니다!</td>
                         </th:block>
                     </form>
                 </tr>
