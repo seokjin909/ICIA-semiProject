@@ -44,12 +44,6 @@
             text-align: center;
         }
 
-        /*#form_search{*/
-        /*    background: linear-gradient(to right, #ffd193, #e18d22);*/
-        /*    height: 300px;*/
-        /*    text-align: center;*/
-        /*}*/
-
         #form_main {
             display: flex;
             justify-content: center;
@@ -102,8 +96,9 @@
             width: 80px;
         }
 
-        #searchlist {
-            height: 1100px;
+        .top_color{
+            background-color: rgb(238, 239, 250);
+            text-align: center;
         }
     </style>
 
@@ -118,7 +113,7 @@
     <div class="table-responsive">
         <table class="table align-middle">
             <thead>
-            <tr>
+            <tr class="top_color">
                 <th scope="col">책 제목</th>
                 <th scope="col">책 저자</th>
                 <th scope="col">책 장르</th>
@@ -129,7 +124,7 @@
                 <th scope="col">비고</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
             <th:block th:if="${#lists.isEmpty(rentList)}">
                 <tr>
                     <td colspan="8" class="text-center">대출이력이 없습니다.</td>
