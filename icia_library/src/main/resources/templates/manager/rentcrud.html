@@ -38,6 +38,7 @@
                 <th scope="col">대출자</th>
                 <th scope="col">대출일</th>
                 <th scope="col">반납예정일</th>
+                <th scope="col">비고</th>
             </tr>
             </thead>
             <tbody>
@@ -55,6 +56,18 @@
                     <td th:text="${item.rmember.mname}"></td>
                     <td th:text="${item.rsdate}"></td>
                     <td th:text="${item.redate}"></td>
+                    <th:block
+                            th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').compareTo(item.redate)==0}">
+                        <td style="color: red; font-weight: bold">반납예정일</td>
+                    </th:block>
+                    <th:block
+                            th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').compareTo(item.redate)<0}">
+                        <td>이상없음</td>
+                    </th:block>
+                    <th:block
+                            th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').compareTo(item.redate)>0}">
+                        <td style="color: blue; font-weight: bold">연체중</td>
+                    </th:block>
                 </tr>
             </th:block>
             </tbody>

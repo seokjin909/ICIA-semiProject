@@ -53,7 +53,7 @@
                     <input type="button" class="btn btn-danger2" value="삭제">
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary">수정</button>
+                    <button type="button" class="btn btn-primary" id="upbtn">수정</button>
                 </td>
                 </tbody>
             </th:block>
@@ -93,7 +93,7 @@
         }
     })
 
-    $("button[type=button]").click(function () {
+    $("#upbtn").click(function () {
         let no = $(this).parent().prev().prev().prev().prev().prev("td").text();
         location.href = "memberUpdate?mid=" + no;
     })

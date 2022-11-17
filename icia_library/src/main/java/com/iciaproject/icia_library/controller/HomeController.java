@@ -268,6 +268,7 @@ public class HomeController {
     }
 
 
+
     @PostMapping("bookUpdateProc")
     public String bookUpdateProc(Book book, RedirectAttributes rttr, HttpSession session) {
         log.info("bookUpdateProc()");
