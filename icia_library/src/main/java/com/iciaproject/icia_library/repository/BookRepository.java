@@ -11,8 +11,6 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
 
     List<Book> findByBnameLike(String bname);
 
-    List<Book> findByBtag(String tag);
-
     Book findByBname(String bname);
 
     List<Book> findByBauthorLike(String bauthor);
