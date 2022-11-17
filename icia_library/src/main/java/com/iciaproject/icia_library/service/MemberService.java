@@ -339,16 +339,14 @@ public class MemberService {
         log.info("getTagList()");
         mv = new ModelAndView();
         mv.clear();
-        if (tag != null) {
-            try {
-                List<Book> gbook = bRepo.findByBtag(tag);
-                mv.addObject("gbook", gbook);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            List<Book> gbook = (List<Book>) bRepo.findAll();
+
+        String searchTag = "%"+tag+"%";
+
+        try {
+            List<Book> gbook = bRepo.findByBtagLike(searchTag);
             mv.addObject("gbook", gbook);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         mv.setViewName("booklist");
         return mv;
