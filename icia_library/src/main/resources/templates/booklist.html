@@ -128,8 +128,19 @@
 </form>
 
 <!--    검색 자료 결과창       -->
-
-<div class="container mt-5 text-center">
+<div class="container mt-5">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 300px">책제목</th>
+                <th scope="col" style="width: 200px">저자</th>
+                <th scope="col" style="width: 100px">장르</th>
+                <th scope="col" style="width: 100px">대출상태</th>
+                <th scope="col" style="width: 200px">구분</th>
+            </tr>
+            </thead>
+            <tbody>
             <th:block th:if="${#lists.isEmpty(gbook)}">
                 <tr>
                     <td colspan="5" class="text-center">검색결과가 없습니다.</td>
