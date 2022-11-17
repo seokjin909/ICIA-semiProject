@@ -155,7 +155,7 @@
                         </td>
                         <th:block
                                 th:if="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').equals(item.redate)}">
-                            <td>반납예정일입니다!!</td>
+                            <td style="color: red; font-weight: bold">금일 내 꼭 반납요망</td>
                         </th:block>
                         <th:block
                                 th:unless="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd').equals(item.redate)}">
