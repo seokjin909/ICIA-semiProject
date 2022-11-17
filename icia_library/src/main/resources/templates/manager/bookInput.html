@@ -15,6 +15,10 @@
         .a1 {
             padding-left: 10px;
         }
+
+        .a2{
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -23,10 +27,10 @@
 <!--도서 추가-->
 <div class="text-center mt-5">
     <form th:action="@{bookInputProc}">
-        <h2>도서 정보를 입력하세요</h2>
-        <p>도서 제목 :&nbsp;&nbsp;<input class="a1" type="text" name="bname" placeholder="책 제목을 입력하세요." required></p>
-        <p>저자 :&nbsp;&nbsp;<input class="a1" type="text" name="bauthor" placeholder="저자를 입력하세요." required></p>
-        <p>장르 :&nbsp;&nbsp;<input class="a1" type="text" name="btag" placeholder="장르를 입력하세요." required></p>
+        <h2>도서 정보를 입력하세요</h2><br>
+        <p>도서 제목 :&nbsp;<input class="a1" type="text" name="bname" placeholder="책 제목을 입력하세요." required></p>
+        <p>&nbsp;&nbsp; 저자 :&nbsp;&nbsp;&nbsp;&nbsp;<input class="a1" type="text" name="bauthor" placeholder="저자를 입력하세요." required></p>
+        <p class="a2">&nbsp;&nbsp; 장르 :&nbsp;&nbsp;&nbsp;&nbsp;<input class="a1" type="text" name="btag" placeholder="장르를 입력하세요." required></p>
         <input type="text" name="blent" value="0" hidden>
         <input class="w-25 a btn btn-lg btn-primary" type="submit" value="등록">
     </form>
